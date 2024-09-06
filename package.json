@@ -1,12 +1,32 @@
 {
-  "name": "dyform",
+  "name": "@dyform/workspace",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "@fibr/react": "^0.6.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.53.0",
+    "tslib": "^2.3.0"
+  },
   "devDependencies": {
     "@nx/js": "19.6.5",
-    "nx": "19.6.5"
+    "@nx/react": "19.6.5",
+    "@nx/rollup": "19.6.5",
+    "@rollup/plugin-url": "^8.0.2",
+    "@svgr/rollup": "^8.1.0",
+    "@swc-node/register": "~1.9.1",
+    "@swc/cli": "~0.3.12",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@types/node": "18.16.9",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0",
+    "nx": "19.6.5",
+    "rollup": "^4.14.0",
+    "swc-loader": "0.1.15",
+    "typescript": "~5.5.2"
   }
 }
