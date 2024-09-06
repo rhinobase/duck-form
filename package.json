@@ -2,7 +2,11 @@
   "name": "@dyform/workspace",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "commit": "czg",
+    "prepare": "is-ci || husky install",
+    "format": "biome check --write ."
+  },
   "private": true,
   "dependencies": {
     "@fibr/react": "^0.6.3",
@@ -12,6 +16,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
     "@nx/js": "19.6.5",
     "@nx/react": "19.6.5",
     "@nx/rollup": "19.6.5",
@@ -24,6 +29,10 @@
     "@types/node": "18.16.9",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",
+    "czg": "^1.9.4",
+    "husky": "^9.1.5",
+    "is-ci": "^3.0.1",
+    "lint-staged": "^15.2.10",
     "nx": "19.6.5",
     "rollup": "^4.14.0",
     "swc-loader": "0.1.15",
