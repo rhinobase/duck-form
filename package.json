@@ -1,5 +1,5 @@
 {
-  "name": "@dyform/workspace",
+  "name": "@duck-form/workspace",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -13,6 +13,7 @@
     "@heroicons/react": "^2.1.5",
     "@rafty/corp": "^1.0.4",
     "@rafty/ui": "^1.7.5",
+    "@rollup/plugin-terser": "^0.4.4",
     "nanoid": "^5.0.7",
     "next": "14.2.3",
     "react": "18.3.1",

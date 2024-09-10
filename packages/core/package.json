@@ -1,4 +1,28 @@
 {
-  "name": "dyform",
-  "version": "0.0.1"
+	"name": "duck-form",
+	"version": "0.1.0",
+	"license": "MIT",
+	"keywords": [
+		"react",
+		"dynamic",
+		"dynamic-form",
+		"schema",
+		"forms",
+		"form-builder"
+	],
+	"homepage": "https://rhinobase.io",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/rhinobase/duck-form.git",
+		"directory": "packages/core"
+	},
+	"bugs": {
+		"url": "https://github.com/rhinobase/duck-form/issues"
+	},
+	"peerDependencies": {
+		"react": "^18.3.1"
+	}
 }

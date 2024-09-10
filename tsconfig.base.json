@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "dyform": ["packages/core/src/index.ts"]
+      "@duck-form/fields": ["packages/fields/src/index.ts"],
+      "duck-form": ["packages/core/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

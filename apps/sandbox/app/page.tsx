@@ -1,12 +1,12 @@
 "use client";
-import { BlueprintProvider, DyForm, Field } from "dyform";
+import { Blueprint, DuckField, DuckForm } from "duck-form";
 
 export default function HomePage() {
 	return (
-		<DyForm plugins={[]}>
-			<BlueprintProvider schema={{}}>
-				<Field name="name" />
-			</BlueprintProvider>
-		</DyForm>
+		<DuckForm components={{}}>
+			<Blueprint schema={{}}>
+				<DuckField name="name" />
+			</Blueprint>
+		</DuckForm>
 	);
 }

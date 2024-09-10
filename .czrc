@@ -5,6 +5,10 @@
       "name": "core:                 anything core specific"
     },
     {
+      "value": "fd",
+      "name": "fields:                anything fields specific"
+    },
+    {
       "value": "sb",
       "name": "sandbox:              anything sandbox specific"
     }

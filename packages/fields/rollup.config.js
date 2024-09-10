@@ -4,12 +4,11 @@ const terser = require("@rollup/plugin-terser");
 module.exports = withNx(
 	{
 		main: "./src/index.ts",
-		outputPath: "../../dist/packages/core",
+		outputPath: "../../dist/packages/fields",
 		tsConfig: "./tsconfig.lib.json",
 		compiler: "swc",
-		external: ["react", "react-dom", "react/jsx-runtime"],
-		format: ["esm"],
-		assets: [{ input: ".", output: ".", glob: "README.md" }],
+		format: ["cjs", "esm"],
+		assets: [{ input: ".", output: ".", glob: "*.md" }],
 	},
 	{
 		plugins: [terser()],
