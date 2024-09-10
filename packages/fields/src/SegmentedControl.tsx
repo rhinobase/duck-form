@@ -1,56 +1,56 @@
 "use client";
 import {
-	SegmentedControl as RaftySegmentedControl,
-	SegmentedControlItem,
+  SegmentedControl as RaftySegmentedControl,
+  SegmentedControlItem,
 } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export type SegmentedControlProps = {
-	type: "segmentedControl";
-	options: {
-		value: string;
-		label?: string;
-	}[];
-	defaultValue?: string;
+  type: "segmentedControl";
+  options: {
+    value: string;
+    label?: string;
+  }[];
+  defaultValue?: string;
 };
 
 export function SegmentedControlField() {
-	const props = useField<SegmentedControlProps>();
-	const { control } = useFormContext();
+  const props = useField<SegmentedControlProps>();
+  const { control } = useFormContext();
 
-	const { generateId } = useDuckForm();
-	const { schema } = useBlueprint();
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
 
-	const autoId = useId();
-	const customId = useMemo(
-		() => generateId(schema, props),
-		[generateId, schema, props],
-	);
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    [generateId, schema, props],
+  );
 
-	const componentId = customId ?? autoId;
+  const componentId = customId ?? autoId;
 
-	return (
-		<Controller
-			name={componentId}
-			control={control}
-			render={({ field: { name, onChange, ref, value, disabled } }) => (
-				<RaftySegmentedControl
-					id={name}
-					name={name}
-					value={value}
-					onValueChange={onChange}
-					disabled={disabled}
-					ref={ref}
-				>
-					{props.options.map(({ value, label }) => (
-						<SegmentedControlItem key={value} value={value}>
-							{label ?? value}
-						</SegmentedControlItem>
-					))}
-				</RaftySegmentedControl>
-			)}
-		/>
-	);
+  return (
+    <Controller
+      name={componentId}
+      control={control}
+      render={({ field: { name, onChange, ref, value, disabled } }) => (
+        <RaftySegmentedControl
+          id={name}
+          name={name}
+          value={value}
+          onValueChange={onChange}
+          disabled={disabled}
+          ref={ref}
+        >
+          {props.options.map(({ value, label }) => (
+            <SegmentedControlItem key={value} value={value}>
+              {label ?? value}
+            </SegmentedControlItem>
+          ))}
+        </RaftySegmentedControl>
+      )}
+    />
+  );
 }

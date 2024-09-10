@@ -8,44 +8,44 @@ import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 
 export type NumberProps = {
-	type: "number";
-	placeholder?: string;
-	defaultValue?: number;
-	inputMode?: "none" | "numeric" | "decimal";
-	min?: InputField["min"];
-	max?: InputField["max"];
+  type: "number";
+  placeholder?: string;
+  defaultValue?: number;
+  inputMode?: "none" | "numeric" | "decimal";
+  min?: InputField["min"];
+  max?: InputField["max"];
 };
 
 export function NumberField() {
-	const props = useField<NumberProps>();
+  const props = useField<NumberProps>();
 
-	const { generateId } = useDuckForm();
-	const { schema } = useBlueprint();
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
 
-	const autoId = useId();
-	const customId = useMemo(
-		() => generateId(schema, props),
-		[generateId, schema, props],
-	);
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    [generateId, schema, props],
+  );
 
-	const componentId = customId ?? autoId;
+  const componentId = customId ?? autoId;
 
-	const { register } = useFormContext();
+  const { register } = useFormContext();
 
-	const { placeholder, inputMode, max, min } = props;
+  const { placeholder, inputMode, max, min } = props;
 
-	return (
-		<InputWrapper>
-			<RaftyInputField
-				id={componentId}
-				type="number"
-				step="any"
-				placeholder={placeholder}
-				inputMode={inputMode}
-				min={min}
-				max={max}
-				{...register(componentId, { valueAsNumber: true })}
-			/>
-		</InputWrapper>
-	);
+  return (
+    <InputWrapper>
+      <RaftyInputField
+        id={componentId}
+        type="number"
+        step="any"
+        placeholder={placeholder}
+        inputMode={inputMode}
+        min={min}
+        max={max}
+        {...register(componentId, { valueAsNumber: true })}
+      />
+    </InputWrapper>
+  );
 }

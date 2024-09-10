@@ -5,40 +5,40 @@ import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export type EditableTextProps = {
-	type: "editableText";
-	defaultValue?: string;
-	placeholder?: string;
+  type: "editableText";
+  defaultValue?: string;
+  placeholder?: string;
 };
 
 export function EditableTextField() {
-	const props = useField<EditableTextProps>();
+  const props = useField<EditableTextProps>();
 
-	const { generateId } = useDuckForm();
-	const { schema } = useBlueprint();
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
 
-	const autoId = useId();
-	const customId = useMemo(
-		() => generateId(schema, props),
-		[generateId, schema, props],
-	);
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    [generateId, schema, props],
+  );
 
-	const componentId = customId ?? autoId;
-	const { control } = useFormContext();
+  const componentId = customId ?? autoId;
+  const { control } = useFormContext();
 
-	return (
-		<Controller
-			name={componentId}
-			control={control}
-			render={({ field: { name, onChange, ref, value, disabled } }) => (
-				<RaftyEditableText
-					id={name}
-					name={name}
-					value={value}
-					onValueChange={onChange}
-					disabled={disabled}
-					ref={ref}
-				/>
-			)}
-		/>
-	);
+  return (
+    <Controller
+      name={componentId}
+      control={control}
+      render={({ field: { name, onChange, ref, value, disabled } }) => (
+        <RaftyEditableText
+          id={name}
+          name={name}
+          value={value}
+          onValueChange={onChange}
+          disabled={disabled}
+          ref={ref}
+        />
+      )}
+    />
+  );
 }

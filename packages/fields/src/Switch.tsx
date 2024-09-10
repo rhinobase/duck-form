@@ -5,40 +5,40 @@ import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export type SwitchProps = {
-	type: "switch";
-	defaultValue?: boolean;
+  type: "switch";
+  defaultValue?: boolean;
 };
 
 export function SwitchField() {
-	const props = useField<SwitchProps>();
+  const props = useField<SwitchProps>();
 
-	const { generateId } = useDuckForm();
-	const { schema } = useBlueprint();
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
 
-	const autoId = useId();
-	const customId = useMemo(
-		() => generateId(schema, props),
-		[generateId, schema, props],
-	);
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    [generateId, schema, props],
+  );
 
-	const componentId = customId ?? autoId;
+  const componentId = customId ?? autoId;
 
-	const { control } = useFormContext();
+  const { control } = useFormContext();
 
-	return (
-		<Controller
-			name={componentId}
-			control={control}
-			render={({ field: { name, onChange, ref, value, disabled } }) => (
-				<RaftySwitch
-					id={name}
-					name={name}
-					checked={value}
-					onCheckedChange={onChange}
-					isDisabled={disabled}
-					ref={ref}
-				/>
-			)}
-		/>
-	);
+  return (
+    <Controller
+      name={componentId}
+      control={control}
+      render={({ field: { name, onChange, ref, value, disabled } }) => (
+        <RaftySwitch
+          id={name}
+          name={name}
+          checked={value}
+          onCheckedChange={onChange}
+          isDisabled={disabled}
+          ref={ref}
+        />
+      )}
+    />
+  );
 }

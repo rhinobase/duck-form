@@ -5,40 +5,40 @@ import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
 
 export type CalendarProps = {
-	type: "calendar";
-	placeholder?: string;
-	defaultValue?: string;
+  type: "calendar";
+  placeholder?: string;
+  defaultValue?: string;
 };
 
 export function CalendarField() {
-	const props = useField<CalendarProps>();
-	const { generateId } = useDuckForm();
-	const { schema } = useBlueprint();
+  const props = useField<CalendarProps>();
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
 
-	const autoId = useId();
-	const customId = useMemo(
-		() => generateId(schema, props),
-		[generateId, schema, props],
-	);
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    [generateId, schema, props],
+  );
 
-	const componentId = customId ?? autoId;
+  const componentId = customId ?? autoId;
 
-	const { control } = useFormContext();
+  const { control } = useFormContext();
 
-	return (
-		<Controller
-			name={componentId}
-			control={control}
-			render={({ field: { name, disabled, value, onChange, ref } }) => (
-				<RaftyCalendar
-					name={name}
-					placeholder={props.placeholder}
-					disabled={disabled}
-					value={value}
-					onValueChange={onChange}
-					ref={ref}
-				/>
-			)}
-		/>
-	);
+  return (
+    <Controller
+      name={componentId}
+      control={control}
+      render={({ field: { name, disabled, value, onChange, ref } }) => (
+        <RaftyCalendar
+          name={name}
+          placeholder={props.placeholder}
+          disabled={disabled}
+          value={value}
+          onValueChange={onChange}
+          ref={ref}
+        />
+      )}
+    />
+  );
 }

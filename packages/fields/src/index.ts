@@ -28,39 +28,41 @@ import { SwitchField } from "./Switch";
 import { SwitchGroupField } from "./SwitchGroup";
 import { TagField } from "./Tag";
 import { TextareaField } from "./Textarea";
-import type { FieldProps } from "./fieldProps";
+import type { FieldProps } from "./types";
 
-export const blocks: Record<FieldProps["type"], () => JSX.Element> = {
-	array: ArrayField,
-	calendar: CalendarField,
-	boolean: CheckboxField,
-	checkboxgroup: CheckboxGroupField,
-	colorPicker: ColorPickerField,
-	currencyInput: CurrencyField,
-	date: DateField,
-	dateRange: DateRangeField,
-	default: DefaultField,
-	editableNumber: EditableNumberField,
-	editableText: EditableTextField,
-	editableTextarea: EditableTextareaField,
-	listbox: ListboxField,
-	multiListbox: MultiListboxField,
-	number: NumberField,
-	object: ObjectField,
-	password: PasswordField,
-	percentageInput: PercentageField,
-	pin: PinField,
-	radio: RadioGroupField,
-	rangeSlider: RangeSliderField,
-	rating: RatingField,
-	segmentedControl: SegmentedControlField,
-	select: SelectField,
-	slider: SliderField,
-	string: StringField,
-	switch: SwitchField,
-	switchGroup: SwitchGroupField,
-	tag: TagField,
-	textarea: TextareaField,
+export * from "./types";
+
+export const quackFields: Record<FieldProps["type"], () => JSX.Element> = {
+  array: ArrayField,
+  calendar: CalendarField,
+  boolean: CheckboxField,
+  checkboxgroup: CheckboxGroupField,
+  colorPicker: ColorPickerField,
+  currencyInput: CurrencyField,
+  date: DateField,
+  dateRange: DateRangeField,
+  default: DefaultField,
+  editableNumber: EditableNumberField,
+  editableText: EditableTextField,
+  editableTextarea: EditableTextareaField,
+  listbox: ListboxField,
+  multiListbox: MultiListboxField,
+  number: NumberField,
+  object: ObjectField,
+  password: PasswordField,
+  percentageInput: PercentageField,
+  pin: PinField,
+  radio: RadioGroupField,
+  rangeSlider: RangeSliderField,
+  rating: RatingField,
+  segmentedControl: SegmentedControlField,
+  select: SelectField,
+  slider: SliderField,
+  string: StringField,
+  switch: SwitchField,
+  switchGroup: SwitchGroupField,
+  tag: TagField,
+  textarea: TextareaField,
 };
 
 export { BlockWrapper } from "./BlockWrapper";

@@ -28,47 +28,47 @@ import type { SwitchGroupProps } from "./SwitchGroup";
 import type { TagFieldProps } from "./Tag";
 import type { TextareaProps } from "./Textarea";
 import type {
-	FieldWrapperProps,
-	InputWrapperProps,
-	TooltipWrapperProps,
+  FieldWrapperProps,
+  InputWrapperProps,
+  TooltipWrapperProps,
 } from "./utils";
 
 type GeneralWrapperProps<T = undefined> = T &
-	FieldWrapperProps &
-	TooltipWrapperProps;
+  FieldWrapperProps &
+  TooltipWrapperProps;
 
 export type FieldProps =
-	| GeneralWrapperProps<CheckboxProps>
-	| GeneralWrapperProps<CheckboxGroupProps>
-	| GeneralWrapperProps<ColorPickerProps>
-	| GeneralWrapperProps<CurrencyInputProps>
-	| GeneralWrapperProps<DateFieldProps>
-	| GeneralWrapperProps<DateRangeFieldProps>
-	| ObjectProps
-	| GeneralWrapperProps<NumberProps & InputWrapperProps>
-	| GeneralWrapperProps<PasswordProps & InputWrapperProps>
-	| GeneralWrapperProps<PercentageInputProps>
-	| GeneralWrapperProps<RadioGroupProps>
-	| GeneralWrapperProps<SelectProps>
-	| GeneralWrapperProps<SliderProps>
-	| GeneralWrapperProps<RangeSliderProps>
-	| GeneralWrapperProps<StringProps & InputWrapperProps>
-	| GeneralWrapperProps<SwitchProps>
-	| GeneralWrapperProps<SwitchGroupProps>
-	| GeneralWrapperProps<TextareaProps>
-	| GeneralWrapperProps<TagFieldProps>
-	| GeneralWrapperProps<PinInputProps>
-	| GeneralWrapperProps<RatingProps>
-	| GeneralWrapperProps<SegmentedControlProps>
-	| GeneralWrapperProps<EditableTextProps>
-	| GeneralWrapperProps<EditableTextareaProps>
-	| GeneralWrapperProps<MultiListboxProps>
-	| GeneralWrapperProps<ListboxProps>
-	| GeneralWrapperProps<EditableNumberProps>
-	| GeneralWrapperProps<CalendarProps>
-	| GeneralWrapperProps<ArrayProps>
-	| { type: "default" };
+  | GeneralWrapperProps<CheckboxProps>
+  | GeneralWrapperProps<CheckboxGroupProps>
+  | GeneralWrapperProps<ColorPickerProps>
+  | GeneralWrapperProps<CurrencyInputProps>
+  | GeneralWrapperProps<DateFieldProps>
+  | GeneralWrapperProps<DateRangeFieldProps>
+  | ObjectProps
+  | GeneralWrapperProps<NumberProps & InputWrapperProps>
+  | GeneralWrapperProps<PasswordProps & InputWrapperProps>
+  | GeneralWrapperProps<PercentageInputProps>
+  | GeneralWrapperProps<RadioGroupProps>
+  | GeneralWrapperProps<SelectProps>
+  | GeneralWrapperProps<SliderProps>
+  | GeneralWrapperProps<RangeSliderProps>
+  | GeneralWrapperProps<StringProps & InputWrapperProps>
+  | GeneralWrapperProps<SwitchProps>
+  | GeneralWrapperProps<SwitchGroupProps>
+  | GeneralWrapperProps<TextareaProps>
+  | GeneralWrapperProps<TagFieldProps>
+  | GeneralWrapperProps<PinInputProps>
+  | GeneralWrapperProps<RatingProps>
+  | GeneralWrapperProps<SegmentedControlProps>
+  | GeneralWrapperProps<EditableTextProps>
+  | GeneralWrapperProps<EditableTextareaProps>
+  | GeneralWrapperProps<MultiListboxProps>
+  | GeneralWrapperProps<ListboxProps>
+  | GeneralWrapperProps<EditableNumberProps>
+  | GeneralWrapperProps<CalendarProps>
+  | GeneralWrapperProps<ArrayProps>
+  | { type: "default" };
 
 export type FieldPropsMap = {
-	[K in FieldProps["type"]]: Extract<FieldProps, { type: K }>;
+  [K in FieldProps["type"]]: Extract<FieldProps, { type: K }>;
 };
