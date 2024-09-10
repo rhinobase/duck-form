@@ -7,8 +7,9 @@ module.exports = withNx(
 		outputPath: "../../dist/packages/fields",
 		tsConfig: "./tsconfig.lib.json",
 		compiler: "swc",
+		external: ["react", "react-dom", "react/jsx-runtime"],
 		format: ["cjs", "esm"],
-		assets: [{ input: ".", output: ".", glob: "*.md" }],
+		assets: [{ input: ".", output: ".", glob: "README.md" }],
 	},
 	{
 		plugins: [terser()],
