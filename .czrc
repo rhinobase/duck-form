@@ -6,11 +6,15 @@
     },
     {
       "value": "fd",
-      "name": "fields:                anything fields specific"
+      "name": "fields:               anything fields specific"
     },
     {
       "value": "sb",
       "name": "sandbox:              anything sandbox specific"
+    },
+    {
+      "value": "docs",
+      "name": "docs:                 anything docs specific"
     }
   ],
   "scopesSearchValue": true,
