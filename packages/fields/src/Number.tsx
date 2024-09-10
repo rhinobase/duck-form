@@ -1,26 +1,50 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { InputField as RaftyInputField } from "@rafty/ui";
 import { useFormContext } from "react-hook-form";
-import type { NumberProps } from "../types";
 import { InputWrapper } from "./utils";
 
+import type { InputField } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
+
+export type NumberProps = {
+	type: "number";
+	placeholder?: string;
+	defaultValue?: number;
+	inputMode?: "none" | "numeric" | "decimal";
+	min?: InputField["min"];
+	max?: InputField["max"];
+};
+
 export function NumberField() {
-	const { id, placeholder, inputMode, min, max } = useThread<NumberProps>();
+	const props = useField<NumberProps>();
+
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 
 	const { register } = useFormContext();
+
+	const { placeholder, inputMode, max, min } = props;
 
 	return (
 		<InputWrapper>
 			<RaftyInputField
-				id={id}
+				id={componentId}
 				type="number"
 				step="any"
 				placeholder={placeholder}
 				inputMode={inputMode}
 				min={min}
 				max={max}
-				{...register(id, { valueAsNumber: true })}
+				{...register(componentId, { valueAsNumber: true })}
 			/>
 		</InputWrapper>
 	);

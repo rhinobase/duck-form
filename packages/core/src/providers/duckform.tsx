@@ -9,6 +9,10 @@ import { ComponentNotFound } from "../components/ComponentNotFound";
 
 type DuckFormContextType = {
 	readonly components: Record<string, () => ReactNode>;
+	readonly generateId: (
+		schema: Record<string, DuckField>,
+		props: Record<string, unknown>,
+	) => string | undefined;
 	readonly resolver: (
 		schema: Record<string, DuckField>,
 		props: Record<string, unknown>,
@@ -19,13 +23,16 @@ const DuckFormContext = createContext<DuckFormContextType | null>(null);
 
 export type DuckForm = PropsWithChildren<Partial<DuckFormContextType>>;
 
-const defaultResolver: DuckFormContextType["resolver"] = (schema, props) =>
-	schema[String(props.name)];
-
-export function DuckForm({ children, components = {}, resolver }: DuckForm) {
+export function DuckForm({
+	children,
+	components = {},
+	resolver = defaultResolver,
+	generateId = defaultIdGenerator,
+}: DuckForm) {
 	const value = {
 		components: { default: ComponentNotFound, ...components },
-		resolver: resolver ?? defaultResolver,
+		resolver,
+		generateId,
 	};
 
 	return (
@@ -42,3 +49,9 @@ export function useDuckForm() {
 
 	return context;
 }
+
+const defaultResolver: DuckFormContextType["resolver"] = (schema, props) =>
+	schema[String(props.name)];
+
+const defaultIdGenerator: DuckFormContextType["generateId"] = (_, props) =>
+	props.id ? String(props.id) : undefined;

@@ -1,5 +1,4 @@
 "use client";
-import { Thread, useThread } from "@fibr/react";
 import {
 	ArrowDownIcon,
 	ArrowUpIcon,
@@ -7,16 +6,41 @@ import {
 	TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, eventHandler } from "@rafty/ui";
+import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import type { ArrayProps } from "../types";
+import type { FieldProps } from "./fieldProps";
+
+export type ArrayProps = {
+	type: "array";
+	of: FieldProps;
+	defaultValue?: unknown[] | (() => unknown[]);
+	options?: {
+		sortable?: boolean;
+		layout?: "tags" | "grid";
+		// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		list?: { title: string; value: any }[];
+		editModal?: "dialog" | "fullscreen" | "popover";
+	};
+};
 
 export function ArrayField() {
-	const { id, ...props } = useThread<ArrayProps>();
-	const { control } = useFormContext();
+	const props = useField<ArrayProps>();
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
 
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
+
+	const { control } = useFormContext();
 	const { fields, append, swap, remove, insert } = useFieldArray({
 		control,
-		name: id,
+		name: componentId,
 	});
 
 	const handleAddItem = eventHandler(() => append({}));
@@ -55,7 +79,7 @@ export function ArrayField() {
 								<ArrowDownIcon className="size-5" />
 							</Button>
 						</div>
-						<Thread id={`${id}.${index}`} {...props.of} />
+						<DuckField id={`${componentId}.${index}`} {...props.of} />
 						<div className="space-y-3">
 							<Button
 								variant="ghost"

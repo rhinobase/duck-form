@@ -1,5 +1,4 @@
 "use client";
-import { useThread } from "@fibr/react";
 import {
 	InputGroup,
 	LeftAddon,
@@ -8,8 +7,16 @@ import {
 	Suffix,
 	classNames,
 } from "@rafty/ui";
-import type { PropsWithChildren } from "react";
-import type { InputWrapperProps } from "../../types";
+import { useField } from "duck-form";
+import type { PropsWithChildren, ReactNode } from "react";
+
+export type InputWrapperProps = {
+	size?: "sm" | "md" | "lg";
+	prefix?: ReactNode;
+	suffix?: ReactNode;
+	prefixIcon?: string;
+	suffixIcon?: string;
+};
 
 const addonTextClasses = {
 	size: {
@@ -28,7 +35,7 @@ export function InputWrapper({ children }: InputWrapper) {
 		suffixIcon,
 		size = "md",
 		suffix,
-	} = useThread<InputWrapperProps>();
+	} = useField<InputWrapperProps>();
 
 	return (
 		<InputGroup size={size} className="w-full">

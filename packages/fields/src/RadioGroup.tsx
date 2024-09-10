@@ -1,21 +1,45 @@
 "use client";
-import { useThread } from "@fibr/react";
 import {
 	RadioGroupItem,
 	RadioGroup as RaftyRadioGroup,
 	classNames,
 } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { type ReactNode, useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { RadioGroupProps } from "../types";
+
+export type RadioGroupProps = {
+	type: "radio";
+	options: {
+		value: string | number;
+		label?: ReactNode;
+		description?: string;
+	}[];
+	defaultValue?: string;
+	orientaion?: "horizontal" | "vertical";
+};
 
 export function RadioGroupField() {
-	const { id, options, orientaion = "vertical" } = useThread<RadioGroupProps>();
+	const props = useField<RadioGroupProps>();
+
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
+
+	const { options, orientaion = "vertical" } = props;
 
 	const { control } = useFormContext();
 
 	return (
 		<Controller
-			name={id}
+			name={componentId}
 			control={control}
 			render={({ field: { name, onChange, ref, value, disabled } }) => (
 				<RaftyRadioGroup

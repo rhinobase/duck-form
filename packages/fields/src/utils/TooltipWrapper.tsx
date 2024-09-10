@@ -1,13 +1,16 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@rafty/ui";
+import { useField } from "duck-form";
 import type { PropsWithChildren } from "react";
-import type { TooltipWrapperProps } from "../../types";
+
+export type TooltipWrapperProps = {
+	tooltip?: string;
+};
 
 export type TooltipWrapper = PropsWithChildren;
 
 export function TooltipWrapper({ children }: TooltipWrapper) {
-	const { tooltip } = useThread<TooltipWrapperProps>();
+	const { tooltip } = useField<TooltipWrapperProps>();
 
 	if (tooltip)
 		return (

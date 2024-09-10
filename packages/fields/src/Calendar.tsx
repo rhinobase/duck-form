@@ -1,22 +1,38 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { Calendar as RaftyCalendar } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { CalendarProps } from "../types";
+
+export type CalendarProps = {
+	type: "calendar";
+	placeholder?: string;
+	defaultValue?: string;
+};
 
 export function CalendarField() {
-	const { id, placeholder } = useThread<CalendarProps>();
+	const props = useField<CalendarProps>();
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 
 	const { control } = useFormContext();
 
 	return (
 		<Controller
-			name={id}
+			name={componentId}
 			control={control}
 			render={({ field: { name, disabled, value, onChange, ref } }) => (
 				<RaftyCalendar
 					name={name}
-					placeholder={placeholder}
+					placeholder={props.placeholder}
 					disabled={disabled}
 					value={value}
 					onValueChange={onChange}

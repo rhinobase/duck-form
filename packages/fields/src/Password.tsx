@@ -1,5 +1,4 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import {
 	Button,
@@ -8,16 +7,34 @@ import {
 	eventHandler,
 	useBoolean,
 } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
-import type { PasswordProps } from "../types";
 import { InputWrapper } from "./utils";
+
+export type PasswordProps = {
+	type: "password";
+	placeholder?: string;
+	defaultValue?: string;
+};
 
 export function PasswordField() {
 	const [showPassword, toggle] = useBoolean(false);
 
 	const Icon = showPassword ? EyeSlashIcon : EyeIcon;
 
-	const { id, placeholder } = useThread<PasswordProps>();
+	const props = useField<PasswordProps>();
+
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 
 	const { register } = useFormContext();
 
@@ -26,10 +43,10 @@ export function PasswordField() {
 	return (
 		<InputWrapper>
 			<InputField
-				id={id}
+				id={componentId}
 				type={showPassword ? "text" : "password"}
-				placeholder={placeholder}
-				{...register(id)}
+				placeholder={props.placeholder}
+				{...register(componentId)}
 			/>
 			<Suffix className="pointer-events-auto">
 				<Button

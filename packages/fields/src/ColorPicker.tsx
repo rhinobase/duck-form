@@ -1,17 +1,31 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { ColorPicker as RaftyColorPicker } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { ColorPickerProps } from "../types";
+
+export type ColorPickerProps = {
+	type: "colorPicker";
+	defaultValue?: string;
+};
 
 export function ColorPickerField() {
-	const { id } = useThread<ColorPickerProps>();
+	const props = useField<ColorPickerProps>();
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
 
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 	const { control } = useFormContext();
 
 	return (
 		<Controller
-			name={id}
+			name={componentId}
 			control={control}
 			render={({ field: { name, onChange, ref, value, disabled } }) => (
 				<RaftyColorPicker

@@ -1,11 +1,31 @@
 "use client";
-import { useThread } from "@fibr/react";
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { CheckboxGroupProps } from "../types";
+
+export type CheckboxGroupProps = {
+	type: "checkboxgroup";
+	options: {
+		value: string | number;
+		label?: string;
+	}[];
+	defaultValue?: (string | number)[];
+};
 
 export function CheckboxGroupField() {
-	const { id, options } = useThread<CheckboxGroupProps>();
+	const props = useField<CheckboxGroupProps>();
+
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 
 	const { control } = useFormContext();
 
@@ -16,11 +36,11 @@ export function CheckboxGroupField() {
 			className="flex w-full flex-col gap-1.5"
 		>
 			<Controller
-				name={id}
+				name={componentId}
 				control={control}
 				render={({ field: { name, onChange, ref, value, disabled } }) => (
 					<>
-						{options.map((option) => {
+						{props.options.map((option) => {
 							const _id = `${name}.${option.value}`;
 
 							return (

@@ -1,4 +1,3 @@
-import type { FieldProps } from "../types";
 import { ArrayField } from "./Array";
 import { CalendarField } from "./Calendar";
 import { CheckboxField } from "./Checkbox";
@@ -29,6 +28,7 @@ import { SwitchField } from "./Switch";
 import { SwitchGroupField } from "./SwitchGroup";
 import { TagField } from "./Tag";
 import { TextareaField } from "./Textarea";
+import type { FieldProps } from "./fieldProps";
 
 export const blocks: Record<FieldProps["type"], () => JSX.Element> = {
 	array: ArrayField,

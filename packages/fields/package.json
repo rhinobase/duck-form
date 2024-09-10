@@ -1,8 +1,17 @@
 {
 	"name": "@duck-form/fields",
 	"version": "0.0.1",
-	"dependencies": {},
 	"main": "./index.cjs",
 	"module": "./index.js",
-	"private": true
+	"private": true,
+	"dependencies": {
+		"@heroicons/react": "^2.1.5",
+		"@rafty/corp": "^1.0.4",
+		"@rafty/ui": "^1.7.5",
+		"react-hook-form": "^7.53.0"
+	},
+	"peerDependencies": {
+		"duck-form": "^0.1.0",
+		"react": "^18.2.0"
+	}
 }

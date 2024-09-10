@@ -1,25 +1,42 @@
 "use client";
-import { useThread } from "@fibr/react";
 import {
 	Slider as RaftySlider,
+	type Slider,
 	SliderRange,
 	SliderThumb,
 	SliderTrack,
 } from "@rafty/ui";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import type { RangeSliderProps } from "../types";
+
+export type RangeSliderProps = Pick<Slider, "min" | "max" | "step"> & {
+	type: "rangeSlider";
+	defaultValue?: [number, number];
+};
 
 export function RangeSliderField() {
-	const { id, ...restDataProps } = useThread<RangeSliderProps>();
+	const props = useField<RangeSliderProps>();
 	const { control } = useFormContext();
+
+	const { generateId } = useDuckForm();
+	const { schema } = useBlueprint();
+
+	const autoId = useId();
+	const customId = useMemo(
+		() => generateId(schema, props),
+		[generateId, schema, props],
+	);
+
+	const componentId = customId ?? autoId;
 
 	return (
 		<Controller
-			name={id}
+			name={componentId}
 			control={control}
 			render={({ field: { name, onChange, ref, value, disabled } }) => (
 				<RaftySlider
-					{...restDataProps}
+					{...props}
 					name={name}
 					value={value}
 					disabled={disabled}
