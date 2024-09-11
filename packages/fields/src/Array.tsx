@@ -57,9 +57,9 @@ export function ArrayField() {
           <div
             // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
             key={index}
-            className="flex mb-2 min-h-[120px] items-center gap-2 rounded-md border border-secondary-200 p-2 dark:border-secondary-800"
+            className="flex mb-2 min-h-[120px] items-center gap-2 rounded-lg border border-secondary-200 p-2 dark:border-secondary-800"
           >
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Button
                 variant="ghost"
                 size="icon"
@@ -67,7 +67,7 @@ export function ArrayField() {
                 onKeyDown={handleGoUp}
                 isDisabled={index === 0}
               >
-                <ArrowUpIcon className="size-5" />
+                <ArrowUpIcon className="size-4 stroke-2" />
               </Button>
               <Button
                 variant="ghost"
@@ -76,18 +76,18 @@ export function ArrayField() {
                 onKeyDown={handleGoDown}
                 isDisabled={index === fields.length - 1}
               >
-                <ArrowDownIcon className="size-5" />
+                <ArrowDownIcon className="size-4 stroke-2" />
               </Button>
             </div>
             <DuckField id={`${componentId}.${index}`} {...props.of} />
-            <div className="space-y-3">
+            <div className="space-y-2">
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={handleInsertNew}
                 onKeyDown={handleInsertNew}
               >
-                <PlusIcon className="size-5" />
+                <PlusIcon className="size-4 stroke-2" />
               </Button>
               <Button
                 variant="ghost"
@@ -96,7 +96,7 @@ export function ArrayField() {
                 onClick={handleDelete}
                 onKeyDown={handleDelete}
               >
-                <TrashIcon className="size-5" />
+                <TrashIcon className="size-4 stroke-2" />
               </Button>
             </div>
           </div>

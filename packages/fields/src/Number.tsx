@@ -39,7 +39,7 @@ export function NumberField() {
       <RaftyInputField
         id={componentId}
         type="number"
-        step="any"
+        step="1"
         placeholder={placeholder}
         inputMode={inputMode}
         min={min}
