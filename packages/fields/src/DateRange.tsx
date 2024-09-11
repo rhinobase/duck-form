@@ -39,7 +39,15 @@ export function DateRangeField() {
           placeholder={props.placeholder}
           disabled={disabled}
           value={value}
-          onValueChange={onChange}
+          onValueChange={(value) => {
+            const val: string[] = [];
+            if (value) {
+              value.map((item) => {
+                if (item) val.push(item);
+              });
+            }
+            onChange(val);
+          }}
           ref={ref}
         />
       )}
