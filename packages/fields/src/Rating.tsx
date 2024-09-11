@@ -8,6 +8,7 @@ export type RatingProps = {
   type: "rating";
   count: number;
   defaultValue?: number;
+  allowHalf?: boolean;
 };
 
 export function RatingField() {
@@ -34,6 +35,7 @@ export function RatingField() {
           id={name}
           name={name}
           count={props.count}
+          allowHalf={props.allowHalf}
           value={value}
           onValueChange={onChange}
           disabled={disabled}
