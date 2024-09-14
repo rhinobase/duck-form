@@ -39,6 +39,7 @@ export function RangeSliderField() {
           {...props}
           name={name}
           value={value}
+          defaultValue={[0, 0]}
           disabled={disabled}
           onValueChange={(value) => onChange(value.splice(0, 2))}
           ref={ref}

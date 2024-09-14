@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
+    "@hookform/devtools": "^4.3.1",
     "@nx/eslint": "19.6.5",
     "@nx/eslint-plugin": "19.6.5",
     "@nx/js": "19.6.5",

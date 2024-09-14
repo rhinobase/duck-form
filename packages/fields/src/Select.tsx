@@ -34,6 +34,7 @@ export function SelectField() {
     <RaftySelect
       id={componentId}
       placeholder={props.placeholder}
+      className="w-full"
       {...register(componentId)}
     >
       {props.options.map(({ value, label }) => (

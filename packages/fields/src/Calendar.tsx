@@ -36,6 +36,7 @@ export function CalendarField() {
           disabled={disabled}
           value={value}
           onValueChange={onChange}
+          className="w-max"
           ref={ref}
         />
       )}

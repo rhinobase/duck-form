@@ -1,5 +1,6 @@
 "use client";
 import { BlockWrapper, type FieldProps, quackFields } from "@duck-form/fields";
+import { DevTool } from "@hookform/devtools";
 import { Button } from "@rafty/ui";
 import { Blueprint, DuckField, DuckForm } from "duck-form";
 import { FormProvider, useForm } from "react-hook-form";
@@ -199,6 +200,7 @@ export default function HomePage() {
   const {
     handleSubmit,
     formState: { isSubmitting },
+    control,
   } = methods;
 
   return (
@@ -213,35 +215,9 @@ export default function HomePage() {
             className="space-y-3"
           >
             <Blueprint schema={schema} wrapper={BlockWrapper}>
-              <DuckField name="array" />
-              <DuckField name="calendar" />
-              <DuckField name="checkbox" />
-              <DuckField name="checkbox_group" />
-              <DuckField name="color_picker" />
-              <DuckField name="currency" />
-              <DuckField name="date" />
-              <DuckField name="date_range" />
-              <DuckField name="editable_number" />
-              <DuckField name="editable_text" />
-              <DuckField name="editable_textarea" />
-              <DuckField name="list_box" />
-              <DuckField name="multi_list_box" />
-              <DuckField name="number" />
-              <DuckField name="object" />
-              <DuckField name="password" />
-              <DuckField name="percentage" />
-              <DuckField name="pin" />
-              <DuckField name="radio_group" />
-              <DuckField name="range_slider" />
-              <DuckField name="rating" />
-              <DuckField name="segmented_control" />
-              <DuckField name="select" />
-              <DuckField name="slider" />
-              <DuckField name="string" />
-              <DuckField name="switch" />
-              <DuckField name="switch_group" />
-              <DuckField name="tag" />
-              <DuckField name="textarea" />
+              {Object.keys(schema).map((key) => (
+                <DuckField key={key} name={key} />
+              ))}
             </Blueprint>
             <Button
               type="submit"
@@ -253,6 +229,7 @@ export default function HomePage() {
               Submit
             </Button>
           </form>
+          <DevTool control={control} />
         </FormProvider>
       </DuckForm>
     </div>
