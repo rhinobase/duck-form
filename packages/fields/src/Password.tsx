@@ -10,7 +10,7 @@ import {
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
-import { InputWrapper } from "./utils";
+import { InputWrapper } from "./InputWrapper";
 
 export type PasswordProps = {
   type: "password";

@@ -1,6 +1,15 @@
 {
   "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "release": {
+    "projectsRelationship": "independent",
+    "projects": [
+      "packages/*"
+    ],
+    "changelog": {
+      "projectChangelogs": true
+    }
+  },
   "plugins": [
     {
       "plugin": "@nx/rollup/plugin",

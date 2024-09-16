@@ -1,5 +1,6 @@
 import type { PropsWithChildren } from "react";
-import { FieldWrapper, TooltipWrapper } from "./utils";
+import { FieldWrapper } from "./FieldWrapper";
+import { TooltipWrapper } from "./TooltipWrapper";
 
 export function BlockWrapper(props: PropsWithChildren) {
   return (

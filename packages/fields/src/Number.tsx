@@ -1,7 +1,7 @@
 "use client";
 import { InputField as RaftyInputField } from "@rafty/ui";
 import { useFormContext } from "react-hook-form";
-import { InputWrapper } from "./utils";
+import { InputWrapper } from "./InputWrapper";
 
 import type { InputField } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";

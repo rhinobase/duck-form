@@ -9,6 +9,8 @@ import type { DateRangeFieldProps } from "./DateRange";
 import type { EditableNumberProps } from "./EditableNumber";
 import type { EditableTextProps } from "./EditableText";
 import type { EditableTextareaProps } from "./EditableTextarea";
+import type { FieldWrapperProps } from "./FieldWrapper";
+import type { InputWrapperProps } from "./InputWrapper";
 import type { ListboxProps } from "./Listbox";
 import type { MultiListboxProps } from "./MultiListbox";
 import type { NumberProps } from "./Number";
@@ -27,11 +29,7 @@ import type { SwitchProps } from "./Switch";
 import type { SwitchGroupProps } from "./SwitchGroup";
 import type { TagFieldProps } from "./Tag";
 import type { TextareaProps } from "./Textarea";
-import type {
-  FieldWrapperProps,
-  InputWrapperProps,
-  TooltipWrapperProps,
-} from "./utils";
+import type { TooltipWrapperProps } from "./TooltipWrapper";
 
 type GeneralWrapperProps<T = undefined> = T &
   FieldWrapperProps &

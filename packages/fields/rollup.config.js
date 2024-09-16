@@ -1,4 +1,5 @@
 const { withNx } = require("@nx/rollup/with-nx");
+const preserveDirectives = require("rollup-plugin-preserve-directives");
 const terser = require("@rollup/plugin-terser");
 
 module.exports = withNx(
@@ -12,6 +13,9 @@ module.exports = withNx(
     assets: [{ input: ".", output: ".", glob: "README.md" }],
   },
   {
-    plugins: [terser()],
+    plugins: [
+      preserveDirectives.default(), // For preserving "use client" directives
+      terser(), // For minification
+    ],
   },
 );
