@@ -55,7 +55,7 @@ function defaultResolver<T>(
   props: Record<string, unknown>,
 ): T {
   return {
-    ...schema[String(props.name)],
+    ...schema[String(props.id)],
     ...props,
   };
 }

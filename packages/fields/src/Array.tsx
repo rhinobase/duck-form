@@ -43,7 +43,7 @@ export function ArrayField() {
     name: componentId,
   });
 
-  const handleAddItem = eventHandler(() => append({}));
+  const handleAddItem = eventHandler(() => append(undefined));
 
   return (
     <>

@@ -205,7 +205,10 @@ export default function HomePage() {
 
   return (
     <div className="max-w-4xl mx-auto w-full py-6 flex flex-col gap-4">
-      <DuckForm components={quackFields}>
+      <DuckForm
+        components={quackFields}
+        generateId={(_, props) => (props.id ? String(props.id) : undefined)}
+      >
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(
@@ -216,7 +219,7 @@ export default function HomePage() {
           >
             <Blueprint schema={schema} wrapper={BlockWrapper}>
               {Object.keys(schema).map((key) => (
-                <DuckField key={key} name={key} />
+                <DuckField key={key} id={key} />
               ))}
             </Blueprint>
             <Button
