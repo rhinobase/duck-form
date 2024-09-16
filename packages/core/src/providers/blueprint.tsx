@@ -6,18 +6,18 @@ import {
 } from "react";
 
 type BlueprintContextType<T> = {
-  readonly schema?: Record<string, T>;
+  readonly schema: Record<string, T>;
   readonly wrapper?: (props: PropsWithChildren) => ReactNode;
 };
 
 // biome-ignore lint/suspicious/noExplicitAny: Context is generic
 const BlueprintContext = createContext<BlueprintContextType<any> | null>(null);
 
-export type Blueprint<T> = PropsWithChildren<BlueprintContextType<T>>;
+export type Blueprint<T> = PropsWithChildren<Partial<BlueprintContextType<T>>>;
 
-export function Blueprint<T>({ children, ...value }: Blueprint<T>) {
+export function Blueprint<T>({ children, schema = {}, wrapper }: Blueprint<T>) {
   return (
-    <BlueprintContext.Provider value={value}>
+    <BlueprintContext.Provider value={{ schema, wrapper }}>
       {children}
     </BlueprintContext.Provider>
   );
