@@ -1,9 +1,27 @@
 {
   "name": "@duck-form/fields",
   "version": "0.1.0",
-  "main": "./index.cjs",
-  "module": "./index.js",
-  "private": true,
+  "license": "MIT",
+  "keywords": [
+    "react",
+    "dynamic",
+    "dynamic-form",
+    "schema",
+    "fields",
+    "duck-form"
+  ],
+  "homepage": "https://rhinobase.io",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rhinobase/duck-form.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/rhinobase/duck-form/issues"
+  },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
     "@rafty/corp": "^1.0.4",
