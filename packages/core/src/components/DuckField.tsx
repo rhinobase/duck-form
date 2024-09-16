@@ -8,7 +8,7 @@ export type DuckField<
 } & T;
 
 export function DuckField<T extends Record<string, unknown>>(props: T) {
-  const { wrapper: Wrapper = Fragment, schema } = useBlueprint() ?? {};
+  const { wrapper: Wrapper = Fragment, schema = {} } = useBlueprint() ?? {};
   const { components, resolver } = useDuckForm();
 
   const options = resolver(schema, props) as DuckField;

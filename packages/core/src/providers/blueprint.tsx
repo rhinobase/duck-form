@@ -6,7 +6,7 @@ import {
 } from "react";
 
 type BlueprintContextType<T> = {
-  readonly schema: Record<string, T>;
+  readonly schema?: Record<string, T>;
   readonly wrapper?: (props: PropsWithChildren) => ReactNode;
 };
 
