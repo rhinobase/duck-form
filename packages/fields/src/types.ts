@@ -70,3 +70,38 @@ export type FieldProps =
 export type FieldPropsMap = {
   [K in FieldProps["type"]]: Extract<FieldProps, { type: K }>;
 };
+
+export type {
+  ArrayProps,
+  CalendarProps,
+  CheckboxGroupProps,
+  CheckboxProps,
+  ColorPickerProps,
+  CurrencyInputProps,
+  DateFieldProps,
+  DateRangeFieldProps,
+  EditableNumberProps,
+  EditableTextareaProps,
+  EditableTextProps,
+  FieldWrapperProps,
+  InputWrapperProps,
+  ListboxProps,
+  MultiListboxProps,
+  NumberProps,
+  ObjectProps,
+  PasswordProps,
+  PercentageInputProps,
+  PinInputProps,
+  RadioGroupProps,
+  RangeSliderProps,
+  RatingProps,
+  SegmentedControlProps,
+  SelectProps,
+  SliderProps,
+  StringProps,
+  SwitchGroupProps,
+  SwitchProps,
+  TagFieldProps,
+  TextareaProps,
+  TooltipWrapperProps,
+};
