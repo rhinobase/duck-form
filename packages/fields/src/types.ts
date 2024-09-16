@@ -31,7 +31,7 @@ import type { TagFieldProps } from "./Tag";
 import type { TextareaProps } from "./Textarea";
 import type { TooltipWrapperProps } from "./TooltipWrapper";
 
-type GeneralWrapperProps<T = undefined> = T &
+export type GeneralWrapperProps<T = undefined> = T &
   FieldWrapperProps &
   TooltipWrapperProps;
 
