@@ -17,7 +17,7 @@ module.exports = async () => {
       compiler: "swc",
       external: ["react", "react-dom", "react/jsx-runtime"],
       format: ["cjs", "esm"],
-      assets: [{ input: ".", output: ".", glob: "README.md" }],
+      assets: [{ input: "./packages/fields", output: ".", glob: "README.md" }],
     },
     {
       input: inputs,
