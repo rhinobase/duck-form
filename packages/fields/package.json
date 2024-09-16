@@ -1,6 +1,6 @@
 {
   "name": "@duck-form/fields",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "./index.cjs",
   "module": "./index.js",
   "private": true,
