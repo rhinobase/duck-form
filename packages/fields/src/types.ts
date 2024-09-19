@@ -33,7 +33,7 @@ import type { TooltipWrapperProps } from "./TooltipWrapper";
 
 export type GeneralWrapperProps<T = undefined> = T &
   FieldWrapperProps &
-  TooltipWrapperProps;
+  TooltipWrapperProps & { fieldset?: string };
 
 export type FieldProps =
   | GeneralWrapperProps<CheckboxProps>
@@ -42,7 +42,7 @@ export type FieldProps =
   | GeneralWrapperProps<CurrencyInputProps>
   | GeneralWrapperProps<DateFieldProps>
   | GeneralWrapperProps<DateRangeFieldProps>
-  | ObjectProps
+  | (ObjectProps & { fieldset?: string })
   | GeneralWrapperProps<NumberProps & InputWrapperProps>
   | GeneralWrapperProps<PasswordProps & InputWrapperProps>
   | GeneralWrapperProps<PercentageInputProps>
@@ -65,7 +65,7 @@ export type FieldProps =
   | GeneralWrapperProps<EditableNumberProps>
   | GeneralWrapperProps<CalendarProps>
   | GeneralWrapperProps<ArrayProps>
-  | { type: "default" };
+  | { type: "default"; fieldset?: string };
 
 export type FieldPropsMap = {
   [K in FieldProps["type"]]: Extract<FieldProps, { type: K }>;
