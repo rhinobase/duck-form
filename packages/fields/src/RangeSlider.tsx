@@ -34,15 +34,13 @@ export function RangeSliderField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { onChange, value, ...field } }) => (
         <RaftySlider
           {...props}
-          name={name}
+          {...field}
           value={value}
           defaultValue={[0, 0]}
-          disabled={disabled}
           onValueChange={(value) => onChange(value.splice(0, 2))}
-          ref={ref}
         >
           <SliderTrack>
             <SliderRange />

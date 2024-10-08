@@ -35,14 +35,12 @@ export function SegmentedControlField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, onChange, ...field } }) => (
         <RaftySegmentedControl
+          {...field}
           id={name}
           name={name}
-          value={value}
           onValueChange={onChange}
-          disabled={disabled}
-          ref={ref}
         >
           {props.options.map(({ value, label }) => (
             <SegmentedControlItem key={value} value={value}>

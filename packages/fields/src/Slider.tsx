@@ -43,14 +43,12 @@ export function SliderField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { onChange, value, ...field } }) => (
         <RaftySlider
           {...sliderProps}
-          name={name}
+          {...field}
           value={[value]}
-          disabled={disabled}
           onValueChange={(value) => onChange(value[0])}
-          ref={ref}
           className="mb-8 mt-5"
         >
           <SliderTrack>

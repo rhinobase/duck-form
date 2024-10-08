@@ -33,12 +33,10 @@ export function DateRangeField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, disabled, value, onChange, ref } }) => (
+      render={({ field: { onChange, ...field } }) => (
         <RaftyRangePicker
-          name={name}
+          {...field}
           placeholder={props.placeholder}
-          disabled={disabled}
-          value={value}
           onValueChange={(value) => {
             const val: string[] = [];
             if (value) {
@@ -48,7 +46,6 @@ export function DateRangeField() {
             }
             onChange(val);
           }}
-          ref={ref}
         />
       )}
     />

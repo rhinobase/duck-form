@@ -30,14 +30,11 @@ export function ListboxField() {
   return (
     <Controller
       name={componentId}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { onChange, ...field } }) => (
         <RaftyListbox
-          name={name}
+          {...field}
           items={props.options}
           onValueChange={onChange}
-          value={value}
-          isDisabled={disabled}
-          ref={ref}
         />
       )}
     />

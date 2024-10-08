@@ -29,15 +29,8 @@ export function EditableTextField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
-        <RaftyEditableText
-          id={name}
-          name={name}
-          value={value}
-          onValueChange={onChange}
-          disabled={disabled}
-          ref={ref}
-        />
+      render={({ field: { onChange, ...field } }) => (
+        <RaftyEditableText {...field} onValueChange={onChange} />
       )}
     />
   );

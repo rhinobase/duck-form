@@ -34,13 +34,14 @@ export function SwitchGroupField() {
       <Controller
         name={componentId}
         control={control}
-        render={({ field: { name, onChange, ref, value, disabled } }) => (
+        render={({ field: { name, onChange, value, ...field } }) => (
           <>
             {props.options.map((option) => {
               const _id = `${name}.${option.value}`;
 
               return (
                 <RaftySwitch
+                  {...field}
                   key={option.value}
                   id={_id}
                   name={_id}
@@ -52,8 +53,6 @@ export function SwitchGroupField() {
 
                     onChange(tmp);
                   }}
-                  isDisabled={disabled}
-                  ref={ref}
                 >
                   {option.label ?? option.value}
                 </RaftySwitch>

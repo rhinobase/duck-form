@@ -29,15 +29,12 @@ export function CalendarField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, disabled, value, onChange, ref } }) => (
+      render={({ field: { onChange, ...field } }) => (
         <RaftyCalendar
-          name={name}
+          {...field}
           placeholder={props.placeholder}
-          disabled={disabled}
-          value={value}
           onValueChange={onChange}
           className="w-max"
-          ref={ref}
         />
       )}
     />

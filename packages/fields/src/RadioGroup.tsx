@@ -41,13 +41,12 @@ export function RadioGroupField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, onChange, value, ...field } }) => (
         <RaftyRadioGroup
+          {...field}
           id={name}
           value={value ?? undefined}
           onValueChange={onChange}
-          isDisabled={disabled}
-          ref={ref}
           className={classNames(
             orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
             "[&>div]:w-full xl:[&>div]:w-max",

@@ -27,16 +27,14 @@ export function ColorPickerField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, onChange, ...field } }) => (
         <RaftyColorPicker
+          {...field}
           id={name}
           name={name}
-          value={value}
           onValueChange={({ valueAsString }: { valueAsString: string }) =>
             onChange(valueAsString)
           }
-          disabled={disabled}
-          ref={ref}
         />
       )}
     />

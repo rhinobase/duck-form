@@ -30,16 +30,14 @@ export function RatingField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, onChange, ...field } }) => (
         <RaftyRating
+          {...field}
           id={name}
           name={name}
           count={props.count}
           allowHalf={props.allowHalf}
-          value={value}
           onValueChange={onChange}
-          disabled={disabled}
-          ref={ref}
         />
       )}
     />

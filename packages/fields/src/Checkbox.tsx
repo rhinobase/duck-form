@@ -27,14 +27,13 @@ export function CheckboxField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, value, onChange, ...field } }) => (
         <RaftyCheckbox
+          {...field}
           id={name}
           name={name}
           checked={value}
           onCheckedChange={onChange}
-          isDisabled={disabled}
-          ref={ref}
         />
       )}
     />

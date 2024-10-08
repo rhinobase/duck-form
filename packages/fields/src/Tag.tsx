@@ -29,15 +29,8 @@ export function TagField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, value, ref, disabled } }) => (
-        <RaftyTagField
-          id={name}
-          name={name}
-          value={value}
-          onValueChange={onChange}
-          disabled={disabled}
-          ref={ref}
-        />
+      render={({ field: { onChange, ...field } }) => (
+        <RaftyTagField {...field} onValueChange={onChange} />
       )}
     />
   );

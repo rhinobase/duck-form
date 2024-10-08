@@ -30,12 +30,12 @@ export function DateField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { onChange, value, ...renderProps } }) => {
+      render={({ field: { onChange, value, ...field } }) => {
         const newValue = value ? value.substr(0, 10) : "";
 
         return (
           <RaftyDatePicker
-            {...renderProps}
+            {...field}
             placeholder={props.placeholder}
             value={newValue}
             onValueChange={onChange}

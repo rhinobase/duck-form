@@ -31,6 +31,7 @@ export function CheckboxGroupField() {
 
   return (
     <div
+      // biome-ignore lint/a11y/useSemanticElements: <explanation>
       role="group"
       aria-labelledby="checkbox-group"
       className="flex w-full flex-col gap-1.5"
@@ -38,13 +39,14 @@ export function CheckboxGroupField() {
       <Controller
         name={componentId}
         control={control}
-        render={({ field: { name, onChange, ref, value, disabled } }) => (
+        render={({ field: { name, value, onChange, ...field } }) => (
           <>
             {props.options.map((option) => {
               const _id = `${name}.${option.value}`;
 
               return (
                 <RaftyCheckbox
+                  {...field}
                   key={option.value}
                   id={_id}
                   name={_id}
@@ -56,9 +58,7 @@ export function CheckboxGroupField() {
 
                     onChange(tmp);
                   }}
-                  isDisabled={disabled}
                   isRequired={false}
-                  ref={ref}
                 >
                   {option.label ?? option.value}
                 </RaftyCheckbox>

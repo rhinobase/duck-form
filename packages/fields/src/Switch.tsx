@@ -29,14 +29,13 @@ export function SwitchField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => (
+      render={({ field: { name, onChange, value, ...field } }) => (
         <RaftySwitch
+          {...field}
           id={name}
           name={name}
           checked={value}
           onCheckedChange={onChange}
-          isDisabled={disabled}
-          ref={ref}
         />
       )}
     />

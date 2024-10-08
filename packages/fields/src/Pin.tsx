@@ -30,19 +30,18 @@ export function PinField() {
     <Controller
       name={componentId}
       control={control}
-      render={({ field: { name, onChange, ref, value, disabled } }) => {
+      render={({ field: { name, onChange, value, ...field } }) => {
         const formattedValue = Array.from<string>(value ?? []);
 
         return (
           <RaftyPinInput
+            {...field}
             id={name}
             name={name}
             value={formattedValue}
             onValueChange={({ value }) => onChange(value)}
             placeholder={props.placeholder}
             length={props.length}
-            disabled={disabled}
-            ref={ref}
           />
         );
       }}
