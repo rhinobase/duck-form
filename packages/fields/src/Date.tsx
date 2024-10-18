@@ -1,5 +1,6 @@
 "use client";
 import { DatePicker as RaftyDatePicker } from "@rafty/ui";
+import dayjs from "dayjs";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -31,7 +32,7 @@ export function DateField() {
       name={componentId}
       control={control}
       render={({ field: { onChange, value, ...field } }) => {
-        const newValue = value ? value.substr(0, 10) : "";
+        const newValue = value && dayjs(value).format("YYYY-MM-DD");
 
         return (
           <RaftyDatePicker
