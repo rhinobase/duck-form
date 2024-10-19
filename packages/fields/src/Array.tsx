@@ -55,8 +55,7 @@ export function ArrayField() {
 
         return (
           <div
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            key={index}
+            key={`${index}-${componentId}`}
             className="flex mb-2 min-h-[120px] items-center gap-2 rounded-lg border border-secondary-200 p-2 dark:border-secondary-800"
           >
             <div className="space-y-2">

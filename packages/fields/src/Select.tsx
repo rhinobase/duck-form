@@ -37,8 +37,8 @@ export function SelectField() {
       className="w-full"
       {...register(componentId)}
     >
-      {props.options.map(({ value, label }) => (
-        <SelectItem key={value} value={value}>
+      {props.options.map(({ value, label }, index) => (
+        <SelectItem key={`${index}-${componentId}`} value={value}>
           {label ?? value}
         </SelectItem>
       ))}

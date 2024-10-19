@@ -52,11 +52,14 @@ export function RadioGroupField() {
             "[&>div]:w-full xl:[&>div]:w-max",
           )}
         >
-          {options.map((option) => {
+          {options.map((option, index) => {
             const _id = `${name}.${option.value}`;
             if (option.description)
               return (
-                <div key={option.value} className="flex items-start">
+                <div
+                  key={`${index}-${componentId}`}
+                  className="flex items-start"
+                >
                   <RadioGroupItem id={_id} value={String(option.value)} />
                   <label
                     htmlFor={_id}
@@ -73,7 +76,7 @@ export function RadioGroupField() {
               );
             return (
               <RadioGroupItem
-                key={option.value}
+                key={`${index}-${componentId}`}
                 id={_id}
                 value={String(option.value)}
               >

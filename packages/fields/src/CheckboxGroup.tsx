@@ -41,13 +41,13 @@ export function CheckboxGroupField() {
         control={control}
         render={({ field: { name, value, onChange, ...field } }) => (
           <>
-            {props.options.map((option) => {
+            {props.options.map((option, index) => {
               const _id = `${name}.${option.value}`;
 
               return (
                 <RaftyCheckbox
                   {...field}
-                  key={option.value}
+                  key={`${index}-${componentId}`}
                   id={_id}
                   name={_id}
                   checked={value?.includes(option.value)}

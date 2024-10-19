@@ -42,8 +42,8 @@ export function SegmentedControlField() {
           name={name}
           onValueChange={onChange}
         >
-          {props.options.map(({ value, label }) => (
-            <SegmentedControlItem key={value} value={value}>
+          {props.options.map(({ value, label }, index) => (
+            <SegmentedControlItem key={`${index}-${componentId}`} value={value}>
               {label ?? value}
             </SegmentedControlItem>
           ))}
