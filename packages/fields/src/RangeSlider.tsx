@@ -41,6 +41,7 @@ export function RangeSliderField() {
           value={value}
           defaultValue={[0, 0]}
           onValueChange={(value) => onChange(value.splice(0, 2))}
+          className="mb-8 mt-5"
         >
           <SliderTrack>
             <SliderRange />

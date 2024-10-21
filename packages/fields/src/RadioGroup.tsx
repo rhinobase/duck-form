@@ -68,7 +68,7 @@ export function RadioGroupField() {
                     <span className="text-secondary-800 dark:text-secondary-200 text-sm font-medium leading-snug">
                       {option.label ?? option.value}
                     </span>
-                    <span className="text-secondary-600 dark:text-secondary-400 text-sm leading-tight">
+                    <span className="text-secondary-600 dark:text-secondary-400 text-xs leading-tight">
                       {option.description}
                     </span>
                   </label>
