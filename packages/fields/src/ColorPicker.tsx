@@ -1,5 +1,5 @@
 "use client";
-import { ColorPicker as RaftyColorPicker } from "@rafty/ui";
+import { ColorPicker as RaftyColorPicker, useBoolean } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
@@ -13,6 +13,8 @@ export type ColorPickerProps = {
 
 export function ColorPickerField() {
   const props = useField<ColorPickerProps>();
+  const [isOpen, setOpen] = useBoolean();
+
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
@@ -38,11 +40,13 @@ export function ColorPickerField() {
           {...field}
           id={name}
           name={name}
+          open={isOpen}
+          onOpenChange={({ open }) => setOpen(open)}
           onValueChange={({ valueAsString }: { valueAsString: string }) =>
             onChange(valueAsString)
           }
           onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
+            isDebug && !isOpen && stopEventPropagation(event)
           }
           onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         />
