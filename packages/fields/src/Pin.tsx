@@ -3,6 +3,8 @@ import { PinInput as RaftyPinInput } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type PinInputProps = {
   type: "pin";
@@ -17,6 +19,10 @@ export function PinField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -40,6 +46,9 @@ export function PinField() {
             name={name}
             value={formattedValue}
             onValueChange={({ value }) => onChange(value)}
+            onPointerDownCapture={(event) =>
+              isDebug && stopEventPropagation(event)
+            }
             placeholder={props.placeholder}
             length={props.length}
           />

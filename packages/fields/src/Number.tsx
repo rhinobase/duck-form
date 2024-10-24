@@ -6,6 +6,8 @@ import { InputWrapper } from "./InputWrapper";
 import type { InputField } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type NumberProps = {
   type: "number";
@@ -21,6 +23,10 @@ export function NumberField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -45,6 +51,8 @@ export function NumberField() {
         min={min}
         max={max}
         {...register(componentId, { valueAsNumber: true })}
+        onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
       />
     </InputWrapper>
   );

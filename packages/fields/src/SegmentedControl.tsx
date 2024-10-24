@@ -6,6 +6,8 @@ import {
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type SegmentedControlProps = {
   type: "segmentedControl";
@@ -22,6 +24,10 @@ export function SegmentedControlField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -41,6 +47,10 @@ export function SegmentedControlField() {
           id={name}
           name={name}
           onValueChange={onChange}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         >
           {props.options.map(({ value, label }, index) => (
             <SegmentedControlItem key={`${index}-${componentId}`} value={value}>

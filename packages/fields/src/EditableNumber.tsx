@@ -3,6 +3,8 @@ import { EditableNumber as RaftyEditableNumber } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type EditableNumberProps = {
   type: "editableNumber";
@@ -14,6 +16,10 @@ export function EditableNumberField() {
   const props = useField<EditableNumberProps>();
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -29,7 +35,13 @@ export function EditableNumberField() {
       name={componentId}
       control={control}
       render={({ field: { onChange, ...field } }) => (
-        <RaftyEditableNumber {...field} onValueChange={onChange} />
+        <RaftyEditableNumber
+          {...field}
+          onValueChange={onChange}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+        />
       )}
     />
   );

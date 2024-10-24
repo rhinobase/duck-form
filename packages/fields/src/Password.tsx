@@ -11,6 +11,8 @@ import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { InputWrapper } from "./InputWrapper";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type PasswordProps = {
   type: "password";
@@ -27,6 +29,10 @@ export function PasswordField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -47,6 +53,8 @@ export function PasswordField() {
         type={showPassword ? "text" : "password"}
         placeholder={props.placeholder}
         {...register(componentId)}
+        onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
       />
       <Suffix className="pointer-events-auto">
         <Button

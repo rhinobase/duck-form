@@ -3,6 +3,8 @@ import { RangePicker as RaftyRangePicker } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type DateRangeFieldProps = {
   type: "dateRange";
@@ -18,6 +20,10 @@ export function DateRangeField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -46,6 +52,10 @@ export function DateRangeField() {
             }
             onChange(val);
           }}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         />
       )}
     />

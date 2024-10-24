@@ -3,6 +3,8 @@ import { TagField as RaftyTagField } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type TagFieldProps = {
   type: "tag";
@@ -14,6 +16,10 @@ export function TagField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -30,7 +36,13 @@ export function TagField() {
       name={componentId}
       control={control}
       render={({ field: { onChange, ...field } }) => (
-        <RaftyTagField {...field} onValueChange={onChange} />
+        <RaftyTagField
+          {...field}
+          onValueChange={({ value }) => onChange(value)}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+        />
       )}
     />
   );
