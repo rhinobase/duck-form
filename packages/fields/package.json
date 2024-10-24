@@ -1,6 +1,6 @@
 {
   "name": "@duck-form/fields",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "MIT",
   "keywords": [
     "react",
@@ -26,7 +26,8 @@
     "@heroicons/react": "^2.1.5",
     "@rafty/corp": "^1.0.4",
     "@rafty/ui": "^1.7.5",
-    "react-hook-form": "^7.53.0"
+    "react-hook-form": "^7.53.0",
+    "dayjs": "^1.11.13"
   },
   "peerDependencies": {
     "duck-form": "^0.1.0",
