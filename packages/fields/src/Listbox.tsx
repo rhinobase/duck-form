@@ -3,6 +3,8 @@ import { Listbox as RaftyListbox } from "@rafty/corp";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type ListboxProps = {
   type: "listbox";
@@ -19,6 +21,10 @@ export function ListboxField() {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
+
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, props),
@@ -31,11 +37,18 @@ export function ListboxField() {
     <Controller
       name={componentId}
       render={({ field: { onChange, ...field } }) => (
-        <RaftyListbox
-          {...field}
-          items={props.options}
-          onValueChange={onChange}
-        />
+        <div
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        >
+          <RaftyListbox
+            {...field}
+            items={props.options}
+            onValueChange={onChange}
+          />
+        </div>
       )}
     />
   );

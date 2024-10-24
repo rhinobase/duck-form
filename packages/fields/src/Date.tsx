@@ -4,6 +4,8 @@ import dayjs from "dayjs";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type DateFieldProps = {
   type: "date";
@@ -16,6 +18,10 @@ export function DateField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -40,6 +46,10 @@ export function DateField() {
             placeholder={props.placeholder}
             value={newValue}
             onValueChange={onChange}
+            onPointerDownCapture={(event) =>
+              isDebug && stopEventPropagation(event)
+            }
+            onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
           />
         );
       }}

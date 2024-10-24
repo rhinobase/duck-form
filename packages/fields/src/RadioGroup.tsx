@@ -7,6 +7,8 @@ import {
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { type ReactNode, useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type RadioGroupProps = {
   type: "radio";
@@ -24,6 +26,10 @@ export function RadioGroupField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -51,6 +57,10 @@ export function RadioGroupField() {
             orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
             "[&>div]:w-full xl:[&>div]:w-max",
           )}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         >
           {options.map((option, index) => {
             const _id = `${name}.${option.value}`;

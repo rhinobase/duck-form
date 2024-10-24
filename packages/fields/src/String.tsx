@@ -4,6 +4,8 @@ import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { InputWrapper } from "./InputWrapper";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type StringProps = {
   type: "string";
@@ -20,6 +22,10 @@ export function StringField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -38,6 +44,8 @@ export function StringField() {
         type={props.inputType}
         placeholder={props.placeholder}
         inputMode={props.inputMode}
+        onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         {...register(componentId)}
       />
     </InputWrapper>

@@ -3,6 +3,8 @@ import { Rating as RaftyRating } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useDebug } from "./providers";
+import { stopEventPropagation } from "./utils";
 
 export type RatingProps = {
   type: "rating";
@@ -17,6 +19,10 @@ export function RatingField() {
 
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
+
+  const { isDebug } = useDebug() ?? {
+    isDebug: false,
+  };
 
   const autoId = useId();
   const customId = useMemo(
@@ -38,6 +44,10 @@ export function RatingField() {
           count={props.count}
           allowHalf={props.allowHalf}
           onValueChange={onChange}
+          onPointerDownCapture={(event) =>
+            isDebug && stopEventPropagation(event)
+          }
+          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
         />
       )}
     />

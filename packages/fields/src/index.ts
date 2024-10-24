@@ -31,6 +31,8 @@ import { TextareaField } from "./Textarea";
 import type { FieldProps } from "./types";
 
 export * from "./types";
+export * from "./providers";
+export * from "./utils";
 
 export const quackFields: Record<FieldProps["type"], () => JSX.Element> = {
   array: ArrayField,
