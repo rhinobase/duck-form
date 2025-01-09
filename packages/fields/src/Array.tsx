@@ -6,7 +6,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, eventHandler } from "@rafty/ui";
-import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
+import { DuckField, useBlueprint, useDuckForm } from "duck-form";
 import { useId, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import type { FieldProps } from "./types";
@@ -24,8 +24,7 @@ export type ArrayProps = {
   };
 };
 
-export function ArrayField() {
-  const props = useField<ArrayProps>();
+export function ArrayField(props: ArrayProps) {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 

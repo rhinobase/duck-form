@@ -7,7 +7,6 @@ import {
   Suffix,
   classNames,
 } from "@rafty/ui";
-import { useField } from "duck-form";
 import type { PropsWithChildren, ReactNode } from "react";
 
 export type InputWrapperProps = {
@@ -26,16 +25,10 @@ const addonTextClasses = {
   },
 };
 
-export type InputWrapper = PropsWithChildren;
+export type InputWrapper = PropsWithChildren<InputWrapperProps>;
 
-export function InputWrapper({ children }: InputWrapper) {
-  const {
-    prefixIcon,
-    prefix,
-    suffixIcon,
-    size = "md",
-    suffix,
-  } = useField<InputWrapperProps>();
+export function InputWrapper({ children, ...props }: InputWrapper) {
+  const { prefixIcon, prefix, suffixIcon, size = "md", suffix } = props;
 
   return (
     <InputGroup size={size} className="w-full">

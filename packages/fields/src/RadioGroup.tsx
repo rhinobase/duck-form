@@ -1,101 +1,70 @@
-"use client";
 import {
   RadioGroupItem,
   RadioGroup as RaftyRadioGroup,
   classNames,
 } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { type ReactNode, useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
+import type { ReactNode } from "react";
 
 export type RadioGroupProps = {
+  name?: string;
   type: "radio";
   options: {
     value: string | number;
     label?: ReactNode;
     description?: string;
   }[];
-  defaultValue?: string;
   orientaion?: "horizontal" | "vertical";
+  defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function RadioGroupField() {
-  const props = useField<RadioGroupProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { options, orientaion = "vertical" } = props;
-
-  const { control } = useFormContext();
-
+export function RadioGroupField({
+  type,
+  options,
+  orientaion = "vertical",
+  onChange,
+  ...props
+}: RadioGroupProps) {
   return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { name, onChange, value, ...field } }) => (
-        <RaftyRadioGroup
-          {...field}
-          id={name}
-          value={value ?? undefined}
-          onValueChange={onChange}
-          className={classNames(
-            orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
-            "[&>div]:w-full xl:[&>div]:w-max",
-          )}
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        >
-          {options.map((option, index) => {
-            const _id = `${name}.${option.value}`;
-            if (option.description)
-              return (
-                <div
-                  key={`${index}-${componentId}`}
-                  className="flex items-start"
-                >
-                  <RadioGroupItem id={_id} value={String(option.value)} />
-                  <label
-                    htmlFor={_id}
-                    className="flex select-none flex-col gap-0.5 pl-2"
-                  >
-                    <span className="text-secondary-800 dark:text-secondary-200 text-sm font-medium leading-snug">
-                      {option.label ?? option.value}
-                    </span>
-                    <span className="text-secondary-600 dark:text-secondary-400 text-xs leading-tight">
-                      {option.description}
-                    </span>
-                  </label>
-                </div>
-              );
-            return (
-              <RadioGroupItem
-                key={`${index}-${componentId}`}
-                id={_id}
-                value={String(option.value)}
-              >
-                {option.label ?? option.value}
-              </RadioGroupItem>
-            );
-          })}
-        </RaftyRadioGroup>
+    <RaftyRadioGroup
+      {...props}
+      id={props.name}
+      onValueChange={onChange}
+      className={classNames(
+        orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
+        "[&>div]:w-full xl:[&>div]:w-max",
       )}
-    />
+    >
+      {options.map((option, index) => {
+        const _id = `${props.name}.${option.value}`;
+        if (option.description)
+          return (
+            <div key={`${index}-${props.name}`} className="flex items-start">
+              <RadioGroupItem id={_id} value={String(option.value)} />
+              <label
+                htmlFor={_id}
+                className="flex select-none flex-col gap-0.5 pl-2"
+              >
+                <span className="text-secondary-800 dark:text-secondary-200 text-sm font-medium leading-snug">
+                  {option.label ?? option.value}
+                </span>
+                <span className="text-secondary-600 dark:text-secondary-400 text-xs leading-tight">
+                  {option.description}
+                </span>
+              </label>
+            </div>
+          );
+        return (
+          <RadioGroupItem
+            key={`${index}-${props.name}`}
+            id={_id}
+            value={String(option.value)}
+          >
+            {option.label ?? option.value}
+          </RadioGroupItem>
+        );
+      })}
+    </RaftyRadioGroup>
   );
 }

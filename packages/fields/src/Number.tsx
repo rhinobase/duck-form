@@ -1,58 +1,32 @@
-"use client";
+import type { InputField } from "@rafty/ui";
 import { InputField as RaftyInputField } from "@rafty/ui";
-import { useFormContext } from "react-hook-form";
 import { InputWrapper } from "./InputWrapper";
 
-import type { InputField } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
-
 export type NumberProps = {
+  name?: string;
   type: "number";
   placeholder?: string;
-  defaultValue?: number;
   inputMode?: "none" | "numeric" | "decimal";
   min?: InputField["min"];
   max?: InputField["max"];
+  defaultValue?: number;
+  value?: number;
+  onChange?: (value?: number) => void;
 };
 
-export function NumberField() {
-  const props = useField<NumberProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { register } = useFormContext();
-
-  const { placeholder, inputMode, max, min } = props;
-
+export function NumberField({ type, onChange, ...props }: NumberProps) {
   return (
     <InputWrapper>
       <RaftyInputField
-        id={componentId}
+        {...props}
+        id={props.name}
         type="number"
         step="1"
-        placeholder={placeholder}
-        inputMode={inputMode}
-        min={min}
-        max={max}
-        {...register(componentId, { valueAsNumber: true })}
-        onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        onChange={(event) => {
+          const value = event.target.value;
+
+          onChange?.(value !== "" ? Number(value) : undefined);
+        }}
       />
     </InputWrapper>
   );

@@ -6,50 +6,36 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
 
 export type RangeSliderProps = Pick<Slider, "min" | "max" | "step"> & {
+  name?: string;
   type: "rangeSlider";
   defaultValue?: [number, number];
+  value?: [number, number];
+  onChange?: (value?: [number, number]) => void;
 };
 
-export function RangeSliderField() {
-  const props = useField<RangeSliderProps>();
-  const { control } = useFormContext();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
+export function RangeSliderField({
+  type,
+  onChange,
+  defaultValue = [0, 0],
+  ...props
+}: RangeSliderProps) {
   return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { onChange, value, ...field } }) => (
-        <RaftySlider
-          {...props}
-          {...field}
-          value={value}
-          defaultValue={[0, 0]}
-          onValueChange={(value) => onChange(value.splice(0, 2))}
-          className="mb-8 mt-5"
-        >
-          <SliderTrack>
-            <SliderRange />
-          </SliderTrack>
-          <SliderThumb />
-          <SliderThumb />
-        </RaftySlider>
-      )}
-    />
+    <RaftySlider
+      {...props}
+      defaultValue={defaultValue}
+      onValueChange={(value) => {
+        // @ts-expect-error
+        onChange?.(value.splice(0, 2));
+      }}
+      className="mb-8 mt-5"
+    >
+      <SliderTrack>
+        <SliderRange />
+      </SliderTrack>
+      <SliderThumb />
+      <SliderThumb />
+    </RaftySlider>
   );
 }

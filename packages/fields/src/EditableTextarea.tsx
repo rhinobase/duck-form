@@ -1,50 +1,24 @@
-"use client";
 import { EditableTextarea as RaftyEditableTextarea } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type EditableTextareaProps = {
+  name?: string;
   type: "editableTextarea";
-  defaultValue?: string;
   placeholder?: string;
+  defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function EditableTextareaField() {
-  const props = useField<EditableTextareaProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { control } = useFormContext();
-
+export function EditableTextareaField({
+  type,
+  onChange,
+  ...props
+}: EditableTextareaProps) {
   return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { onChange, ...field } }) => (
-        <RaftyEditableTextarea
-          {...field}
-          onValueChange={onChange}
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-        />
-      )}
+    <RaftyEditableTextarea
+      {...props}
+      id={props.name}
+      onValueChange={onChange}
     />
   );
 }

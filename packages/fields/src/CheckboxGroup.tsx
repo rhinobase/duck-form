@@ -1,84 +1,57 @@
-"use client";
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type CheckboxGroupProps = {
+  name?: string;
   type: "checkboxgroup";
   options: {
     value: string | number;
     label?: string;
   }[];
   defaultValue?: (string | number)[];
+  value?: (string | number)[];
+  onChange?: (value?: (string | number)[]) => void;
 };
 
-export function CheckboxGroupField() {
-  const props = useField<CheckboxGroupProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { control } = useFormContext();
-
+export function CheckboxGroupField({
+  name,
+  type,
+  options,
+  defaultValue,
+  value,
+  onChange,
+}: CheckboxGroupProps) {
   return (
     <div
+      id={name}
       // biome-ignore lint/a11y/useSemanticElements: <explanation>
       role="group"
       aria-labelledby="checkbox-group"
       className="flex w-full flex-col gap-1.5"
     >
-      <Controller
-        name={componentId}
-        control={control}
-        render={({ field: { name, value, onChange, ...field } }) => (
-          <>
-            {props.options.map((option, index) => {
-              const _id = `${name}.${option.value}`;
+      {options.map((option, index) => {
+        const _id = `${name}.${option.value}`;
 
-              return (
-                <RaftyCheckbox
-                  {...field}
-                  key={`${index}-${componentId}`}
-                  id={_id}
-                  name={_id}
-                  checked={value?.includes(option.value)}
-                  onCheckedChange={(checked) => {
-                    let tmp = value ? [...value] : [];
-                    if (checked) tmp.push(option.value);
-                    else tmp = tmp.filter((value) => value !== option.value);
+        return (
+          <RaftyCheckbox
+            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+            key={index}
+            id={_id}
+            name={_id}
+            defaultChecked={defaultValue?.includes(option.value)}
+            checked={value?.includes(option.value)}
+            onCheckedChange={(checked) => {
+              let tmp = value ? [...value] : [];
+              if (checked) tmp.push(option.value);
+              else tmp = tmp.filter((value) => value !== option.value);
 
-                    onChange(tmp);
-                  }}
-                  onPointerDownCapture={(event) =>
-                    isDebug && stopEventPropagation(event)
-                  }
-                  onKeyDownCapture={(event) =>
-                    isDebug && stopEventPropagation(event)
-                  }
-                  isRequired={false}
-                >
-                  {option.label ?? option.value}
-                </RaftyCheckbox>
-              );
-            })}
-          </>
-        )}
-      />
+              onChange?.(tmp);
+            }}
+            isRequired={false}
+          >
+            {option.label ?? option.value}
+          </RaftyCheckbox>
+        );
+      })}
     </div>
   );
 }

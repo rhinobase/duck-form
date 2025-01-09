@@ -1,56 +1,29 @@
-"use client";
 import { Listbox as RaftyListbox } from "@rafty/corp";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type MultiListboxProps = {
+  name?: string;
   type: "multiListbox";
   options: {
     value: string;
     label?: string;
   }[];
   defaultValue?: string[];
+  value?: string[];
+  onChange?: (value?: string[]) => void;
 };
 
-export function MultiListboxField() {
-  const props = useField<MultiListboxProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
+export function MultiListboxField({
+  type,
+  options,
+  onChange,
+  ...props
+}: MultiListboxProps) {
   return (
-    <Controller
-      name={componentId}
-      render={({ field: { onChange, ...field } }) => (
-        <div
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        >
-          <RaftyListbox
-            {...field}
-            type="multi"
-            items={props.options}
-            onValueChange={onChange}
-          />
-        </div>
-      )}
+    <RaftyListbox
+      {...props}
+      type="multi"
+      items={options}
+      onValueChange={onChange}
     />
   );
 }

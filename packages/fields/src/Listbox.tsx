@@ -1,55 +1,19 @@
-"use client";
 import { Listbox as RaftyListbox } from "@rafty/corp";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type ListboxProps = {
+  name?: string;
   type: "listbox";
   options: {
     value: string;
     label?: string;
   }[];
   defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function ListboxField() {
-  const props = useField<ListboxProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
+export function ListboxField({ type, onChange, ...props }: ListboxProps) {
   return (
-    <Controller
-      name={componentId}
-      render={({ field: { onChange, ...field } }) => (
-        <div
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        >
-          <RaftyListbox
-            {...field}
-            items={props.options}
-            onValueChange={onChange}
-          />
-        </div>
-      )}
-    />
+    <RaftyListbox {...props} items={props.options} onValueChange={onChange} />
   );
 }

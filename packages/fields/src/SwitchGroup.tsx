@@ -1,78 +1,50 @@
-"use client";
 import { Switch as RaftySwitch } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type SwitchGroupProps = {
+  name?: string;
   type: "switchGroup";
   options: {
     value: string | number;
     label?: string;
   }[];
   defaultValue?: (string | number)[];
+  value?: (string | number)[];
+  onChange?: (value?: (string | number)[]) => void;
 };
 
-export function SwitchGroupField() {
-  const props = useField<SwitchGroupProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { control } = useFormContext();
-
+export function SwitchGroupField({
+  type,
+  name,
+  options,
+  defaultValue,
+  value,
+  onChange,
+  ...props
+}: SwitchGroupProps) {
   return (
-    <div className="flex w-full flex-col gap-1.5">
-      <Controller
-        name={componentId}
-        control={control}
-        render={({ field: { name, onChange, value, ...field } }) => (
-          <>
-            {props.options.map((option, index) => {
-              const _id = `${name}.${option.value}`;
+    <div id={name} className="flex w-full flex-col gap-1.5">
+      {options.map((option, index) => {
+        const _id = `${name}.${option.value}`;
 
-              return (
-                <RaftySwitch
-                  {...field}
-                  key={`${index}-${componentId}`}
-                  id={_id}
-                  name={_id}
-                  checked={value?.includes(option.value)}
-                  onCheckedChange={(checked) => {
-                    let tmp = value ? [...value] : [];
-                    if (checked) tmp.push(option.value);
-                    else tmp = tmp.filter((value) => value !== option.value);
+        return (
+          <RaftySwitch
+            {...props}
+            key={`${index}-${name}`}
+            id={_id}
+            name={_id}
+            checked={value?.includes(option.value)}
+            onCheckedChange={(checked) => {
+              let tmp = value ? [...value] : [];
+              if (checked) tmp.push(option.value);
+              else tmp = tmp.filter((value) => value !== option.value);
 
-                    onChange(tmp);
-                  }}
-                  onPointerDownCapture={(event) =>
-                    isDebug && stopEventPropagation(event)
-                  }
-                  onKeyDownCapture={(event) =>
-                    isDebug && stopEventPropagation(event)
-                  }
-                >
-                  {option.label ?? option.value}
-                </RaftySwitch>
-              );
-            })}
-          </>
-        )}
-      />
+              onChange?.(tmp);
+            }}
+          >
+            {option.label ?? option.value}
+          </RaftySwitch>
+        );
+      })}
     </div>
   );
 }
