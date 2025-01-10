@@ -22,15 +22,13 @@
   "bugs": {
     "url": "https://github.com/rhinobase/duck-form/issues"
   },
-  "dependencies": {
+  "peerDependencies": {
     "@heroicons/react": "^2.1.5",
     "@rafty/corp": "^1.0.4",
     "@rafty/ui": "^1.7.5",
-    "react-hook-form": "^7.53.0",
-    "dayjs": "^1.11.13"
-  },
-  "peerDependencies": {
+    "dayjs": "^1.11.13",
     "duck-form": "^0.1.0",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "react-hook-form": "^7.53.0"
   }
 }

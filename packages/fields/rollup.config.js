@@ -2,6 +2,7 @@ const { withNx } = require("@nx/rollup/with-nx");
 const preserveDirectives = require("rollup-plugin-preserve-directives");
 const terser = require("@rollup/plugin-terser");
 const fg = require("fast-glob");
+const pkg = require("./package.json");
 
 module.exports = async () => {
   const inputs = await fg("./src/*.{ts,tsx}", {
@@ -18,9 +19,11 @@ module.exports = async () => {
       external: ["react", "react-dom", "react/jsx-runtime"],
       format: ["cjs", "esm"],
       assets: [{ input: "./packages/fields", output: ".", glob: "README.md" }],
+      external: Object.keys(pkg.peerDependencies),
     },
     {
       input: inputs,
+
       output: { preserveModules: true },
       plugins: [
         preserveDirectives.default(), // For preserving "use client" directives
