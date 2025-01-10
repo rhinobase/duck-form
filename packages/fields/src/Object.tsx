@@ -24,9 +24,9 @@ export type DefaultValue<T extends Record<string, FieldProps>> = {
       FieldPropsMap[T[K]["type"]]["defaultValue"];
 };
 
-export interface ObjectProps<
+export type ObjectProps<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
-> {
+> = {
   type: FieldType.OBJECT;
   fields: T;
   defaultValue?: Prettify<DefaultValue<T>>;
@@ -36,7 +36,7 @@ export interface ObjectProps<
     collapsed?: boolean;
     columns?: number;
   };
-}
+};
 
 const DEFAULT_GROUP_KEY = "__default";
 
