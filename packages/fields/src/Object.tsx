@@ -9,6 +9,7 @@ import {
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import type { FieldProps } from "./types";
+import { FieldType } from "./constants";
 
 export type Promisify<T> = T | Promise<T>;
 
@@ -26,7 +27,7 @@ export type DefaultValue<T extends Record<string, FieldProps>> = {
 export interface ObjectProps<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
 > {
-  type: "object";
+  type: FieldType.OBJECT;
   fields: T;
   defaultValue?: Prettify<DefaultValue<T>>;
   fieldsets?: { name: string; label: string }[];

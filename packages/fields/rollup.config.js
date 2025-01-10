@@ -4,7 +4,7 @@ const terser = require("@rollup/plugin-terser");
 const fg = require("fast-glob");
 
 module.exports = async () => {
-  const inputs = await fg("./src/**/*.{ts,tsx}", {
+  const inputs = await fg("./src/*.{ts,tsx}", {
     onlyFiles: true,
     cwd: __dirname,
   });
