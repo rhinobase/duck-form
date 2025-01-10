@@ -1,3 +1,15 @@
+## 0.2.1 (2025-01-10)
+
+
+### 🚀 Features
+
+- **fd:** added constants for field type
+
+
+### 🩹 Fixes
+
+- corrected the object type error
+
 ## 0.2.0 (2025-01-10)
 
 
