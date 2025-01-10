@@ -1,3 +1,10 @@
+## 0.2.3 (2025-01-10)
+
+
+### 🩹 Fixes
+
+- **fd:** removed orientation prop from slider and range slider
+
 ## 0.2.2 (2025-01-10)
 
 This was a version bump only for fields to align it with other projects, there were no code changes.
