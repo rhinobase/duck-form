@@ -7,7 +7,10 @@ import {
 } from "@rafty/ui";
 import type { FieldType } from "./constants";
 
-export type RangeSliderProps = Pick<Slider, "min" | "max" | "step"> & {
+export type RangeSliderProps = Pick<
+  Slider,
+  "min" | "max" | "step" | "orientation"
+> & {
   name?: string;
   type: FieldType.RANGE_SLIDER;
   defaultValue?: [number, number];
@@ -19,6 +22,7 @@ export function RangeSliderField({
   type,
   onChange,
   defaultValue = [0, 0],
+  orientation,
   ...props
 }: RangeSliderProps) {
   return (
