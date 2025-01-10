@@ -32,16 +32,17 @@ import type { FieldProps } from "./types";
 import { DuckWrapper, ReactHookFormWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const wrapper = (Component: (props: any) => JSX.Element) => () => (
-  <DuckWrapper>
-    <ReactHookFormWrapper>
-      <Component />
-    </ReactHookFormWrapper>
-  </DuckWrapper>
-);
+const wrapper = (Component: (props: any) => JSX.Element) => () =>
+  (
+    <DuckWrapper>
+      <ReactHookFormWrapper>
+        <Component />
+      </ReactHookFormWrapper>
+    </DuckWrapper>
+  );
 
 export const quackFields: Record<FieldProps["type"], () => JSX.Element> = {
-  array: wrapper(ArrayField),
+  array: ArrayField,
   calendar: wrapper(CalendarField),
   boolean: wrapper(CheckboxField),
   checkboxgroup: wrapper(CheckboxGroupField),
@@ -56,7 +57,7 @@ export const quackFields: Record<FieldProps["type"], () => JSX.Element> = {
   listbox: wrapper(ListboxField),
   multiListbox: wrapper(MultiListboxField),
   number: wrapper(NumberField),
-  object: wrapper(ObjectField),
+  object: ObjectField,
   password: wrapper(PasswordField),
   percentageInput: wrapper(PercentageField),
   pin: wrapper(PinField),

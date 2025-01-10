@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
   Label,
 } from "@rafty/ui";
-import { DuckField, useBlueprint, useDuckForm } from "duck-form";
+import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import type { FieldProps } from "./types";
 
@@ -24,7 +24,7 @@ export type DefaultValue<T extends Record<string, FieldProps>> = {
 };
 
 export interface ObjectProps<
-  T extends Record<string, FieldProps> = Record<string, FieldProps>,
+  T extends Record<string, FieldProps> = Record<string, FieldProps>
 > {
   type: "object";
   fields: T;
@@ -40,15 +40,16 @@ export interface ObjectProps<
 const DEFAULT_GROUP_KEY = "__default";
 
 export function ObjectField<
-  T extends Record<string, FieldProps> = Record<string, FieldProps>,
->(props: Prettify<ObjectProps<T>>) {
+  T extends Record<string, FieldProps> = Record<string, FieldProps>
+>() {
+  const props = useField<ObjectProps<T>>();
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, props),
-    [generateId, schema, props],
+    [generateId, schema, props]
   );
 
   const componentId = customId ?? autoId;
@@ -70,14 +71,14 @@ export function ObjectField<
 
           return prev;
         },
-        { [DEFAULT_GROUP_KEY]: {} },
+        { [DEFAULT_GROUP_KEY]: {} }
       ),
       props.fieldsets?.reduce<Record<string, string>>((prev, cur) => {
         prev[cur.name] = cur.label;
         return prev;
       }, {}),
     ],
-    [props.fields, props.fieldsets],
+    [props.fields, props.fieldsets]
   );
 
   return (
