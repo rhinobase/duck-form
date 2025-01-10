@@ -1,3 +1,7 @@
+## 0.2.2 (2025-01-10)
+
+This was a version bump only for fields to align it with other projects, there were no code changes.
+
 ## 0.2.1 (2025-01-10)
 
 
