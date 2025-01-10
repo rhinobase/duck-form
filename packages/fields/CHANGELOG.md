@@ -1,3 +1,15 @@
+## 0.2.0 (2025-01-10)
+
+
+### 🚀 Features
+
+- refactor field components to accept props directly and improve wrapper structure
+
+
+### 🩹 Fixes
+
+- **fd:** added step in props
+
 ## 0.1.2 (2024-10-24)
 
 
