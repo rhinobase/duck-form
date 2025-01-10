@@ -1,9 +1,10 @@
 import { InputField as RaftyInputField } from "@rafty/ui";
 import { InputWrapper } from "./InputWrapper";
+import type { FieldType } from "./constants";
 
 export type StringProps = {
   name?: string;
-  type: "string";
+  type: FieldType.STRING;
   inputType?: RaftyInputField["type"];
   placeholder?: string;
   inputMode?: RaftyInputField["inputMode"];

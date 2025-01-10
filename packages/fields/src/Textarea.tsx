@@ -1,8 +1,9 @@
 import { Textarea as RaftyTextarea } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type TextareaProps = {
   name?: string;
-  type: "textarea";
+  type: FieldType.TEXTAREA;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

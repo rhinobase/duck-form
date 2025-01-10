@@ -1,8 +1,9 @@
 import { Select as RaftySelect, SelectItem } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type SelectProps = {
   name?: string;
-  type: "select";
+  type: FieldType.SELECT;
   placeholder?: string;
   options: {
     value: string | number;

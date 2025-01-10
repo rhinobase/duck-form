@@ -1,8 +1,9 @@
 import { Rating as RaftyRating } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type RatingProps = {
   name?: string;
-  type: "rating";
+  type: FieldType.RATING;
   count: number;
   allowHalf?: boolean;
   defaultValue?: number;

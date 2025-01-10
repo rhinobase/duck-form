@@ -1,10 +1,11 @@
 import type { InputField } from "@rafty/ui";
 import { InputField as RaftyInputField } from "@rafty/ui";
 import { InputWrapper } from "./InputWrapper";
+import type { FieldType } from "./constants";
 
 export type NumberProps = {
   name?: string;
-  type: "number";
+  type: FieldType.NUMBER;
   placeholder?: string;
   inputMode?: "none" | "numeric" | "decimal";
   min?: InputField["min"];

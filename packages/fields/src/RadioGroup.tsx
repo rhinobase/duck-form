@@ -4,10 +4,11 @@ import {
   classNames,
 } from "@rafty/ui";
 import type { ReactNode } from "react";
+import type { FieldType } from "./constants";
 
 export type RadioGroupProps = {
   name?: string;
-  type: "radio";
+  type: FieldType.RADIO;
   options: {
     value: string | number;
     label?: ReactNode;
@@ -33,7 +34,7 @@ export function RadioGroupField({
       onValueChange={onChange}
       className={classNames(
         orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
-        "[&>div]:w-full xl:[&>div]:w-max",
+        "[&>div]:w-full xl:[&>div]:w-max"
       )}
     >
       {options.map((option, index) => {

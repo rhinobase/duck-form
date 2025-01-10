@@ -1,8 +1,9 @@
 import { PinInput as RaftyPinInput } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type PinInputProps = {
   name?: string;
-  type: "pin";
+  type: FieldType.PIN;
   length: number;
   placeholder?: string;
   defaultValue?: string;

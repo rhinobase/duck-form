@@ -3,6 +3,7 @@ import { CalendarField } from "./Calendar";
 import { CheckboxField } from "./Checkbox";
 import { CheckboxGroupField } from "./CheckboxGroup";
 import { ColorPickerField } from "./ColorPicker";
+import { FieldType } from "./constants";
 import { CurrencyField } from "./Currency";
 import { DateField } from "./Date";
 import { DateRangeField } from "./DateRange";
@@ -28,7 +29,6 @@ import { SwitchField } from "./Switch";
 import { SwitchGroupField } from "./SwitchGroup";
 import { TagField } from "./Tag";
 import { TextareaField } from "./Textarea";
-import type { FieldProps } from "./types";
 import { DuckWrapper, ReactHookFormWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -41,35 +41,35 @@ const wrapper = (Component: (props: any) => JSX.Element) => () =>
     </DuckWrapper>
   );
 
-export const quackFields: Record<FieldProps["type"], () => JSX.Element> = {
-  array: ArrayField,
-  calendar: wrapper(CalendarField),
-  boolean: wrapper(CheckboxField),
-  checkboxgroup: wrapper(CheckboxGroupField),
-  colorPicker: wrapper(ColorPickerField),
-  currencyInput: wrapper(CurrencyField),
-  date: wrapper(DateField),
-  dateRange: wrapper(DateRangeField),
-  default: wrapper(DefaultField),
-  editableNumber: wrapper(EditableNumberField),
-  editableText: wrapper(EditableTextField),
-  editableTextarea: wrapper(EditableTextareaField),
-  listbox: wrapper(ListboxField),
-  multiListbox: wrapper(MultiListboxField),
-  number: wrapper(NumberField),
-  object: ObjectField,
-  password: wrapper(PasswordField),
-  percentageInput: wrapper(PercentageField),
-  pin: wrapper(PinField),
-  radio: wrapper(RadioGroupField),
-  rangeSlider: wrapper(RangeSliderField),
-  rating: wrapper(RatingField),
-  segmentedControl: wrapper(SegmentedControlField),
-  select: wrapper(SelectField),
-  slider: wrapper(SliderField),
-  string: wrapper(StringField),
-  switch: wrapper(SwitchField),
-  switchGroup: wrapper(SwitchGroupField),
-  tag: wrapper(TagField),
-  textarea: wrapper(TextareaField),
+export const quackFields: Record<FieldType, () => JSX.Element> = {
+  [FieldType.ARRAY]: ArrayField,
+  [FieldType.CALENDAR]: wrapper(CalendarField),
+  [FieldType.BOOLEAN]: wrapper(CheckboxField),
+  [FieldType.CHECKBOX_GROUP]: wrapper(CheckboxGroupField),
+  [FieldType.COLOR_PICKER]: wrapper(ColorPickerField),
+  [FieldType.CURRENCY_INPUT]: wrapper(CurrencyField),
+  [FieldType.DATE]: wrapper(DateField),
+  [FieldType.DATE_RANGE]: wrapper(DateRangeField),
+  [FieldType.DEFAULT]: wrapper(DefaultField),
+  [FieldType.EDITABLE_NUMBER]: wrapper(EditableNumberField),
+  [FieldType.EDITABLE_TEXT]: wrapper(EditableTextField),
+  [FieldType.EDITABLE_TEXTAREA]: wrapper(EditableTextareaField),
+  [FieldType.LISTBOX]: wrapper(ListboxField),
+  [FieldType.MULTI_LISTBOX]: wrapper(MultiListboxField),
+  [FieldType.NUMBER]: wrapper(NumberField),
+  [FieldType.OBJECT]: ObjectField,
+  [FieldType.PASSWORD]: wrapper(PasswordField),
+  [FieldType.PERCENTAGE_INPUT]: wrapper(PercentageField),
+  [FieldType.PIN]: wrapper(PinField),
+  [FieldType.RADIO]: wrapper(RadioGroupField),
+  [FieldType.RANGE_SLIDER]: wrapper(RangeSliderField),
+  [FieldType.RATING]: wrapper(RatingField),
+  [FieldType.SEGMENTED_CONTROL]: wrapper(SegmentedControlField),
+  [FieldType.SELECT]: wrapper(SelectField),
+  [FieldType.SLIDER]: wrapper(SliderField),
+  [FieldType.STRING]: wrapper(StringField),
+  [FieldType.SWTICH]: wrapper(SwitchField),
+  [FieldType.SWITCH_GROUP]: wrapper(SwitchGroupField),
+  [FieldType.TAG]: wrapper(TagField),
+  [FieldType.TEXTAREA]: wrapper(TextareaField),
 };

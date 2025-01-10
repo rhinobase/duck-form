@@ -10,9 +10,10 @@ import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import type { FieldProps } from "./types";
+import type { FieldType } from "./constants";
 
 export type ArrayProps = {
-  type: "array";
+  type: FieldType.ARRAY;
   of: FieldProps;
   defaultValue?: unknown[] | (() => unknown[]);
   options?: {

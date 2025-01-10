@@ -1,8 +1,9 @@
 import { Listbox as RaftyListbox } from "@rafty/corp";
+import type { FieldType } from "./constants";
 
 export type ListboxProps = {
   name?: string;
-  type: "listbox";
+  type: FieldType.LISTBOX;
   options: {
     value: string;
     label?: string;

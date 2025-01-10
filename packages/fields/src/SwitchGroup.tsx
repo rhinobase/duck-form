@@ -1,8 +1,9 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type SwitchGroupProps = {
   name?: string;
-  type: "switchGroup";
+  type: FieldType.SWITCH_GROUP;
   options: {
     value: string | number;
     label?: string;

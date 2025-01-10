@@ -1,10 +1,11 @@
 "use client";
 import { DatePicker as RaftyDatePicker } from "@rafty/ui";
 import dayjs from "dayjs";
+import type { FieldType } from "./constants";
 
 export type DateFieldProps = {
   name?: string;
-  type: "date";
+  type: FieldType.DATE;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

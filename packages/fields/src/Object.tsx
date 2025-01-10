@@ -9,7 +9,7 @@ import {
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
 import type { FieldProps } from "./types";
-import { FieldType } from "./constants";
+import type { FieldType } from "./constants";
 
 export type Promisify<T> = T | Promise<T>;
 
@@ -24,9 +24,9 @@ export type DefaultValue<T extends Record<string, FieldProps>> = {
       FieldPropsMap[T[K]["type"]]["defaultValue"];
 };
 
-export type ObjectProps<
+export interface ObjectProps<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
-> = {
+> {
   type: FieldType.OBJECT;
   fields: T;
   defaultValue?: Prettify<DefaultValue<T>>;
@@ -36,19 +36,21 @@ export type ObjectProps<
     collapsed?: boolean;
     columns?: number;
   };
-};
+}
 
 const DEFAULT_GROUP_KEY = "__default";
 
 export function ObjectField<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
 >() {
-  const props = useField<ObjectProps<T>>();
+  // @ts-expect-error
+  const props = useField() as ObjectProps<T>;
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
   const autoId = useId();
   const customId = useMemo(
+    // @ts-expect-error
     () => generateId?.(schema, props),
     [generateId, schema, props]
   );

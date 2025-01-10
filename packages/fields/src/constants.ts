@@ -7,6 +7,7 @@ export enum FieldType {
   CURRENCY_INPUT = "currencyInput",
   DATE = "date",
   DATE_RANGE = "dateRange",
+  DEFAULT = "default",
   EDITABLE_NUMBER = "editableNumber",
   EDITABLE_TEXT = "editableText",
   EDITABLE_TEXTAREA = "editableTextarea",

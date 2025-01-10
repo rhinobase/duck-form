@@ -5,10 +5,11 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type SliderProps = Pick<Slider, "min" | "max" | "step"> & {
   name?: string;
-  type: "slider";
+  type: FieldType.SLIDER;
   defaultValue?: number;
   value?: number;
   onChange?: (value: number) => void;

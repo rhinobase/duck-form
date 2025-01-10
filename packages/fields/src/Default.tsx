@@ -11,7 +11,7 @@ export function DefaultField(props: DuckField<Record<string, unknown>>) {
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, props),
-    [generateId, schema, props],
+    [generateId, schema, props]
   );
 
   const componentId = customId ?? autoId;

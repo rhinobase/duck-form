@@ -1,4 +1,3 @@
-"use client";
 import {
   Slider as RaftySlider,
   type Slider,
@@ -6,10 +5,11 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type RangeSliderProps = Pick<Slider, "min" | "max" | "step"> & {
   name?: string;
-  type: "rangeSlider";
+  type: FieldType.RANGE_SLIDER;
   defaultValue?: [number, number];
   value?: [number, number];
   onChange?: (value?: [number, number]) => void;

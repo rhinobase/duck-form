@@ -1,8 +1,9 @@
 import { ColorPicker as RaftyColorPicker, useBoolean } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type ColorPickerProps = {
   name?: string;
-  type: "colorPicker";
+  type: FieldType.COLOR_PICKER;
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;

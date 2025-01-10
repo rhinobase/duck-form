@@ -1,8 +1,9 @@
 import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type CurrencyInputProps = {
   name?: string;
-  type: "currencyInput";
+  type: FieldType.CURRENCY_INPUT;
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;

@@ -1,8 +1,9 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type CheckboxProps = {
   name?: string;
-  type: "boolean";
+  type: FieldType.BOOLEAN;
   defaultValue?: boolean;
   value?: boolean;
   onChange?: (value: boolean) => void;

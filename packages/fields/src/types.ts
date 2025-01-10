@@ -3,6 +3,7 @@ import type { CalendarProps } from "./Calendar";
 import type { CheckboxProps } from "./Checkbox";
 import type { CheckboxGroupProps } from "./CheckboxGroup";
 import type { ColorPickerProps } from "./ColorPicker";
+import type { FieldType } from "./constants";
 import type { CurrencyInputProps } from "./Currency";
 import type { DateFieldProps } from "./Date";
 import type { DateRangeFieldProps } from "./DateRange";
@@ -64,11 +65,10 @@ export type FieldProps =
   | GeneralWrapperProps<ListboxProps>
   | GeneralWrapperProps<EditableNumberProps>
   | GeneralWrapperProps<CalendarProps>
-  | GeneralWrapperProps<ArrayProps>
-  | { type: "default"; fieldset?: string };
+  | GeneralWrapperProps<ArrayProps>;
 
 export type FieldPropsMap = {
-  [K in FieldProps["type"]]: Extract<FieldProps, { type: K }>;
+  [K in FieldType]: Extract<FieldProps, { type: K }>;
 };
 
 export type {

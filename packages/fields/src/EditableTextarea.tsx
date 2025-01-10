@@ -1,8 +1,9 @@
 import { EditableTextarea as RaftyEditableTextarea } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type EditableTextareaProps = {
   name?: string;
-  type: "editableTextarea";
+  type: FieldType.EDITABLE_TEXTAREA;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

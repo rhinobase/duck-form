@@ -1,8 +1,9 @@
 import { RangePicker as RaftyRangePicker } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type DateRangeFieldProps = {
   name?: string;
-  type: "dateRange";
+  type: FieldType.DATE_RANGE;
   placeholder?: {
     from?: string;
     to?: string;

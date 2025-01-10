@@ -1,8 +1,9 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type SwitchProps = {
   name?: string;
-  type: "switch";
+  type: FieldType.SWTICH;
   defaultValue?: boolean;
   value?: boolean;
   onChange?: (value?: boolean) => void;

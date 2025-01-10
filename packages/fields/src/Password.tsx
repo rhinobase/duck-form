@@ -8,10 +8,11 @@ import {
   useBoolean,
 } from "@rafty/ui";
 import { InputWrapper } from "./InputWrapper";
+import type { FieldType } from "./constants";
 
 export type PasswordProps = {
   name?: string;
-  type: "password";
+  type: FieldType.PASSWORD;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

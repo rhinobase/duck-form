@@ -1,12 +1,12 @@
-"use client";
 import {
   SegmentedControl as RaftySegmentedControl,
   SegmentedControlItem,
 } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type SegmentedControlProps = {
   name?: string;
-  type: "segmentedControl";
+  type: FieldType.SEGMENTED_CONTROL;
   options: {
     value: string;
     label?: string;

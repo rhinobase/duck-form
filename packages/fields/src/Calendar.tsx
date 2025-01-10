@@ -1,8 +1,9 @@
 import { Calendar as RaftyCalendar } from "@rafty/ui";
+import type { FieldType } from "./constants";
 
 export type CalendarProps = {
   name?: string;
-  type: "calendar";
+  type: FieldType.CALENDAR;
   placeholder?: string;
   defaultValue?: string;
   value?: string;
