@@ -1,51 +1,27 @@
-"use client";
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type CheckboxProps = {
+  name?: string;
   type: "boolean";
   defaultValue?: boolean;
+  value?: boolean;
+  onChange?: (value: boolean) => void;
 };
 
-export function CheckboxField() {
-  const props = useField<CheckboxProps>();
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-  const { control } = useFormContext();
-
+export function CheckboxField({
+  type,
+  defaultValue,
+  value,
+  onChange,
+  ...props
+}: CheckboxProps) {
   return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { name, value, onChange, ...field } }) => (
-        <RaftyCheckbox
-          {...field}
-          id={name}
-          name={name}
-          checked={value}
-          onCheckedChange={onChange}
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        />
-      )}
+    <RaftyCheckbox
+      {...props}
+      id={props.name}
+      defaultChecked={defaultValue}
+      checked={value}
+      onCheckedChange={onChange}
     />
   );
 }

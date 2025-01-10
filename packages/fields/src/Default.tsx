@@ -1,12 +1,10 @@
 "use client";
 import { JSONExplorer } from "@rafty/corp";
 import { Kbd } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { type DuckField, useBlueprint, useDuckForm } from "duck-form";
 import { useId, useMemo } from "react";
 
-export function DefaultField() {
-  const props = useField();
-
+export function DefaultField(props: DuckField<Record<string, unknown>>) {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 

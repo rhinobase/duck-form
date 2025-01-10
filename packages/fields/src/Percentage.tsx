@@ -1,49 +1,13 @@
-"use client";
 import { PercentageInput as RaftyPercentageInput } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type PercentageInputProps = {
+  name?: string;
   type: "percentageInput";
   defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function PercentageField() {
-  const props = useField<PercentageInputProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { control } = useFormContext();
-
-  return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field }) => (
-        <RaftyPercentageInput
-          {...field}
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        />
-      )}
-    />
-  );
+export function PercentageField({ type, ...props }: PercentageInputProps) {
+  return <RaftyPercentageInput {...props} id={props.name} />;
 }

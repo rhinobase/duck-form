@@ -7,54 +7,31 @@ import {
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { useFormContext } from "react-hook-form";
 import { InputWrapper } from "./InputWrapper";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type PasswordProps = {
+  name?: string;
   type: "password";
   placeholder?: string;
   defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function PasswordField() {
+export function PasswordField({ type, onChange, ...props }: PasswordProps) {
   const [showPassword, toggle] = useBoolean(false);
 
   const Icon = showPassword ? EyeSlashIcon : EyeIcon;
 
-  const props = useField<PasswordProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { register } = useFormContext();
-
-  const handler = eventHandler(() => toggle());
+  const handlerToggleShowPassword = eventHandler(() => toggle());
 
   return (
     <InputWrapper>
       <InputField
-        id={componentId}
+        {...props}
+        id={props.name}
         type={showPassword ? "text" : "password"}
-        placeholder={props.placeholder}
-        {...register(componentId)}
-        onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
+        onChange={(event) => onChange?.(event.target.value)}
       />
       <Suffix className="pointer-events-auto">
         <Button
@@ -62,8 +39,8 @@ export function PasswordField() {
           size="icon"
           aria-label="show and hide password"
           variant="ghost"
-          onPointerDown={handler}
-          onKeyDown={handler}
+          onPointerDown={handlerToggleShowPassword}
+          onKeyDown={handlerToggleShowPassword}
           className="rounded p-1"
         >
           <Icon className="size-4 stroke-2" />

@@ -1,44 +1,20 @@
-"use client";
 import { Textarea as RaftyTextarea } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type TextareaProps = {
+  name?: string;
   type: "textarea";
   placeholder?: string;
   defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function TextareaField() {
-  const props = useField<TextareaProps>();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  const { register } = useFormContext();
-
+export function TextareaField({ type, onChange, ...props }: TextareaProps) {
   return (
     <RaftyTextarea
-      id={componentId}
-      placeholder={props.placeholder}
-      onPointerDownCapture={(event) => isDebug && stopEventPropagation(event)}
-      onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-      {...register(componentId)}
+      {...props}
+      id={props.name}
+      onChange={(event) => onChange?.(event.target.value)}
     />
   );
 }

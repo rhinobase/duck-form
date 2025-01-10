@@ -1,55 +1,15 @@
-"use client";
 import { Rating as RaftyRating } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type RatingProps = {
+  name?: string;
   type: "rating";
   count: number;
-  defaultValue?: number;
   allowHalf?: boolean;
+  defaultValue?: number;
+  value?: number;
+  onChange?: (value?: number) => void;
 };
 
-export function RatingField() {
-  const props = useField<RatingProps>();
-  const { control } = useFormContext();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
-
-  return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { name, onChange, ...field } }) => (
-        <RaftyRating
-          {...field}
-          id={name}
-          name={name}
-          count={props.count}
-          allowHalf={props.allowHalf}
-          onValueChange={onChange}
-          onPointerDownCapture={(event) =>
-            isDebug && stopEventPropagation(event)
-          }
-          onKeyDownCapture={(event) => isDebug && stopEventPropagation(event)}
-        />
-      )}
-    />
-  );
+export function RatingField({ type, onChange, ...props }: RatingProps) {
+  return <RaftyRating {...props} id={props.name} onValueChange={onChange} />;
 }

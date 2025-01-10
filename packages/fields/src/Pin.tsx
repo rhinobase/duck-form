@@ -1,59 +1,34 @@
-"use client";
 import { PinInput as RaftyPinInput } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import { useDebug } from "./providers";
-import { stopEventPropagation } from "./utils";
 
 export type PinInputProps = {
+  name?: string;
   type: "pin";
   length: number;
   placeholder?: string;
-  defaultValue?: string[];
+  defaultValue?: string;
+  value?: string;
+  onChange?: (value?: string) => void;
 };
 
-export function PinField() {
-  const props = useField<PinInputProps>();
-  const { control } = useFormContext();
-
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-
-  const { isDebug } = useDebug() ?? {
-    isDebug: false,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
-
-  const componentId = customId ?? autoId;
+export function PinField({
+  type,
+  defaultValue,
+  value,
+  onChange,
+  ...props
+}: PinInputProps) {
+  const formattedValue = value ? Array.from<string>(value) : undefined;
+  const formattedDefaultValue = defaultValue
+    ? Array.from<string>(defaultValue)
+    : undefined;
 
   return (
-    <Controller
-      name={componentId}
-      control={control}
-      render={({ field: { name, onChange, value, ...field } }) => {
-        const formattedValue = Array.from<string>(value ?? []);
-
-        return (
-          <RaftyPinInput
-            {...field}
-            id={name}
-            name={name}
-            value={formattedValue}
-            onValueChange={({ value }) => onChange(value)}
-            onPointerDownCapture={(event) =>
-              isDebug && stopEventPropagation(event)
-            }
-            placeholder={props.placeholder}
-            length={props.length}
-          />
-        );
-      }}
+    <RaftyPinInput
+      {...props}
+      id={props.name}
+      defaultValue={formattedDefaultValue}
+      value={formattedValue}
+      onValueChange={({ value }) => onChange?.(value.join(""))}
     />
   );
 }
