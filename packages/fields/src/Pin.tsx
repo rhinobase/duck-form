@@ -8,7 +8,7 @@ export type PinInputProps = {
   placeholder?: string;
   defaultValue?: string;
   value?: string;
-  onChange?: (value?: string) => void;
+  onChange?: (value?: string[]) => void;
 };
 
 export function PinField({
@@ -29,7 +29,7 @@ export function PinField({
       id={props.name}
       defaultValue={formattedDefaultValue}
       value={formattedValue}
-      onValueChange={({ value }) => onChange?.(value.join(""))}
+      onValueChange={({ value }) => onChange?.(value)}
     />
   );
 }
