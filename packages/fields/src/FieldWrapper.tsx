@@ -1,12 +1,23 @@
 "use client";
+import { ErrorMessage } from "@hookform/error-message";
 import {
-  FieldWrapper as RaftyFieldWrapper,
-  type ValueOrFunction,
   classNames,
+  FieldControl,
   getValue,
+  ErrorMessage as RaftyErrorMessage,
+  type FieldWrapper as RaftyFieldWrapper,
+  Text,
+  type ValueOrFunction,
 } from "@rafty/ui";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
-import { type PropsWithChildren, useEffect, useId, useMemo } from "react";
+import {
+  Fragment,
+  type PropsWithChildren,
+  useEffect,
+  useId,
+  useMemo,
+} from "react";
+import { Label } from "./Label";
 
 export type FieldWrapperProps = {
   label?: string;
@@ -33,7 +44,7 @@ export function FieldWrapper({ className, children }: FieldWrapper) {
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, props),
-    [generateId, schema, props],
+    [generateId, schema, props]
   );
 
   const {
@@ -53,22 +64,46 @@ export function FieldWrapper({ className, children }: FieldWrapper) {
     onChange?.();
   }, [onChange]);
 
+  const LabelAndDescriptionWrapper =
+    label && description
+      ? ({ children }: PropsWithChildren) => <div>{children}</div>
+      : Fragment;
+
   return (
-    <RaftyFieldWrapper
-      name={componentId}
-      isDisabled={disabled}
-      isRequired={required}
-      isReadOnly={readonly}
+    <div
       className={classNames(
         getValue(hidden) && "hidden",
-        "relative [&>div>div]:w-full",
-        className,
+        "relative [&>div>div]:w-full w-full space-y-1",
+        className
       )}
-      orientation={orientation}
-      label={label}
-      description={description}
     >
-      {children}
-    </RaftyFieldWrapper>
+      <FieldControl
+        name={componentId}
+        isDisabled={disabled}
+        isRequired={required}
+        isReadOnly={readonly}
+        orientation={orientation}
+      >
+        <LabelAndDescriptionWrapper>
+          {label && <Label className="leading-snug">{label}</Label>}
+          {description && (
+            <Text className="text-secondary-600 dark:text-secondary-400 text-xs font-medium">
+              {description}
+            </Text>
+          )}
+        </LabelAndDescriptionWrapper>
+        {children}
+      </FieldControl>
+      <FieldErrorMessage name={componentId} />
+    </div>
+  );
+}
+
+function FieldErrorMessage({ name }: { name: string }) {
+  return (
+    <ErrorMessage
+      name={name}
+      render={({ message }) => <RaftyErrorMessage>{message}</RaftyErrorMessage>}
+    />
   );
 }
