@@ -7,6 +7,7 @@ import type { FieldType } from "./constants";
 import type { CurrencyInputProps } from "./Currency";
 import type { DateFieldProps } from "./Date";
 import type { DateRangeFieldProps } from "./DateRange";
+import type { DatetimeFieldProps } from "./Datetime";
 import type { EditableNumberProps } from "./EditableNumber";
 import type { EditableTextProps } from "./EditableText";
 import type { EditableTextareaProps } from "./EditableTextarea";
@@ -43,6 +44,7 @@ export type FieldProps =
   | GeneralWrapperProps<CurrencyInputProps>
   | GeneralWrapperProps<DateFieldProps>
   | GeneralWrapperProps<DateRangeFieldProps>
+  | GeneralWrapperProps<DatetimeFieldProps>
   | (ObjectProps & { fieldset?: string })
   | GeneralWrapperProps<NumberProps & InputWrapperProps>
   | GeneralWrapperProps<PasswordProps & InputWrapperProps>
@@ -80,6 +82,7 @@ export type {
   CurrencyInputProps,
   DateFieldProps,
   DateRangeFieldProps,
+  DatetimeFieldProps,
   EditableNumberProps,
   EditableTextareaProps,
   EditableTextProps,
