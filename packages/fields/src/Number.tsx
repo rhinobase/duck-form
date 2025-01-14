@@ -10,7 +10,7 @@ export type NumberProps = {
   min?: InputField["min"];
   max?: InputField["max"];
   defaultValue?: number;
-  step?: string;
+  step?: number | "any";
   value?: number;
   onChange?: (value?: number) => void;
 };
