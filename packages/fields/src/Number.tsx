@@ -11,7 +11,7 @@ export type NumberProps = {
   min?: InputField["min"];
   max?: InputField["max"];
   defaultValue?: number;
-  step?: number;
+  step?: string;
   value?: number;
   onChange?: (value?: number) => void;
 } & InputWrapperProps;
@@ -19,7 +19,7 @@ export type NumberProps = {
 export function NumberField({
   type,
   onChange,
-  step = 1,
+  step,
   size = "md",
   suffix,
   suffixIcon,
