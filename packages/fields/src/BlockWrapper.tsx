@@ -1,29 +1,29 @@
-import type { PropsWithChildren } from "react";
-import { FieldWrapper } from "./FieldWrapper";
-import { TooltipWrapper } from "./TooltipWrapper";
+"use client";
 import { useField } from "duck-form";
-import { FieldType } from "./constants";
+import { Fragment, type PropsWithChildren, type ReactNode } from "react";
+import { FieldWrapper } from "./FieldWrapper";
 import { InputWrapper } from "./InputWrapper";
+import { TooltipWrapper } from "./TooltipWrapper";
+import { FieldType } from "./constants";
 
 export function BlockWrapper(props: PropsWithChildren) {
   const { type } = useField();
 
-  const Wrapper = ({ children }: PropsWithChildren) => (
-    <TooltipWrapper>
-      <FieldWrapper>{children}</FieldWrapper>
-    </TooltipWrapper>
-  );
+  let ComponentWrapper: (wrapperProps: PropsWithChildren) => ReactNode =
+    Fragment;
 
   if (
     type === FieldType.NUMBER ||
     type === FieldType.PASSWORD ||
     type === FieldType.STRING
   )
-    return (
-      <Wrapper>
-        <InputWrapper>{props.children}</InputWrapper>
-      </Wrapper>
-    );
+    ComponentWrapper = InputWrapper;
 
-  return <Wrapper>{props.children}</Wrapper>;
+  return (
+    <TooltipWrapper>
+      <FieldWrapper>
+        <ComponentWrapper>{props.children}</ComponentWrapper>
+      </FieldWrapper>
+    </TooltipWrapper>
+  );
 }
