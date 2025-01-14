@@ -1,4 +1,5 @@
 import { InputField } from "@rafty/ui";
+import dayjs from "dayjs";
 import type { FieldType } from "./constants";
 
 export type DatetimeFieldProps = {
@@ -16,14 +17,18 @@ export function DatetimeField({
   onChange,
   ...props
 }: DatetimeFieldProps) {
+  const formattedValue = value
+    ? dayjs(value).format("YYYY-MM-DDThh:mm")
+    : undefined;
+
   return (
     <InputField
       {...props}
       id={props.name}
       type="datetime-local"
       placeholder={props.placeholder}
-      value={value}
-      onChange={(e) => onChange?.(e.target.value)}
+      value={formattedValue}
+      onChange={(e) => onChange?.(dayjs(e.target.value).toISOString())}
     />
   );
 }
