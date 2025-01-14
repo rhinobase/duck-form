@@ -8,7 +8,6 @@ import {
   useMemo,
 } from "react";
 import type { FieldWrapperProps } from "../FieldWrapper";
-import type { InputWrapperProps } from "../InputWrapper";
 import type { TooltipWrapperProps } from "../TooltipWrapper";
 
 export type DuckWrapper = {
@@ -20,8 +19,7 @@ export type DuckFieldProps = {
   name?: string;
   fieldset?: string;
 } & FieldWrapperProps &
-  TooltipWrapperProps &
-  InputWrapperProps;
+  TooltipWrapperProps;
 
 export function DuckWrapper({ children }: DuckWrapper) {
   const { generateId } = useDuckForm();
@@ -31,7 +29,7 @@ export function DuckWrapper({ children }: DuckWrapper) {
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, props),
-    [generateId, schema, props]
+    [generateId, schema, props],
   );
 
   const componentId = customId ?? autoId;

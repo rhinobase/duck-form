@@ -1,12 +1,12 @@
 "use client";
 import {
+  type ValueOrFunction,
   classNames,
   getValue,
   useFieldControlContext,
-  ValueOrFunction,
 } from "@rafty/ui";
 import { useField } from "duck-form";
-import { type LabelHTMLAttributes } from "react";
+import type { LabelHTMLAttributes } from "react";
 
 export type Label = LabelHTMLAttributes<HTMLLabelElement> & {
   isRequired?: ValueOrFunction;
@@ -32,7 +32,7 @@ export function Label({ children, className, isRequired, ...props }: Label) {
         required &&
           "after:ml-0.5 after:text-red-500 after:content-['*'] after:dark:text-red-400",
         "text-secondary-800 dark:text-secondary-200 select-none text-sm font-medium",
-        className
+        className,
       )}
     >
       {children}

@@ -14,12 +14,11 @@ export type SelectProps = {
   onChange?: (value?: string | number) => void;
 };
 
-export function SelectField({ type, value, onChange, ...props }: SelectProps) {
+export function SelectField({ type, onChange, ...props }: SelectProps) {
   return (
     <RaftySelect
       {...props}
       id={props.name}
-      value={value}
       onChange={(e) => {
         const value = e.currentTarget.value;
         let valueAsNumber: number | undefined = Number(value);

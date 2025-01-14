@@ -3,11 +3,11 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   InputField,
+  InputGroup,
   Suffix,
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import { InputWrapper, type InputWrapperProps } from "./InputWrapper";
 import type { FieldType } from "./constants";
 
 export type PasswordProps = {
@@ -17,32 +17,17 @@ export type PasswordProps = {
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;
-} & Omit<InputWrapperProps, "suffixIcon">;
+};
 
-export function PasswordField({
-  type,
-  onChange,
-  size = "md",
-  suffix,
-  prefix,
-  prefixIcon,
-  ...props
-}: PasswordProps) {
+export function PasswordField({ type, onChange, ...props }: PasswordProps) {
   const [showPassword, toggle] = useBoolean(false);
-
-  const inputWrapperProps = {
-    size,
-    suffix,
-    prefix,
-    prefixIcon,
-  };
 
   const Icon = showPassword ? EyeSlashIcon : EyeIcon;
 
   const handlerToggleShowPassword = eventHandler(() => toggle());
 
   return (
-    <InputWrapper {...inputWrapperProps}>
+    <InputGroup>
       <InputField
         {...props}
         id={props.name}
@@ -62,6 +47,6 @@ export function PasswordField({
           <Icon className="size-4 stroke-2" />
         </Button>
       </Suffix>
-    </InputWrapper>
+    </InputGroup>
   );
 }

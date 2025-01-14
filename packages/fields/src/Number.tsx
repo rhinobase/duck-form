@@ -1,6 +1,5 @@
 import type { InputField } from "@rafty/ui";
 import { InputField as RaftyInputField } from "@rafty/ui";
-import { InputWrapper, type InputWrapperProps } from "./InputWrapper";
 import type { FieldType } from "./constants";
 
 export type NumberProps = {
@@ -14,40 +13,20 @@ export type NumberProps = {
   step?: string;
   value?: number;
   onChange?: (value?: number) => void;
-} & InputWrapperProps;
+};
 
-export function NumberField({
-  type,
-  onChange,
-  step,
-  size = "md",
-  suffix,
-  suffixIcon,
-  prefix,
-  prefixIcon,
-  ...props
-}: NumberProps) {
-  const inputWrapperProps = {
-    size,
-    suffix,
-    suffixIcon,
-    prefix,
-    prefixIcon,
-  };
-
+export function NumberField({ type, onChange, step, ...props }: NumberProps) {
   return (
-    <InputWrapper {...inputWrapperProps}>
-      <RaftyInputField
-        {...props}
-        id={props.name}
-        type="number"
-        step={step}
-        onChange={(event) => {
-          const value = event.target.value;
+    <RaftyInputField
+      {...props}
+      id={props.name}
+      type="number"
+      step={step}
+      onChange={(event) => {
+        const value = event.target.value;
 
-          onChange?.(value !== "" ? Number(value) : undefined);
-        }}
-      />
-    </InputWrapper>
+        onChange?.(value !== "" ? Number(value) : undefined);
+      }}
+    />
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { InputField, DatePicker as RaftyDatePicker } from "@rafty/ui";
+import { InputField } from "@rafty/ui";
 import dayjs from "dayjs";
 import type { FieldType } from "./constants";
 
