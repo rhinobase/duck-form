@@ -1,5 +1,5 @@
 import { InputField as RaftyInputField } from "@rafty/ui";
-import { InputWrapper } from "./InputWrapper";
+import { InputWrapper, type InputWrapperProps } from "./InputWrapper";
 import type { FieldType } from "./constants";
 
 export type StringProps = {
@@ -13,16 +13,29 @@ export type StringProps = {
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;
-};
+} & InputWrapperProps;
 
 export function StringField({
   type,
   onChange,
   inputType,
+  size = "md",
+  suffix,
+  suffixIcon,
+  prefix,
+  prefixIcon,
   ...props
 }: StringProps) {
+  const inputWrapperProps = {
+    size,
+    suffix,
+    suffixIcon,
+    prefix,
+    prefixIcon,
+  };
+
   return (
-    <InputWrapper>
+    <InputWrapper {...inputWrapperProps}>
       <RaftyInputField
         {...props}
         id={props.name}

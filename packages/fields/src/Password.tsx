@@ -7,7 +7,7 @@ import {
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import { InputWrapper } from "./InputWrapper";
+import { InputWrapper, type InputWrapperProps } from "./InputWrapper";
 import type { FieldType } from "./constants";
 
 export type PasswordProps = {
@@ -17,17 +17,32 @@ export type PasswordProps = {
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;
-};
+} & Omit<InputWrapperProps, "suffix">;
 
-export function PasswordField({ type, onChange, ...props }: PasswordProps) {
+export function PasswordField({
+  type,
+  onChange,
+  size = "md",
+  suffixIcon,
+  prefix,
+  prefixIcon,
+  ...props
+}: PasswordProps) {
   const [showPassword, toggle] = useBoolean(false);
+
+  const inputWrapperProps = {
+    size,
+    suffixIcon,
+    prefix,
+    prefixIcon,
+  };
 
   const Icon = showPassword ? EyeSlashIcon : EyeIcon;
 
   const handlerToggleShowPassword = eventHandler(() => toggle());
 
   return (
-    <InputWrapper>
+    <InputWrapper {...inputWrapperProps}>
       <InputField
         {...props}
         id={props.name}
