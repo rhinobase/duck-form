@@ -1,5 +1,5 @@
 "use client";
-import { DatePicker as RaftyDatePicker } from "@rafty/ui";
+import { InputField, DatePicker as RaftyDatePicker } from "@rafty/ui";
 import dayjs from "dayjs";
 import type { FieldType } from "./constants";
 
@@ -13,15 +13,16 @@ export type DateFieldProps = {
 };
 
 export function DateField({ type, value, onChange, ...props }: DateFieldProps) {
-  const newValue = value && dayjs(value).format("YYYY-MM-DD");
+  const formattedValue = value ? dayjs(value).format("YYYY-MM-DD") : undefined;
 
   return (
-    <RaftyDatePicker
+    <InputField
       {...props}
       id={props.name}
+      type="date"
       placeholder={props.placeholder}
-      value={newValue}
-      onValueChange={onChange}
+      value={formattedValue}
+      onChange={(e) => onChange?.(dayjs(e.target.value).toISOString())}
     />
   );
 }

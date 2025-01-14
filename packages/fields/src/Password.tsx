@@ -17,13 +17,13 @@ export type PasswordProps = {
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;
-} & Omit<InputWrapperProps, "suffix">;
+} & Omit<InputWrapperProps, "suffixIcon">;
 
 export function PasswordField({
   type,
   onChange,
   size = "md",
-  suffixIcon,
+  suffix,
   prefix,
   prefixIcon,
   ...props
@@ -32,7 +32,7 @@ export function PasswordField({
 
   const inputWrapperProps = {
     size,
-    suffixIcon,
+    suffix,
     prefix,
     prefixIcon,
   };
