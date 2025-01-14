@@ -1,3 +1,23 @@
+## 0.3.0 (2025-01-14)
+
+
+### 🚀 Features
+
+- **fd:** add Label component and integrate error handling in FieldWrapper
+
+- **fd:** added DatetimeField component and update date, password and select field
+
+- **fd:** enhance BlockWrapper and InputWrapper for improved field handling and integration
+
+- **fd:** refactor BlockWrapper to dynamically use InputWrapper for specific field types
+
+
+### 🩹 Fixes
+
+- **fd:** change step prop type from number to string in NumberField component
+
+- **fd:** change step prop type in NumberProps from string to number | "any"
+
 ## 0.2.3 (2025-01-10)
 
 
