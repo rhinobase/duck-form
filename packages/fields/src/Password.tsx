@@ -3,11 +3,11 @@ import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
 import {
   Button,
   InputField,
+  InputGroup,
   Suffix,
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import { InputWrapper } from "./InputWrapper";
 import type { FieldType } from "./constants";
 
 export type PasswordProps = {
@@ -27,7 +27,7 @@ export function PasswordField({ type, onChange, ...props }: PasswordProps) {
   const handlerToggleShowPassword = eventHandler(() => toggle());
 
   return (
-    <InputWrapper>
+    <InputGroup>
       <InputField
         {...props}
         id={props.name}
@@ -47,6 +47,6 @@ export function PasswordField({ type, onChange, ...props }: PasswordProps) {
           <Icon className="size-4 stroke-2" />
         </Button>
       </Suffix>
-    </InputWrapper>
+    </InputGroup>
   );
 }

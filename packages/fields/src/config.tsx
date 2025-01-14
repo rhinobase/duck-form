@@ -7,6 +7,7 @@ import { FieldType } from "./constants";
 import { CurrencyField } from "./Currency";
 import { DateField } from "./Date";
 import { DateRangeField } from "./DateRange";
+import { DatetimeField } from "./Datetime";
 import { DefaultField } from "./Default";
 import { EditableNumberField } from "./EditableNumber";
 import { EditableTextField } from "./EditableText";
@@ -50,6 +51,7 @@ export const quackFields: Record<FieldType, () => JSX.Element> = {
   [FieldType.CURRENCY_INPUT]: wrapper(CurrencyField),
   [FieldType.DATE]: wrapper(DateField),
   [FieldType.DATE_RANGE]: wrapper(DateRangeField),
+  [FieldType.DATE_TIME]: wrapper(DatetimeField),
   [FieldType.DEFAULT]: wrapper(DefaultField),
   [FieldType.EDITABLE_NUMBER]: wrapper(EditableNumberField),
   [FieldType.EDITABLE_TEXT]: wrapper(EditableTextField),

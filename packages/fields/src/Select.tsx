@@ -19,7 +19,20 @@ export function SelectField({ type, onChange, ...props }: SelectProps) {
     <RaftySelect
       {...props}
       id={props.name}
-      onChange={(event) => onChange?.(event.target.value)}
+      onChange={(e) => {
+        const value = e.currentTarget.value;
+        let valueAsNumber: number | undefined = Number(value);
+
+        if (Number.isNaN(valueAsNumber)) valueAsNumber = undefined;
+
+        for (const option of props.options) {
+          if (
+            value === option.value ||
+            (valueAsNumber && valueAsNumber === option.value)
+          )
+            return onChange?.(option.value);
+        }
+      }}
       className="w-full"
     >
       {props.options.map(({ value, label }, index) => (

@@ -5,6 +5,7 @@ export type CurrencyInputProps = {
   name?: string;
   type: FieldType.CURRENCY_INPUT;
   defaultValue?: string;
+  currencyCode?: string;
   value?: string;
   onChange?: (value?: string) => void;
 };
