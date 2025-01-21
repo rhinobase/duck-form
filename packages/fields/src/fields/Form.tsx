@@ -8,8 +8,8 @@ import {
   type SubmitErrorHandler,
   type SubmitHandler,
 } from "react-hook-form";
-import type { BlockType } from "./constants";
-import type { FieldProps } from "./types";
+import type { BlockType } from "../constants";
+import type { FieldProps } from "../types";
 
 export type FormProps = {
   type: BlockType.FORM;
