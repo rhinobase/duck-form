@@ -6,8 +6,6 @@ import {
   cloneElement,
   useId,
 } from "react";
-import type { FieldWrapperProps } from "../FieldWrapper";
-import type { TooltipWrapperProps } from "../TooltipWrapper";
 
 export type DuckWrapper = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -15,10 +13,10 @@ export type DuckWrapper = {
 };
 
 export type DuckFieldProps = {
+  type: string;
   name?: string;
   fieldset?: string;
-} & FieldWrapperProps &
-  TooltipWrapperProps;
+};
 
 export function DuckWrapper({ children }: DuckWrapper) {
   const props = useField<DuckFieldProps>();

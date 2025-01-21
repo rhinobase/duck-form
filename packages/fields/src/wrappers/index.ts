@@ -1,2 +1,1 @@
-export * from "./Duck";
-export * from "./ReactHookForm";
+export { DuckWrapper, type DuckFieldProps } from "./Duck";

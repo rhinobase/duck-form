@@ -1,42 +1,45 @@
-import { ArrayField } from "./Array";
-import { CalendarField } from "./Calendar";
-import { CheckboxField } from "./Checkbox";
-import { CheckboxGroupField } from "./CheckboxGroup";
-import { ColorPickerField } from "./ColorPicker";
 import { BlockType } from "./constants";
-import { CurrencyField } from "./Currency";
-import { DateField } from "./Date";
-import { DateRangeField } from "./DateRange";
-import { DatetimeField } from "./Datetime";
 import { DefaultField } from "./Default";
 import { Div } from "./Div";
-import { EditableNumberField } from "./EditableNumber";
-import { EditableTextField } from "./EditableText";
-import { EditableTextareaField } from "./EditableTextarea";
-import { Form } from "./Form";
+import {
+  ArrayField,
+  CalendarField,
+  CheckboxField,
+  CheckboxGroupField,
+  ColorPickerField,
+  CurrencyField,
+  DateField,
+  DateRangeField,
+  DatetimeField,
+  EditableNumberField,
+  EditableTextareaField,
+  EditableTextField,
+  Form,
+  ListboxField,
+  MultiListboxField,
+  NumberField,
+  ObjectField,
+  PasswordField,
+  PercentageField,
+  PinField,
+  RadioGroupField,
+  RangeSliderField,
+  RatingField,
+  ReactHookFormWrapper,
+  SegmentedControlField,
+  SelectField,
+  SliderField,
+  StringField,
+  SwitchField,
+  SwitchGroupField,
+  TagField,
+  TextareaField,
+} from "./fields";
 import { Link } from "./Link";
-import { ListboxField } from "./Listbox";
-import { MultiListboxField } from "./MultiListbox";
-import { NumberField } from "./Number";
-import { ObjectField } from "./Object";
 import { Paragraph } from "./Paragraph";
-import { PasswordField } from "./Password";
-import { PercentageField } from "./Percentage";
-import { PinField } from "./Pin";
-import { RadioGroupField } from "./RadioGroup";
-import { RangeSliderField } from "./RangeSlider";
-import { RatingField } from "./Rating";
-import { SegmentedControlField } from "./SegmentedControl";
-import { SelectField } from "./Select";
-import { SliderField } from "./Slider";
 import { Span } from "./Span";
-import { StringField } from "./String";
-import { SwitchField } from "./Switch";
-import { SwitchGroupField } from "./SwitchGroup";
-import { TagField } from "./Tag";
 import { Text } from "./Text";
-import { TextareaField } from "./Textarea";
-import { DuckWrapper, ReactHookFormWrapper } from "./wrappers";
+import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const wrapper = (Component: (props: any) => JSX.Element) => () =>

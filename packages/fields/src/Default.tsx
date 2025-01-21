@@ -1,8 +1,8 @@
 "use client";
 import { JSONExplorer } from "@rafty/corp";
 import { Kbd } from "@rafty/ui";
-import { type DuckField, useBlueprint, useDuckForm } from "duck-form";
-import { useId, useMemo } from "react";
+import { type DuckField, useDuckForm } from "duck-form";
+import { useId } from "react";
 
 export function DefaultField(props: DuckField<Record<string, unknown>>) {
   const { resolverKey } = useDuckForm();
