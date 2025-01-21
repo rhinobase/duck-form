@@ -1,9 +1,9 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type CheckboxGroupProps = {
   name?: string;
-  type: FieldType.CHECKBOX_GROUP;
+  type: BlockType.CHECKBOX_GROUP;
   options: {
     value: string | number;
     label?: string;
@@ -15,7 +15,6 @@ export type CheckboxGroupProps = {
 
 export function CheckboxGroupField({
   name,
-  type,
   options,
   defaultValue,
   value,

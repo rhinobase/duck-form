@@ -4,7 +4,7 @@ import { Fragment, type PropsWithChildren, type ReactNode } from "react";
 import { FieldWrapper } from "./FieldWrapper";
 import { InputWrapper } from "./InputWrapper";
 import { TooltipWrapper } from "./TooltipWrapper";
-import { FieldType } from "./constants";
+import { BlockType } from "./constants";
 
 export function BlockWrapper(props: PropsWithChildren) {
   const { type } = useField();
@@ -13,9 +13,9 @@ export function BlockWrapper(props: PropsWithChildren) {
     Fragment;
 
   if (
-    type === FieldType.NUMBER ||
-    type === FieldType.PASSWORD ||
-    type === FieldType.STRING
+    type === BlockType.NUMBER ||
+    type === BlockType.PASSWORD ||
+    type === BlockType.STRING
   )
     ComponentWrapper = InputWrapper;
 

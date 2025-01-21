@@ -1,9 +1,9 @@
 import { TagField as RaftyTagField } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type TagFieldProps = {
   name?: string;
-  type: FieldType.TAG;
+  type: BlockType.TAG;
   defaultValue?: string[];
   value?: string[];
   onChange?: (value?: string[]) => void;

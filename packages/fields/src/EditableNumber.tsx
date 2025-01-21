@@ -1,9 +1,9 @@
 import { EditableNumber as RaftyEditableNumber } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type EditableNumberProps = {
   name?: string;
-  type: FieldType.EDITABLE_NUMBER;
+  type: BlockType.EDITABLE_NUMBER;
   placeholder?: string;
   defaultValue?: number;
   value?: number;

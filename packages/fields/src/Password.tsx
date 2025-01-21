@@ -8,11 +8,11 @@ import {
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type PasswordProps = {
   name?: string;
-  type: FieldType.PASSWORD;
+  type: BlockType.PASSWORD;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

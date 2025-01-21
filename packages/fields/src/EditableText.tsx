@@ -1,9 +1,9 @@
 import { EditableText as RaftyEditableText } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type EditableTextProps = {
   name?: string;
-  type: FieldType.EDITABLE_TEXT;
+  type: BlockType.EDITABLE_TEXT;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

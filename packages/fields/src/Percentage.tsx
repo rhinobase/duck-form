@@ -1,9 +1,9 @@
 import { PercentageInput as RaftyPercentageInput } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type PercentageInputProps = {
   name?: string;
-  type: FieldType.PERCENTAGE_INPUT;
+  type: BlockType.PERCENTAGE_INPUT;
   defaultValue?: string;
   value?: string;
   onChange?: (value?: string) => void;

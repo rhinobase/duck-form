@@ -6,10 +6,10 @@ import {
   AccordionTrigger,
   Label,
 } from "@rafty/ui";
-import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
+import { DuckField, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
+import type { BlockType } from "./constants";
 import type { FieldProps } from "./types";
-import type { FieldType } from "./constants";
 
 export type Promisify<T> = T | Promise<T>;
 
@@ -27,7 +27,7 @@ export type DefaultValue<T extends Record<string, FieldProps>> = {
 export interface ObjectProps<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
 > {
-  type: FieldType.OBJECT;
+  type: BlockType.OBJECT;
   fields: T;
   defaultValue?: Prettify<DefaultValue<T>>;
   fieldsets?: { name: string; label: string }[];
@@ -44,18 +44,12 @@ export function ObjectField<
   T extends Record<string, FieldProps> = Record<string, FieldProps>
 >() {
   // @ts-expect-error
-  const props = useField() as ObjectProps<T>;
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
+  const props = useField<ObjectProps<T>>();
+  const { resolverKey } = useDuckForm();
 
   const autoId = useId();
-  const customId = useMemo(
-    // @ts-expect-error
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
-  );
-
-  const componentId = customId ?? autoId;
+  const componentId =
+    String(props[resolverKey as keyof ObjectProps<T>]) ?? autoId;
 
   const [groupedFields, fieldSetsRegistry] = useMemo(
     () => [
@@ -88,17 +82,15 @@ export function ObjectField<
     <div className="p-3 md:p-4 lg:p-5 xl:p-6 border flex flex-col border-secondary-200 dark:border-secondary-800 rounded-md gap-3 md:gap-4 lg:gap-5 xl:gap-6">
       {Object.entries(groupedFields).map(([key, fields], index) => {
         const content = [
-          Object.entries(fields).map(([fieldName, field]) => {
-            const uniqueName = `${componentId}.${fieldName}`;
+          Object.keys(fields).map((fieldName) => {
+            const name = `${componentId}.${fieldName}`;
 
-            return (
-              <DuckField
-                key={uniqueName}
-                {...field}
-                id={uniqueName}
-                name={uniqueName}
-              />
-            );
+            const nestedFieldProps = {
+              name,
+              [resolverKey]: `${componentId}.fields.${fieldName}`,
+            };
+
+            return <DuckField key={name} {...nestedFieldProps} />;
           }),
         ];
 

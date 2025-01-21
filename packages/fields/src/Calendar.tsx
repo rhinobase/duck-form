@@ -1,9 +1,9 @@
 import { Calendar as RaftyCalendar } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type CalendarProps = {
   name?: string;
-  type: FieldType.CALENDAR;
+  type: BlockType.CALENDAR;
   placeholder?: string;
   defaultValue?: string;
   value?: string;
@@ -11,5 +11,12 @@ export type CalendarProps = {
 };
 
 export function CalendarField({ type, onChange, ...props }: CalendarProps) {
-  return <RaftyCalendar {...props} id={props.name} onValueChange={onChange} />;
+  return (
+    <RaftyCalendar
+      {...props}
+      id={props.name}
+      onValueChange={onChange}
+      className="w-max"
+    />
+  );
 }

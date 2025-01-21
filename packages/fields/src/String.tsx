@@ -1,9 +1,9 @@
 import { InputField as RaftyInputField } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type StringProps = {
   name?: string;
-  type: FieldType.STRING;
+  type: BlockType.STRING;
   inputType?: RaftyInputField["type"];
   placeholder?: string;
   inputMode?: RaftyInputField["inputMode"];

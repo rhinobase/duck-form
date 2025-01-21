@@ -9,17 +9,13 @@ import {
   Text,
   type ValueOrFunction,
 } from "@rafty/ui";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import {
-  Fragment,
-  type PropsWithChildren,
-  useEffect,
-  useId,
-  useMemo,
-} from "react";
+import { useDuckForm, useField } from "duck-form";
+import { Fragment, type PropsWithChildren, useEffect, useId } from "react";
 import { Label } from "./Label";
+import type { BlockType } from "./constants";
 
 export type FieldWrapperProps = {
+  type: BlockType;
   label?: string;
   description?: string;
   primary?: boolean;
@@ -38,14 +34,11 @@ export type FieldWrapper = PropsWithChildren<{
 
 export function FieldWrapper({ className, children }: FieldWrapper) {
   const props = useField<FieldWrapperProps>();
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
+  const { resolverKey } = useDuckForm();
 
   const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
-  );
+  const componentId =
+    String(props[resolverKey as keyof FieldWrapperProps]) ?? autoId;
 
   const {
     disabled,
@@ -57,8 +50,6 @@ export function FieldWrapper({ className, children }: FieldWrapper) {
     description,
     onChange,
   } = props;
-
-  const componentId = customId ?? autoId;
 
   useEffect(() => {
     onChange?.();

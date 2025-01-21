@@ -1,9 +1,9 @@
 import { Listbox as RaftyListbox } from "@rafty/corp";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type MultiListboxProps = {
   name?: string;
-  type: FieldType.MULTI_LISTBOX;
+  type: BlockType.MULTI_LISTBOX;
   options: {
     value: string;
     label?: string;

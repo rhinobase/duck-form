@@ -1,11 +1,11 @@
 "use client";
 import { InputField } from "@rafty/ui";
 import dayjs from "dayjs";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type DateFieldProps = {
   name?: string;
-  type: FieldType.DATE;
+  type: BlockType.DATE;
   placeholder?: string;
   defaultValue?: string;
   value?: string;

@@ -1,11 +1,10 @@
 "use client";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
+import { useDuckForm, useField } from "duck-form";
 import {
   type JSXElementConstructor,
   type ReactElement,
   cloneElement,
   useId,
-  useMemo,
 } from "react";
 import type { FieldWrapperProps } from "../FieldWrapper";
 import type { TooltipWrapperProps } from "../TooltipWrapper";
@@ -22,17 +21,15 @@ export type DuckFieldProps = {
   TooltipWrapperProps;
 
 export function DuckWrapper({ children }: DuckWrapper) {
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
   const props = useField<DuckFieldProps>();
+  const { resolverKey } = useDuckForm();
 
   const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props],
-  );
 
-  const componentId = customId ?? autoId;
+  const componentId =
+    String(props[resolverKey as keyof DuckFieldProps]) ?? autoId;
 
-  return cloneElement(children, { ...props, name: componentId });
+  const fieldProps = { ...props, [resolverKey]: componentId };
+
+  return cloneElement(children, fieldProps);
 }

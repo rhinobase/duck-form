@@ -1,4 +1,5 @@
 "use client";
+import { useField } from "duck-form";
 import {
   type JSXElementConstructor,
   type ReactElement,
@@ -10,19 +11,21 @@ import type { DuckFieldProps } from "./Duck";
 export type ReactHookFormWrapper = {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   children: ReactElement<any, string | JSXElementConstructor<any>>;
-} & DuckFieldProps;
+} & Omit<DuckFieldProps, "type">;
 
 export function ReactHookFormWrapper({
   children,
   ...props
 }: ReactHookFormWrapper) {
   const { control } = useFormContext();
+  const { id } = useField<{ id: string; type: string }>();
 
-  if (!props.name) throw new Error("Field name property is not defined!");
+  const name = id.replace(/\.of/g, "").replace(/\.fields/g, "");
+  console.log(id);
 
   return (
     <Controller
-      name={props.name}
+      name={name}
       control={control}
       disabled={props.disabled ? Boolean(props.disabled) : undefined}
       render={({ field }) => cloneElement(children, { ...props, ...field })}

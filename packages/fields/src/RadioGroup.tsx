@@ -4,11 +4,11 @@ import {
   classNames,
 } from "@rafty/ui";
 import type { ReactNode } from "react";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type RadioGroupProps = {
   name?: string;
-  type: FieldType.RADIO;
+  type: BlockType.RADIO;
   options: {
     value: string | number;
     label?: ReactNode;

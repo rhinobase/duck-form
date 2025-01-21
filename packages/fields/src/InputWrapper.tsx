@@ -9,8 +9,10 @@ import {
 } from "@rafty/ui";
 import { useField } from "duck-form";
 import type { PropsWithChildren, ReactNode } from "react";
+import type { BlockType } from "./constants";
 
 export type InputWrapperProps = {
+  type: BlockType;
   size?: "sm" | "md" | "lg";
   prefix?: ReactNode;
   suffix?: ReactNode;
@@ -41,7 +43,7 @@ export function InputWrapper(props: PropsWithChildren) {
         <LeftAddon
           className={classNames(
             "text-secondary-600 dark:text-secondary-400 font-medium",
-            addonTextClasses.size[size],
+            addonTextClasses.size[size]
           )}
         >
           {prefix}
@@ -62,7 +64,7 @@ export function InputWrapper(props: PropsWithChildren) {
         <RightAddon
           className={classNames(
             "text-secondary-600 dark:text-secondary-400 font-medium",
-            addonTextClasses.size[size],
+            addonTextClasses.size[size]
           )}
         >
           {suffix}

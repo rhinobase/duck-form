@@ -6,14 +6,14 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, eventHandler } from "@rafty/ui";
-import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
-import { useId, useMemo } from "react";
+import { DuckField, useDuckForm, useField } from "duck-form";
+import { useId } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
+import type { BlockType } from "./constants";
 import type { FieldProps } from "./types";
-import type { FieldType } from "./constants";
 
 export type ArrayProps = {
-  type: FieldType.ARRAY;
+  type: BlockType.ARRAY;
   of: FieldProps;
   defaultValue?: unknown[] | (() => unknown[]);
   options?: {
@@ -26,17 +26,11 @@ export type ArrayProps = {
 };
 
 export function ArrayField() {
+  const { resolverKey } = useDuckForm();
   const props = useField<ArrayProps>();
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
 
   const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
-  );
-
-  const componentId = customId ?? autoId;
+  const componentId = String(props[resolverKey as keyof ArrayProps]) ?? autoId;
 
   const { control } = useFormContext();
   const { fields, append, swap, remove, insert } = useFieldArray({
@@ -54,9 +48,16 @@ export function ArrayField() {
         const handleInsertNew = eventHandler(() => insert(index + 1, {}));
         const handleDelete = eventHandler(() => remove(index));
 
+        const name = `${componentId}.${index}`;
+
+        const nestedFieldProps = {
+          name,
+          [resolverKey]: `${componentId}.of.${index}`,
+        };
+
         return (
           <div
-            key={`${index}-${componentId}`}
+            key={name}
             className="flex mb-2 min-h-[120px] items-center gap-2 rounded-lg border border-secondary-200 p-2 dark:border-secondary-800"
           >
             <div className="space-y-2">
@@ -79,7 +80,7 @@ export function ArrayField() {
                 <ArrowDownIcon className="size-4 stroke-2" />
               </Button>
             </div>
-            <DuckField id={`${componentId}.${index}`} {...props.of} />
+            <DuckField {...nestedFieldProps} />
             <div className="space-y-2">
               <Button
                 variant="ghost"

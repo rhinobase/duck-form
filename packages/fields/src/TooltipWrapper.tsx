@@ -2,8 +2,10 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from "@rafty/ui";
 import { useField } from "duck-form";
 import type { PropsWithChildren } from "react";
+import type { BlockType } from "./constants";
 
 export type TooltipWrapperProps = {
+  type: BlockType;
   tooltip?: string;
 };
 

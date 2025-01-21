@@ -1,9 +1,9 @@
 import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type CurrencyInputProps = {
   name?: string;
-  type: FieldType.CURRENCY_INPUT;
+  type: BlockType.CURRENCY_INPUT;
   defaultValue?: string;
   currencyCode?: string;
   value?: string;

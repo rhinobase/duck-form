@@ -1,9 +1,9 @@
 import { Rating as RaftyRating } from "@rafty/ui";
-import type { FieldType } from "./constants";
+import type { BlockType } from "./constants";
 
 export type RatingProps = {
   name?: string;
-  type: FieldType.RATING;
+  type: BlockType.RATING;
   count: number;
   allowHalf?: boolean;
   defaultValue?: number;
