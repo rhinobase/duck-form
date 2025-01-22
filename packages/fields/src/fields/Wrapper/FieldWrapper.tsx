@@ -7,33 +7,22 @@ import {
   ErrorMessage as RaftyErrorMessage,
   type FieldWrapper as RaftyFieldWrapper,
   Text,
-  type ValueOrFunction,
 } from "@rafty/ui";
 import { useDuckForm, useField } from "duck-form";
 import { Fragment, type PropsWithChildren, useEffect, useId } from "react";
+import type z from "zod";
 import type { BlockType } from "../../constants";
+import type { fieldWrapperSchema } from "../../validations";
 import { Label } from "../utils";
 
-export type FieldWrapperProps = {
-  type: BlockType;
-  label?: string;
-  description?: string;
-  primary?: boolean;
-  unique?: boolean;
-  required?: ValueOrFunction;
-  disabled?: ValueOrFunction;
-  readonly?: ValueOrFunction;
-  hidden?: ValueOrFunction;
-  orientation?: RaftyFieldWrapper["orientation"];
-  onChange?: () => void;
-};
+export type FieldWrapperProps = z.infer<typeof fieldWrapperSchema>;
 
 export type FieldWrapper = PropsWithChildren<{
   className?: RaftyFieldWrapper["className"];
 }>;
 
 export function FieldWrapper({ className, children }: FieldWrapper) {
-  const props = useField<FieldWrapperProps>();
+  const props = useField<FieldWrapperProps & { type: BlockType }>();
   const { resolverKey } = useDuckForm();
 
   const autoId = useId();

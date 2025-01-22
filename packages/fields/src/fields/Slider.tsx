@@ -1,22 +1,13 @@
 import {
   Slider as RaftySlider,
-  type Slider,
   SliderRange,
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { sliderSchema } from "../validations";
 
-export type SliderProps = Pick<
-  Slider,
-  "min" | "max" | "step" | "orientation"
-> & {
-  name?: string;
-  type: BlockType.SLIDER;
-  defaultValue?: number;
-  value?: number;
-  onChange?: (value: number) => void;
-};
+export type SliderProps = z.infer<typeof sliderSchema>;
 
 export function SliderField({
   type,
@@ -26,12 +17,12 @@ export function SliderField({
   max = 100,
   min = 0,
   step = 1,
-  orientation,
-  ...props
+  name,
 }: SliderProps) {
   return (
     <RaftySlider
-      {...props}
+      id={name}
+      name={name}
       min={min}
       max={max}
       step={step}

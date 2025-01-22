@@ -1,15 +1,9 @@
 import { DuckField, useDuckForm, useField } from "duck-form";
-import { useId, type HTMLAttributes } from "react";
-import type { BlockType } from "./constants";
-import type { FieldProps } from "./types";
+import { useId } from "react";
+import type z from "zod";
+import type { linkSchema } from "./validations";
 
-export type LinkProps = {
-  type: BlockType.LINK;
-  id: string;
-  blocks?: Record<string, FieldProps>;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-  link?: string;
-};
+export type LinkProps = z.infer<typeof linkSchema>;
 
 export function Link() {
   const props = useField<LinkProps>();

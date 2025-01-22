@@ -1,15 +1,23 @@
 import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { currencyInputSchema } from "../validations";
 
-export type CurrencyInputProps = {
-  name?: string;
-  type: BlockType.CURRENCY_INPUT;
-  defaultValue?: string;
-  currencyCode?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type CurrencyInputProps = z.infer<typeof currencyInputSchema>;
 
-export function CurrencyField({ type, ...props }: CurrencyInputProps) {
-  return <RaftyCurrencyInput {...props} id={props.name} />;
+export function CurrencyField({
+  currencyCode,
+  defaultValue,
+  name,
+  onChange,
+  value,
+}: CurrencyInputProps) {
+  return (
+    <RaftyCurrencyInput
+      id={name}
+      currencyCode={currencyCode}
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onChange}
+    />
+  );
 }

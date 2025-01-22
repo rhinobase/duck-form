@@ -1,25 +1,11 @@
 import { DevTool } from "@hookform/devtools";
 import { DuckField, useDuckForm, useField } from "duck-form";
-import { useId, type HTMLAttributes } from "react";
-import {
-  FormProvider,
-  useForm,
-  type FieldValues,
-  type SubmitErrorHandler,
-  type SubmitHandler,
-} from "react-hook-form";
-import type { BlockType } from "../constants";
-import type { FieldProps } from "../types";
+import { useId } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import type z from "zod";
+import type { formSchema } from "../validations";
 
-export type FormProps = {
-  type: BlockType.FORM;
-  title?: string;
-  enableDevtool?: boolean;
-  onSubmit?: SubmitHandler<FieldValues>;
-  onError?: SubmitErrorHandler<FieldValues>;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-  blocks: Record<string, FieldProps>;
-};
+export type FormProps = z.infer<typeof formSchema>;
 
 export function Form() {
   const props = useField<FormProps>();

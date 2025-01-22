@@ -3,45 +3,36 @@ import {
   RadioGroup as RaftyRadioGroup,
   classNames,
 } from "@rafty/ui";
-import type { ReactNode } from "react";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { radioGroupSchema } from "../validations";
 
-export type RadioGroupProps = {
-  name?: string;
-  type: BlockType.RADIO;
-  options: {
-    value: string | number;
-    label?: ReactNode;
-    description?: string;
-  }[];
-  orientaion?: "horizontal" | "vertical";
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type RadioGroupProps = z.infer<typeof radioGroupSchema>;
 
 export function RadioGroupField({
-  type,
   options,
-  orientaion = "vertical",
+  orientation = "vertical",
   onChange,
-  ...props
+  defaultValue,
+  name,
+  value,
 }: RadioGroupProps) {
   return (
     <RaftyRadioGroup
-      {...props}
-      id={props.name}
+      id={name}
+      defaultValue={defaultValue}
+      value={value}
+      orientation={orientation}
       onValueChange={onChange}
       className={classNames(
-        orientaion === "horizontal" ? "flex-row gap-4" : "flex-col",
+        orientation === "horizontal" ? "flex-row gap-4" : "flex-col",
         "[&>div]:w-full xl:[&>div]:w-max"
       )}
     >
       {options.map((option, index) => {
-        const _id = `${props.name}.${option.value}`;
+        const _id = `${name}.${option.value}`;
         if (option.description)
           return (
-            <div key={`${index}-${props.name}`} className="flex items-start">
+            <div key={`${index}-${name}`} className="flex items-start">
               <RadioGroupItem id={_id} value={String(option.value)} />
               <label
                 htmlFor={_id}
@@ -58,7 +49,7 @@ export function RadioGroupField({
           );
         return (
           <RadioGroupItem
-            key={`${index}-${props.name}`}
+            key={`${index}-${name}`}
             id={_id}
             value={String(option.value)}
           >

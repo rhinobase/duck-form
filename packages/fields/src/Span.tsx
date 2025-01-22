@@ -1,13 +1,9 @@
 import { DuckField, useDuckForm, useField } from "duck-form";
-import { useId, type HTMLAttributes } from "react";
-import type { BlockType } from "./constants";
-import type { FieldProps } from "./types";
+import { useId } from "react";
+import type z from "zod";
+import type { spanSchema } from "./validations";
 
-export type SpanProps = {
-  type: BlockType.SPAN;
-  blocks?: Record<string, FieldProps>;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-};
+export type SpanProps = z.infer<typeof spanSchema>;
 
 export function Span() {
   const props = useField<SpanProps>();

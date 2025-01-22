@@ -1,13 +1,9 @@
 import { DuckField, useDuckForm, useField } from "duck-form";
-import { useId, type HTMLAttributes } from "react";
-import type { BlockType } from "./constants";
-import type { FieldProps } from "./types";
+import { useId } from "react";
+import type z from "zod";
+import type { divSchema } from "./validations";
 
-export type DivProps = {
-  type: BlockType.DIV;
-  blocks?: Record<string, FieldProps>;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-};
+export type DivProps = z.infer<typeof divSchema>;
 
 export function Div() {
   const props = useField<DivProps>();

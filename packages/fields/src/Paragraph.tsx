@@ -1,13 +1,9 @@
 import { DuckField, useDuckForm, useField } from "duck-form";
-import { useId, type HTMLAttributes } from "react";
-import type { BlockType } from "./constants";
-import type { FieldProps } from "./types";
+import { useId } from "react";
+import type z from "zod";
+import type { paragraphSchema } from "./validations";
 
-export type ParagraphProps = {
-  type: BlockType.PARAGRAPH;
-  blocks?: Record<string, FieldProps>;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-};
+export type ParagraphProps = z.infer<typeof paragraphSchema>;
 
 export function Paragraph() {
   const props = useField<ParagraphProps>();

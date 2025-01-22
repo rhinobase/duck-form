@@ -9,21 +9,10 @@ import { Button, eventHandler } from "@rafty/ui";
 import { DuckField, useDuckForm, useField } from "duck-form";
 import { useId } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import type { BlockType } from "../constants";
-import type { FieldProps } from "../types";
+import type z from "zod";
+import type { arraySchema } from "../validations";
 
-export type ArrayProps = {
-  type: BlockType.ARRAY;
-  of: FieldProps;
-  defaultValue?: unknown[] | (() => unknown[]);
-  options?: {
-    sortable?: boolean;
-    layout?: "tags" | "grid";
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    list?: { title: string; value: any }[];
-    editModal?: "dialog" | "fullscreen" | "popover";
-  };
-};
+export type ArrayProps = z.infer<typeof arraySchema>;
 
 export function ArrayField() {
   const { resolverKey } = useDuckForm();

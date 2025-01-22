@@ -2,30 +2,27 @@ import {
   SegmentedControl as RaftySegmentedControl,
   SegmentedControlItem,
 } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { segmentedControlSchema } from "../validations";
 
-export type SegmentedControlProps = {
-  name?: string;
-  type: BlockType.SEGMENTED_CONTROL;
-  options: {
-    value: string;
-    label?: string;
-  }[];
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type SegmentedControlProps = z.infer<typeof segmentedControlSchema>;
 
 export function SegmentedControlField({
-  type,
   onChange,
   options,
-  ...props
+  defaultValue,
+  name,
+  value,
 }: SegmentedControlProps) {
   return (
-    <RaftySegmentedControl {...props} id={props.name} onValueChange={onChange}>
+    <RaftySegmentedControl
+      id={name}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onChange}
+    >
       {options.map(({ value, label }, index) => (
-        <SegmentedControlItem key={`${index}-${props.name}`} value={value}>
+        <SegmentedControlItem key={`${index}-${name}`} value={value}>
           {label ?? value}
         </SegmentedControlItem>
       ))}

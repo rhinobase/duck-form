@@ -1,16 +1,25 @@
 import { Rating as RaftyRating } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { ratingSchema } from "../validations";
 
-export type RatingProps = {
-  name?: string;
-  type: BlockType.RATING;
-  count: number;
-  allowHalf?: boolean;
-  defaultValue?: number;
-  value?: number;
-  onChange?: (value?: number) => void;
-};
+export type RatingProps = z.infer<typeof ratingSchema>;
 
-export function RatingField({ type, onChange, ...props }: RatingProps) {
-  return <RaftyRating {...props} id={props.name} onValueChange={onChange} />;
+export function RatingField({
+  onChange,
+  count,
+  allowHalf,
+  defaultValue,
+  name,
+  value,
+}: RatingProps) {
+  return (
+    <RaftyRating
+      id={name}
+      count={count}
+      allowHalf={allowHalf}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onChange}
+    />
+  );
 }

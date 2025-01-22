@@ -8,48 +8,20 @@ import {
 } from "@rafty/ui";
 import { DuckField, useDuckForm, useField } from "duck-form";
 import { useId, useMemo } from "react";
-import type { BlockType } from "../constants";
+import type z from "zod";
 import type { FieldProps } from "../types";
+import type { objectSchema } from "../validations";
 
-export type Promisify<T> = T | Promise<T>;
-
-export type Prettify<T> = {
-  [K in keyof T]: T[K];
-} & NonNullable<unknown>;
-
-export type DefaultValue<T extends Record<string, FieldProps>> = {
-  [K in keyof T]?: T[K] extends { blocks: Record<string, FieldProps> }
-    ? ObjectProps<T[K]["blocks"]>["defaultValue"]
-    : // @ts-expect-error
-      FieldPropsMap[T[K]["type"]]["defaultValue"];
-};
-
-export interface ObjectProps<
-  T extends Record<string, FieldProps> = Record<string, FieldProps>
-> {
-  type: BlockType.OBJECT;
-  fields: T;
-  defaultValue?: Prettify<DefaultValue<T>>;
-  fieldsets?: { name: string; label: string }[];
-  options?: {
-    collapsible?: boolean;
-    collapsed?: boolean;
-    columns?: number;
-  };
-}
+export type ObjectProps = z.infer<typeof objectSchema>;
 
 const DEFAULT_GROUP_KEY = "__default";
 
-export function ObjectField<
-  T extends Record<string, FieldProps> = Record<string, FieldProps>
->() {
-  // @ts-expect-error
-  const props = useField<ObjectProps<T>>();
+export function ObjectField() {
+  const props = useField<ObjectProps>();
   const { resolverKey } = useDuckForm();
 
   const autoId = useId();
-  const componentId =
-    String(props[resolverKey as keyof ObjectProps<T>]) ?? autoId;
+  const componentId = String(props[resolverKey as keyof ObjectProps]) ?? autoId;
 
   const [groupedFields, fieldSetsRegistry] = useMemo(
     () => [

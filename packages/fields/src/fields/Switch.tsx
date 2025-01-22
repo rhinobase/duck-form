@@ -1,25 +1,18 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { switchSchema } from "../validations";
 
-export type SwitchProps = {
-  name?: string;
-  type: BlockType.SWTICH;
-  defaultValue?: boolean;
-  value?: boolean;
-  onChange?: (value?: boolean) => void;
-};
+export type SwitchProps = z.infer<typeof switchSchema>;
 
 export function SwitchField({
-  type,
   defaultValue,
   value,
   onChange,
-  ...props
+  name,
 }: SwitchProps) {
   return (
     <RaftySwitch
-      {...props}
-      id={props.name}
+      id={name}
       defaultChecked={defaultValue}
       checked={value}
       onCheckedChange={onChange}

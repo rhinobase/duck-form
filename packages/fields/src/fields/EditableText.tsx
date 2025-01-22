@@ -1,21 +1,23 @@
 import { EditableText as RaftyEditableText } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { editableTextSchema } from "../validations";
 
-export type EditableTextProps = {
-  name?: string;
-  type: BlockType.EDITABLE_TEXT;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type EditableTextProps = z.infer<typeof editableTextSchema>;
 
 export function EditableTextField({
-  type,
   onChange,
-  ...props
+  defaultValue,
+  name,
+  placeholder,
+  value,
 }: EditableTextProps) {
   return (
-    <RaftyEditableText {...props} id={props.name} onValueChange={onChange} />
+    <RaftyEditableText
+      id={name}
+      defaultValue={defaultValue}
+      placeholder={placeholder}
+      value={value}
+      onValueChange={onChange}
+    />
   );
 }

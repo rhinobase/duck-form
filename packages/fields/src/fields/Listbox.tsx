@@ -1,20 +1,23 @@
 import { Listbox as RaftyListbox } from "@rafty/corp";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { listboxSchema } from "../validations";
 
-export type ListboxProps = {
-  name?: string;
-  type: BlockType.LISTBOX;
-  options: {
-    value: string;
-    label?: string;
-  }[];
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type ListboxProps = z.infer<typeof listboxSchema>;
 
-export function ListboxField({ type, onChange, ...props }: ListboxProps) {
+export function ListboxField({
+  onChange,
+  options,
+  defaultValue,
+  name,
+  value,
+}: ListboxProps) {
   return (
-    <RaftyListbox {...props} items={props.options} onValueChange={onChange} />
+    <RaftyListbox
+      items={options}
+      name={name}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={onChange}
+    />
   );
 }

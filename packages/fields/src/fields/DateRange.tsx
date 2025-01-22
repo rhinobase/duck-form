@@ -1,27 +1,22 @@
 import { RangePicker as RaftyRangePicker } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { dateRangeSchema } from "../validations";
 
-export type DateRangeFieldProps = {
-  name?: string;
-  type: BlockType.DATE_RANGE;
-  placeholder?: {
-    from?: string;
-    to?: string;
-  };
-  defaultValue?: [string] | [string, string];
-  value?: [string] | [string, string];
-  onChange?: (value?: [string] | [string, string]) => void;
-};
+export type DateRangeFieldProps = z.infer<typeof dateRangeSchema>;
 
 export function DateRangeField({
-  type,
   onChange,
-  ...props
+  defaultValue,
+  name,
+  placeholder,
+  value,
 }: DateRangeFieldProps) {
   return (
     <RaftyRangePicker
-      {...props}
-      id={props.name}
+      id={name}
+      defaultValue={defaultValue}
+      placeholder={placeholder}
+      value={value}
       onValueChange={(value) => {
         const val: string[] = [];
 

@@ -1,28 +1,22 @@
 import { Listbox as RaftyListbox } from "@rafty/corp";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { multiListboxSchema } from "../validations";
 
-export type MultiListboxProps = {
-  name?: string;
-  type: BlockType.MULTI_LISTBOX;
-  options: {
-    value: string;
-    label?: string;
-  }[];
-  defaultValue?: string[];
-  value?: string[];
-  onChange?: (value?: string[]) => void;
-};
+export type MultiListboxProps = z.infer<typeof multiListboxSchema>;
 
 export function MultiListboxField({
-  type,
   options,
   onChange,
-  ...props
+  defaultValue,
+  name,
+  value,
 }: MultiListboxProps) {
   return (
     <RaftyListbox
-      {...props}
+      name={name}
       type="multi"
+      defaultValue={defaultValue}
+      value={value}
       items={options}
       onValueChange={onChange}
     />

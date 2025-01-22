@@ -1,22 +1,16 @@
 import { PinInput as RaftyPinInput } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { pinSchema } from "../validations";
 
-export type PinInputProps = {
-  name?: string;
-  type: BlockType.PIN;
-  length: number;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string[]) => void;
-};
+export type PinInputProps = z.infer<typeof pinSchema>;
 
 export function PinField({
-  type,
   defaultValue,
   value,
   onChange,
-  ...props
+  length,
+  name,
+  placeholder,
 }: PinInputProps) {
   const formattedValue = value ? Array.from<string>(value) : undefined;
   const formattedDefaultValue = defaultValue
@@ -25,8 +19,9 @@ export function PinField({
 
   return (
     <RaftyPinInput
-      {...props}
-      id={props.name}
+      id={name}
+      length={length}
+      placeholder={placeholder}
       defaultValue={formattedDefaultValue}
       value={formattedValue}
       onValueChange={({ value }) => onChange?.(value)}

@@ -1,21 +1,16 @@
 import { InputField } from "@rafty/ui";
 import dayjs from "dayjs";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { datetimeSchema } from "../validations";
 
-export type DatetimeFieldProps = {
-  name?: string;
-  type: BlockType.DATE_TIME;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type DatetimeFieldProps = z.infer<typeof datetimeSchema>;
 
 export function DatetimeField({
-  type,
   value,
   onChange,
-  ...props
+  defaultValue,
+  name,
+  placeholder,
 }: DatetimeFieldProps) {
   const formattedValue = value
     ? dayjs(value).format("YYYY-MM-DDThh:mm")
@@ -23,10 +18,10 @@ export function DatetimeField({
 
   return (
     <InputField
-      {...props}
-      id={props.name}
+      id={name}
+      defaultValue={defaultValue}
       type="datetime-local"
-      placeholder={props.placeholder}
+      placeholder={placeholder}
       value={formattedValue}
       onChange={(e) => onChange?.(dayjs(e.target.value).toISOString())}
     />

@@ -41,47 +41,56 @@ import type { ParagraphProps } from "./Paragraph";
 import type { SpanProps } from "./Span";
 import type { TextProps } from "./Text";
 
-export type GeneralWrapperProps<T = undefined> = T &
-  FieldWrapperProps &
-  TooltipWrapperProps & { fieldset?: string };
+export type Promisify<T> = T | Promise<T>;
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & NonNullable<unknown>;
+
+export type DefaultValue<T extends Record<string, FieldProps>> = {
+  [K in keyof T]?: T[K] extends { blocks: Record<string, FieldProps> }
+    ? DefaultValue<T[K]["blocks"]>
+    : // @ts-expect-error
+      FieldPropsMap[T[K]["type"]]["defaultValue"];
+};
 
 export type FieldProps =
-  | GeneralWrapperProps<CheckboxProps>
-  | GeneralWrapperProps<CheckboxGroupProps>
-  | GeneralWrapperProps<ColorPickerProps>
-  | GeneralWrapperProps<CurrencyInputProps>
-  | GeneralWrapperProps<DateFieldProps>
-  | GeneralWrapperProps<DateRangeFieldProps>
-  | GeneralWrapperProps<DatetimeFieldProps>
+  | CheckboxProps
+  | CheckboxGroupProps
+  | ColorPickerProps
+  | CurrencyInputProps
+  | DateFieldProps
+  | DateRangeFieldProps
+  | DatetimeFieldProps
   | (ObjectProps & { fieldset?: string })
-  | GeneralWrapperProps<NumberProps & InputWrapperProps>
-  | GeneralWrapperProps<PasswordProps & InputWrapperProps>
-  | GeneralWrapperProps<PercentageInputProps>
-  | GeneralWrapperProps<RadioGroupProps>
-  | GeneralWrapperProps<SelectProps>
-  | GeneralWrapperProps<SliderProps>
-  | GeneralWrapperProps<RangeSliderProps>
-  | GeneralWrapperProps<StringProps & InputWrapperProps>
-  | GeneralWrapperProps<SwitchProps>
-  | GeneralWrapperProps<SwitchGroupProps>
-  | GeneralWrapperProps<TextareaProps>
-  | GeneralWrapperProps<TagFieldProps>
-  | GeneralWrapperProps<PinInputProps>
-  | GeneralWrapperProps<RatingProps>
-  | GeneralWrapperProps<SegmentedControlProps>
-  | GeneralWrapperProps<EditableTextProps>
-  | GeneralWrapperProps<EditableTextareaProps>
-  | GeneralWrapperProps<MultiListboxProps>
-  | GeneralWrapperProps<ListboxProps>
-  | GeneralWrapperProps<EditableNumberProps>
-  | GeneralWrapperProps<CalendarProps>
-  | GeneralWrapperProps<ArrayProps>
-  | DivProps
-  | LinkProps
-  | FormProps
-  | ParagraphProps
-  | SpanProps
-  | TextProps;
+  | NumberProps
+  | PasswordProps
+  | PercentageInputProps
+  | RadioGroupProps
+  | SelectProps
+  | SliderProps
+  | RangeSliderProps
+  | StringProps
+  | SwitchProps
+  | SwitchGroupProps
+  | TextareaProps
+  | TagFieldProps
+  | PinInputProps
+  | RatingProps
+  | SegmentedControlProps
+  | EditableTextProps
+  | EditableTextareaProps
+  | MultiListboxProps
+  | ListboxProps
+  | EditableNumberProps
+  | CalendarProps
+  | ArrayProps
+  | (DivProps & { fieldset?: string })
+  | (LinkProps & { fieldset?: string })
+  | (FormProps & { fieldset?: string })
+  | (ParagraphProps & { fieldset?: string })
+  | (SpanProps & { fieldset?: string })
+  | (TextProps & { fieldset?: string });
 
 export type FieldPropsMap = {
   [K in BlockType]: Extract<FieldProps, { type: K }>;

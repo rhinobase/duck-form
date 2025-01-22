@@ -1,33 +1,31 @@
 import {
   Slider as RaftySlider,
-  type Slider,
   SliderRange,
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { rangeSliderSchema } from "../validations";
 
-export type RangeSliderProps = Pick<
-  Slider,
-  "min" | "max" | "step" | "orientation"
-> & {
-  name?: string;
-  type: BlockType.RANGE_SLIDER;
-  defaultValue?: [number, number];
-  value?: [number, number];
-  onChange?: (value?: [number, number]) => void;
-};
+export type RangeSliderProps = z.infer<typeof rangeSliderSchema>;
 
 export function RangeSliderField({
-  type,
   onChange,
   defaultValue = [0, 0],
-  orientation,
-  ...props
+  max,
+  min,
+  name,
+  step,
+  value,
 }: RangeSliderProps) {
   return (
     <RaftySlider
-      {...props}
+      id={name}
+      max={max}
+      min={min}
+      name={name}
+      step={step}
+      value={value}
       defaultValue={defaultValue}
       onValueChange={(value) => {
         // @ts-expect-error

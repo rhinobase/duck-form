@@ -1,29 +1,29 @@
 import { InputField as RaftyInputField } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { stringSchema } from "../validations";
 
-export type StringProps = {
-  name?: string;
-  type: BlockType.STRING;
-  inputType?: RaftyInputField["type"];
-  placeholder?: string;
-  inputMode?: RaftyInputField["inputMode"];
-  maxLength?: number;
-  minLength?: number;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type StringProps = z.infer<typeof stringSchema>;
 
 export function StringField({
-  type,
   onChange,
   inputType,
-  ...props
+  defaultValue,
+  inputMode,
+  maxLength,
+  minLength,
+  name,
+  placeholder,
+  value,
 }: StringProps) {
   return (
     <RaftyInputField
-      {...props}
-      id={props.name}
+      id={name}
+      defaultValue={defaultValue}
+      inputMode={inputMode}
+      maxLength={maxLength}
+      minLength={minLength}
+      placeholder={placeholder}
+      value={value}
       type={inputType}
       onChange={(event) => onChange?.(event.target.value)}
     />

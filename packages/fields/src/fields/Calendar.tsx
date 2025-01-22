@@ -1,20 +1,22 @@
 import { Calendar as RaftyCalendar } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { calendarSchema } from "../validations";
 
-export type CalendarProps = {
-  name?: string;
-  type: BlockType.CALENDAR;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type CalendarProps = z.infer<typeof calendarSchema>;
 
-export function CalendarField({ type, onChange, ...props }: CalendarProps) {
+export function CalendarField({
+  onChange,
+  defaultValue,
+  name,
+  placeholder,
+  value,
+}: CalendarProps) {
   return (
     <RaftyCalendar
-      {...props}
-      id={props.name}
+      id={name}
+      value={value}
+      placeholder={placeholder}
+      defaultValue={defaultValue}
       onValueChange={onChange}
       className="w-max"
     />

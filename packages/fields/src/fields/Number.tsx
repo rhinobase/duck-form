@@ -1,27 +1,31 @@
-import type { InputField } from "@rafty/ui";
 import { InputField as RaftyInputField } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { numberSchema } from "../validations";
 
-export type NumberProps = {
-  name?: string;
-  type: BlockType.NUMBER;
-  placeholder?: string;
-  inputMode?: "none" | "numeric" | "decimal";
-  min?: InputField["min"];
-  max?: InputField["max"];
-  defaultValue?: number;
-  step?: number | "any";
-  value?: number;
-  onChange?: (value?: number) => void;
-};
+export type NumberProps = z.infer<typeof numberSchema>;
 
-export function NumberField({ type, onChange, step, ...props }: NumberProps) {
+export function NumberField({
+  onChange,
+  step,
+  defaultValue,
+  inputMode,
+  max,
+  min,
+  name,
+  placeholder,
+  value,
+}: NumberProps) {
   return (
     <RaftyInputField
-      {...props}
-      id={props.name}
+      id={name}
       type="number"
       step={step}
+      defaultValue={defaultValue}
+      max={max}
+      min={min}
+      inputMode={inputMode}
+      placeholder={placeholder}
+      value={value}
       onChange={(event) => {
         const value = event.target.value;
 

@@ -1,17 +1,8 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { checkboxGroupSchema } from "../validations";
 
-export type CheckboxGroupProps = {
-  name?: string;
-  type: BlockType.CHECKBOX_GROUP;
-  options: {
-    value: string | number;
-    label?: string;
-  }[];
-  defaultValue?: (string | number)[];
-  value?: (string | number)[];
-  onChange?: (value?: (string | number)[]) => void;
-};
+export type CheckboxGroupProps = z.infer<typeof checkboxGroupSchema>;
 
 export function CheckboxGroupField({
   name,

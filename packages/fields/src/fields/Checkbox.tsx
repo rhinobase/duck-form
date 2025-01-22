@@ -1,25 +1,18 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { checkboxSchema } from "../validations";
 
-export type CheckboxProps = {
-  name?: string;
-  type: BlockType.BOOLEAN;
-  defaultValue?: boolean;
-  value?: boolean;
-  onChange?: (value: boolean) => void;
-};
+export type CheckboxProps = z.infer<typeof checkboxSchema>;
 
 export function CheckboxField({
-  type,
   defaultValue,
   value,
   onChange,
-  ...props
+  name,
 }: CheckboxProps) {
   return (
     <RaftyCheckbox
-      {...props}
-      id={props.name}
+      id={name}
       defaultChecked={defaultValue}
       checked={value}
       onCheckedChange={onChange}

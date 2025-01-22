@@ -8,18 +8,18 @@ import {
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { passwordSchema } from "../validations";
 
-export type PasswordProps = {
-  name?: string;
-  type: BlockType.PASSWORD;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type PasswordProps = z.infer<typeof passwordSchema>;
 
-export function PasswordField({ type, onChange, ...props }: PasswordProps) {
+export function PasswordField({
+  onChange,
+  defaultValue,
+  name,
+  placeholder,
+  value,
+}: PasswordProps) {
   const [showPassword, toggle] = useBoolean(false);
 
   const Icon = showPassword ? EyeSlashIcon : EyeIcon;
@@ -29,9 +29,11 @@ export function PasswordField({ type, onChange, ...props }: PasswordProps) {
   return (
     <InputGroup>
       <InputField
-        {...props}
-        id={props.name}
+        id={name}
+        defaultValue={defaultValue}
+        placeholder={placeholder}
         type={showPassword ? "text" : "password"}
+        value={value}
         onChange={(event) => onChange?.(event.target.value)}
       />
       <Suffix className="pointer-events-auto">

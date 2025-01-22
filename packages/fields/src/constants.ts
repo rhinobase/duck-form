@@ -37,3 +37,9 @@ export enum BlockType {
   TEXT = "text",
   TEXTAREA = "textarea",
 }
+
+export enum ORIENTATION {
+  ROW = "row",
+  COL = "col",
+  ROW_REVERSE = "row-reverse",
+}

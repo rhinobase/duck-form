@@ -1,26 +1,15 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { switchGroupSchema } from "../validations";
 
-export type SwitchGroupProps = {
-  name?: string;
-  type: BlockType.SWITCH_GROUP;
-  options: {
-    value: string | number;
-    label?: string;
-  }[];
-  defaultValue?: (string | number)[];
-  value?: (string | number)[];
-  onChange?: (value?: (string | number)[]) => void;
-};
+export type SwitchGroupProps = z.infer<typeof switchGroupSchema>;
 
 export function SwitchGroupField({
-  type,
   name,
   options,
-  defaultValue,
   value,
   onChange,
-  ...props
+  defaultValue,
 }: SwitchGroupProps) {
   return (
     <div id={name} className="flex w-full flex-col gap-1.5">
@@ -29,10 +18,10 @@ export function SwitchGroupField({
 
         return (
           <RaftySwitch
-            {...props}
             key={`${index}-${name}`}
             id={_id}
             name={_id}
+            defaultChecked={defaultValue?.includes(option.value)}
             checked={value?.includes(option.value)}
             onCheckedChange={(checked) => {
               let tmp = value ? [...value] : [];

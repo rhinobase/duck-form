@@ -1,14 +1,21 @@
 import { PercentageInput as RaftyPercentageInput } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { percentageInputSchema } from "../validations";
 
-export type PercentageInputProps = {
-  name?: string;
-  type: BlockType.PERCENTAGE_INPUT;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type PercentageInputProps = z.infer<typeof percentageInputSchema>;
 
-export function PercentageField({ type, ...props }: PercentageInputProps) {
-  return <RaftyPercentageInput {...props} id={props.name} />;
+export function PercentageField({
+  defaultValue,
+  name,
+  onChange,
+  value,
+}: PercentageInputProps) {
+  return (
+    <RaftyPercentageInput
+      id={name}
+      defaultValue={defaultValue}
+      value={value}
+      onChange={onChange}
+    />
+  );
 }

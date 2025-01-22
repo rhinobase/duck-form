@@ -1,20 +1,22 @@
 import { Textarea as RaftyTextarea } from "@rafty/ui";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { textareaSchema } from "../validations";
 
-export type TextareaProps = {
-  name?: string;
-  type: BlockType.TEXTAREA;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type TextareaProps = z.infer<typeof textareaSchema>;
 
-export function TextareaField({ type, onChange, ...props }: TextareaProps) {
+export function TextareaField({
+  onChange,
+  defaultValue,
+  name,
+  placeholder,
+  value,
+}: TextareaProps) {
   return (
     <RaftyTextarea
-      {...props}
-      id={props.name}
+      id={name}
+      defaultValue={defaultValue}
+      placeholder={placeholder}
+      value={value}
       onChange={(event) => onChange?.(event.target.value)}
     />
   );

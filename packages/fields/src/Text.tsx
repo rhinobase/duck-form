@@ -1,20 +1,22 @@
-import { useField } from "duck-form";
-import type { HTMLAttributes } from "react";
+import { useDuckForm, useField } from "duck-form";
+import { useId } from "react";
+import type z from "zod";
+import type { textSchema } from "./validations";
 
-export type TextProps = {
-  type: "text";
-  id: string;
-  content: string;
-  className?: HTMLAttributes<HTMLDivElement>["className"];
-};
+export type TextProps = z.infer<typeof textSchema>;
 
 export function Text() {
-  const { id, content, className } = useField<TextProps>();
+  const props = useField<TextProps>();
+  const { resolverKey } = useDuckForm();
+  const { className, content } = props;
 
   const fieldProps = className ? { className } : {};
 
+  const autoId = useId();
+  const componentId = String(props[resolverKey as keyof TextProps]) ?? autoId;
+
   return (
-    <p id={id} {...fieldProps}>
+    <p id={componentId} {...fieldProps}>
       {content}
     </p>
   );

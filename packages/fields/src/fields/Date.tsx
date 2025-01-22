@@ -1,26 +1,26 @@
 "use client";
 import { InputField } from "@rafty/ui";
 import dayjs from "dayjs";
-import type { BlockType } from "../constants";
+import type z from "zod";
+import type { dateSchema } from "../validations";
 
-export type DateFieldProps = {
-  name?: string;
-  type: BlockType.DATE;
-  placeholder?: string;
-  defaultValue?: string;
-  value?: string;
-  onChange?: (value?: string) => void;
-};
+export type DateFieldProps = z.infer<typeof dateSchema>;
 
-export function DateField({ type, value, onChange, ...props }: DateFieldProps) {
+export function DateField({
+  value,
+  onChange,
+  defaultValue,
+  name,
+  placeholder,
+}: DateFieldProps) {
   const formattedValue = value ? dayjs(value).format("YYYY-MM-DD") : undefined;
 
   return (
     <InputField
-      {...props}
-      id={props.name}
+      id={name}
       type="date"
-      placeholder={props.placeholder}
+      placeholder={placeholder}
+      defaultValue={defaultValue}
       value={formattedValue}
       onChange={(e) => onChange?.(dayjs(e.target.value).toISOString())}
     />
