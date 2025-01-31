@@ -18,13 +18,15 @@
     "@rollup/plugin-terser": "^0.4.4",
     "astro": "^4.15.4",
     "dayjs": "^1.11.13",
+    "lodash": "^4.17.21",
     "nanoid": "^5.0.7",
     "next": "14.2.3",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.53.0",
     "sharp": "^0.33.5",
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.8.3",
@@ -40,6 +42,7 @@
     "@swc/cli": "~0.3.12",
     "@swc/core": "~1.5.7",
     "@swc/helpers": "~0.5.11",
+    "@types/lodash": "^4.17.14",
     "@types/node": "18.16.9",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.0",

@@ -6,33 +6,23 @@ import {
 } from "react";
 import { ComponentNotFound } from "../components/ComponentNotFound";
 
-type DuckFormContextType<T> = {
+type DuckFormContextType = {
   readonly components: Record<string, () => ReactNode>;
-  readonly generateId?: (
-    schema: Record<string, T>,
-    props: Record<string, unknown>,
-  ) => string | undefined;
-  readonly resolver: (
-    schema: Record<string, T>,
-    props: Record<string, unknown>,
-  ) => T | undefined;
+  resolverKey: string;
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: Generic context
-const DuckFormContext = createContext<DuckFormContextType<any> | null>(null);
+const DuckFormContext = createContext<DuckFormContextType | null>(null);
 
-export type DuckForm<T> = PropsWithChildren<Partial<DuckFormContextType<T>>>;
+export type DuckForm = PropsWithChildren<Partial<DuckFormContextType>>;
 
-export function DuckForm<T>({
+export function DuckForm({
   children,
   components = {},
-  resolver = defaultResolver,
-  generateId,
-}: DuckForm<T>) {
+  resolverKey = "id",
+}: DuckForm) {
   const value = {
     components: { default: ComponentNotFound, ...components },
-    resolver,
-    generateId,
+    resolverKey,
   };
 
   return (
@@ -42,20 +32,10 @@ export function DuckForm<T>({
   );
 }
 
-export function useDuckForm<T>() {
-  const context = useContext<DuckFormContextType<T> | null>(DuckFormContext);
+export function useDuckForm() {
+  const context = useContext<DuckFormContextType | null>(DuckFormContext);
 
   if (!context) throw new Error("Missing DuckFormContext.Provider in the tree");
 
   return context;
-}
-
-function defaultResolver<T>(
-  schema: Record<string, T>,
-  props: Record<string, unknown>,
-): T {
-  return {
-    ...schema[String(props.id)],
-    ...props,
-  };
 }

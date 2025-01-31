@@ -4,10 +4,11 @@ import type { DuckField } from "../components";
 // biome-ignore lint/suspicious/noExplicitAny: Context is generic
 const FieldContext = createContext<DuckField<any> | null>(null);
 
-export type FieldProvider<T extends Record<string, unknown>> =
-  PropsWithChildren<DuckField<T>>;
+export type FieldProvider<T extends DuckField> = PropsWithChildren<
+  DuckField<T>
+>;
 
-export function FieldProvider<T extends Record<string, unknown>>({
+export function FieldProvider<T extends DuckField>({
   children,
   ...values
 }: FieldProvider<T>) {
@@ -16,8 +17,8 @@ export function FieldProvider<T extends Record<string, unknown>>({
   );
 }
 
-export function useField<T extends Record<string, unknown>>() {
-  const context = useContext<DuckField<T> | null>(FieldContext);
+export function useField<T extends DuckField>() {
+  const context = useContext<T | null>(FieldContext);
 
   if (!context) throw new Error("Missing FieldContext.Provider in the tree");
 

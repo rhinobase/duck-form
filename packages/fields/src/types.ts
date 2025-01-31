@@ -1,79 +1,6 @@
-import type { ArrayProps } from "./Array";
-import type { CalendarProps } from "./Calendar";
-import type { CheckboxProps } from "./Checkbox";
-import type { CheckboxGroupProps } from "./CheckboxGroup";
-import type { ColorPickerProps } from "./ColorPicker";
-import type { FieldType } from "./constants";
-import type { CurrencyInputProps } from "./Currency";
-import type { DateFieldProps } from "./Date";
-import type { DateRangeFieldProps } from "./DateRange";
-import type { DatetimeFieldProps } from "./Datetime";
-import type { EditableNumberProps } from "./EditableNumber";
-import type { EditableTextProps } from "./EditableText";
-import type { EditableTextareaProps } from "./EditableTextarea";
-import type { FieldWrapperProps } from "./FieldWrapper";
-import type { InputWrapperProps } from "./InputWrapper";
-import type { ListboxProps } from "./Listbox";
-import type { MultiListboxProps } from "./MultiListbox";
-import type { NumberProps } from "./Number";
-import type { ObjectProps } from "./Object";
-import type { PasswordProps } from "./Password";
-import type { PercentageInputProps } from "./Percentage";
-import type { PinInputProps } from "./Pin";
-import type { RadioGroupProps } from "./RadioGroup";
-import type { RangeSliderProps } from "./RangeSlider";
-import type { RatingProps } from "./Rating";
-import type { SegmentedControlProps } from "./SegmentedControl";
-import type { SelectProps } from "./Select";
-import type { SliderProps } from "./Slider";
-import type { StringProps } from "./String";
-import type { SwitchProps } from "./Switch";
-import type { SwitchGroupProps } from "./SwitchGroup";
-import type { TagFieldProps } from "./Tag";
-import type { TextareaProps } from "./Textarea";
-import type { TooltipWrapperProps } from "./TooltipWrapper";
-
-export type GeneralWrapperProps<T = undefined> = T &
-  FieldWrapperProps &
-  TooltipWrapperProps & { fieldset?: string };
-
-export type FieldProps =
-  | GeneralWrapperProps<CheckboxProps>
-  | GeneralWrapperProps<CheckboxGroupProps>
-  | GeneralWrapperProps<ColorPickerProps>
-  | GeneralWrapperProps<CurrencyInputProps>
-  | GeneralWrapperProps<DateFieldProps>
-  | GeneralWrapperProps<DateRangeFieldProps>
-  | GeneralWrapperProps<DatetimeFieldProps>
-  | (ObjectProps & { fieldset?: string })
-  | GeneralWrapperProps<NumberProps & InputWrapperProps>
-  | GeneralWrapperProps<PasswordProps & InputWrapperProps>
-  | GeneralWrapperProps<PercentageInputProps>
-  | GeneralWrapperProps<RadioGroupProps>
-  | GeneralWrapperProps<SelectProps>
-  | GeneralWrapperProps<SliderProps>
-  | GeneralWrapperProps<RangeSliderProps>
-  | GeneralWrapperProps<StringProps & InputWrapperProps>
-  | GeneralWrapperProps<SwitchProps>
-  | GeneralWrapperProps<SwitchGroupProps>
-  | GeneralWrapperProps<TextareaProps>
-  | GeneralWrapperProps<TagFieldProps>
-  | GeneralWrapperProps<PinInputProps>
-  | GeneralWrapperProps<RatingProps>
-  | GeneralWrapperProps<SegmentedControlProps>
-  | GeneralWrapperProps<EditableTextProps>
-  | GeneralWrapperProps<EditableTextareaProps>
-  | GeneralWrapperProps<MultiListboxProps>
-  | GeneralWrapperProps<ListboxProps>
-  | GeneralWrapperProps<EditableNumberProps>
-  | GeneralWrapperProps<CalendarProps>
-  | GeneralWrapperProps<ArrayProps>;
-
-export type FieldPropsMap = {
-  [K in FieldType]: Extract<FieldProps, { type: K }>;
-};
-
-export type {
+import type { BlockType } from "./constants";
+import type { DivProps } from "./Div";
+import type {
   ArrayProps,
   CalendarProps,
   CheckboxGroupProps,
@@ -84,9 +11,10 @@ export type {
   DateRangeFieldProps,
   DatetimeFieldProps,
   EditableNumberProps,
-  EditableTextareaProps,
   EditableTextProps,
+  EditableTextareaProps,
   FieldWrapperProps,
+  FormProps,
   InputWrapperProps,
   ListboxProps,
   MultiListboxProps,
@@ -105,6 +33,107 @@ export type {
   SwitchGroupProps,
   SwitchProps,
   TagFieldProps,
+  TextareaProps,
+  TooltipWrapperProps,
+} from "./fields";
+import type { LinkProps } from "./Link";
+import type { ParagraphProps } from "./Paragraph";
+import type { SpanProps } from "./Span";
+import type { TextProps } from "./Text";
+
+export type Promisify<T> = T | Promise<T>;
+
+export type Prettify<T> = {
+  [K in keyof T]: T[K];
+} & NonNullable<unknown>;
+
+export type DefaultValue<T extends Record<string, FieldProps>> = {
+  [K in keyof T]?: T[K] extends { blocks: Record<string, FieldProps> }
+    ? DefaultValue<T[K]["blocks"]>
+    : // @ts-expect-error
+      FieldPropsMap[T[K]["type"]]["defaultValue"];
+};
+
+export type FieldProps =
+  | CheckboxProps
+  | CheckboxGroupProps
+  | ColorPickerProps
+  | CurrencyInputProps
+  | DateFieldProps
+  | DateRangeFieldProps
+  | DatetimeFieldProps
+  | (ObjectProps & { fieldset?: string })
+  | NumberProps
+  | PasswordProps
+  | PercentageInputProps
+  | RadioGroupProps
+  | SelectProps
+  | SliderProps
+  | RangeSliderProps
+  | StringProps
+  | SwitchProps
+  | SwitchGroupProps
+  | TextareaProps
+  | TagFieldProps
+  | PinInputProps
+  | RatingProps
+  | SegmentedControlProps
+  | EditableTextProps
+  | EditableTextareaProps
+  | MultiListboxProps
+  | ListboxProps
+  | EditableNumberProps
+  | CalendarProps
+  | ArrayProps
+  | (DivProps & { fieldset?: string })
+  | (LinkProps & { fieldset?: string })
+  | (FormProps & { fieldset?: string })
+  | (ParagraphProps & { fieldset?: string })
+  | (SpanProps & { fieldset?: string })
+  | (TextProps & { fieldset?: string });
+
+export type FieldPropsMap = {
+  [K in BlockType]: Extract<FieldProps, { type: K }>;
+};
+
+export type {
+  ArrayProps,
+  CalendarProps,
+  CheckboxGroupProps,
+  CheckboxProps,
+  ColorPickerProps,
+  CurrencyInputProps,
+  DateFieldProps,
+  DateRangeFieldProps,
+  DatetimeFieldProps,
+  DivProps,
+  EditableNumberProps,
+  EditableTextProps,
+  EditableTextareaProps,
+  FieldWrapperProps,
+  FormProps,
+  InputWrapperProps,
+  LinkProps,
+  ListboxProps,
+  MultiListboxProps,
+  NumberProps,
+  ObjectProps,
+  ParagraphProps,
+  PasswordProps,
+  PercentageInputProps,
+  PinInputProps,
+  RadioGroupProps,
+  RangeSliderProps,
+  RatingProps,
+  SegmentedControlProps,
+  SelectProps,
+  SliderProps,
+  SpanProps,
+  StringProps,
+  SwitchGroupProps,
+  SwitchProps,
+  TagFieldProps,
+  TextProps,
   TextareaProps,
   TooltipWrapperProps,
 };

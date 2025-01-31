@@ -1,5 +1,10 @@
 "use client";
-import { BlockWrapper, type FieldProps, quackFields } from "@duck-form/fields";
+import {
+  BlockWrapper,
+  type FieldProps,
+  BlockType,
+  quackFields,
+} from "@duck-form/fields";
 import { DevTool } from "@hookform/devtools";
 import { Button } from "@rafty/ui";
 import { Blueprint, DuckField, DuckForm } from "duck-form";
@@ -7,24 +12,24 @@ import { FormProvider, useForm } from "react-hook-form";
 
 const schema: Record<string, FieldProps> = {
   array: {
-    type: "array",
+    type: BlockType.ARRAY,
     label: "Array",
     of: {
-      type: "string",
+      type: BlockType.STRING,
       label: "String",
     },
   },
   calendar: {
-    type: "calendar",
+    type: BlockType.CALENDAR,
     label: "Calendar",
   },
   checkbox: {
-    type: "boolean",
+    type: BlockType.BOOLEAN,
     label: "Checkbox",
     orientation: "row-reverse",
   },
   checkbox_group: {
-    type: "checkboxgroup",
+    type: BlockType.CHECKBOX_GROUP,
     label: "Checkbox Group",
     options: [
       { value: "1", label: "1" },
@@ -36,35 +41,35 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   color_picker: {
-    type: "colorPicker",
+    type: BlockType.COLOR_PICKER,
     label: "Color Picker",
   },
   currency: {
-    type: "currencyInput",
+    type: BlockType.CURRENCY_INPUT,
     label: "Currency",
   },
   date: {
-    type: "date",
+    type: BlockType.DATE,
     label: "Date",
   },
   date_range: {
-    type: "dateRange",
+    type: BlockType.DATE_RANGE,
     label: "Date Range",
   },
   editable_number: {
-    type: "editableNumber",
+    type: BlockType.EDITABLE_NUMBER,
     label: "Editable Number",
   },
   editable_text: {
-    type: "editableText",
+    type: BlockType.EDITABLE_TEXT,
     label: "Editable Text",
   },
   editable_textarea: {
-    type: "editableTextarea",
+    type: BlockType.EDITABLE_TEXTAREA,
     label: "Editable Textarea",
   },
   list_box: {
-    type: "listbox",
+    type: BlockType.LISTBOX,
     label: "List Box",
     options: [
       { value: "1", label: "1" },
@@ -76,7 +81,7 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   multi_list_box: {
-    type: "multiListbox",
+    type: BlockType.MULTI_LISTBOX,
     label: "Multi Listbox",
     options: [
       { value: "1", label: "1" },
@@ -88,41 +93,41 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   number: {
-    type: "number",
+    type: BlockType.NUMBER,
     label: "Number",
   },
   object: {
-    type: "object",
+    type: BlockType.OBJECT,
     fields: {
       string: {
-        type: "string",
+        type: BlockType.STRING,
         label: "String",
       },
       string1: {
-        type: "string",
+        type: BlockType.STRING,
         label: "String",
       },
       string2: {
-        type: "string",
+        type: BlockType.STRING,
         label: "String",
       },
     },
   },
   password: {
-    type: "password",
+    type: BlockType.PASSWORD,
     label: "Password",
   },
   percentage: {
-    type: "percentageInput",
+    type: BlockType.PERCENTAGE_INPUT,
     label: "Percentage",
   },
   pin: {
-    type: "pin",
+    type: BlockType.PIN,
     label: "Pin",
     length: 4,
   },
   radio_group: {
-    type: "radio",
+    type: BlockType.RADIO,
     label: "Radio",
     options: [
       { value: 1, label: "1" },
@@ -130,17 +135,17 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   range_slider: {
-    type: "rangeSlider",
+    type: BlockType.RANGE_SLIDER,
     label: "Range Slider",
   },
   rating: {
-    type: "rating",
+    type: BlockType.RATING,
     label: "Rating",
     count: 5,
     allowHalf: true,
   },
   segmented_control: {
-    type: "segmentedControl",
+    type: BlockType.SEGMENTED_CONTROL,
     label: "Segmented Control",
     options: [
       { value: "1", label: "1" },
@@ -152,7 +157,7 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   select: {
-    type: "select",
+    type: BlockType.SELECT,
     label: "Select",
     options: [
       { value: "1", label: "1" },
@@ -164,20 +169,20 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   slider: {
-    type: "slider",
+    type: BlockType.SLIDER,
     label: "Slider",
   },
   string: {
-    type: "string",
+    type: BlockType.STRING,
     label: "String",
   },
   switch: {
-    type: "switch",
+    type: BlockType.SWTICH,
     label: "Switch",
     orientation: "row-reverse",
   },
   switch_group: {
-    type: "switchGroup",
+    type: BlockType.SWITCH_GROUP,
     label: "Switch Group",
     options: [
       { value: 1, label: "1" },
@@ -185,11 +190,11 @@ const schema: Record<string, FieldProps> = {
     ],
   },
   tag: {
-    type: "tag",
+    type: BlockType.TAG,
     label: "Tag",
   },
   textarea: {
-    type: "textarea",
+    type: BlockType.TEXTAREA,
     label: "Textarea",
   },
 };
@@ -205,15 +210,12 @@ export default function HomePage() {
 
   return (
     <div className="max-w-4xl mx-auto w-full py-6 flex flex-col gap-4">
-      <DuckForm
-        components={quackFields}
-        generateId={(_, props) => (props.id ? String(props.id) : undefined)}
-      >
+      <DuckForm components={quackFields}>
         <FormProvider {...methods}>
           <form
             onSubmit={handleSubmit(
               (value) => console.log(value),
-              console.error,
+              console.error
             )}
             className="space-y-3"
           >

@@ -1,36 +1,45 @@
-import { ArrayField } from "./Array";
-import { CalendarField } from "./Calendar";
-import { CheckboxField } from "./Checkbox";
-import { CheckboxGroupField } from "./CheckboxGroup";
-import { ColorPickerField } from "./ColorPicker";
-import { FieldType } from "./constants";
-import { CurrencyField } from "./Currency";
-import { DateField } from "./Date";
-import { DateRangeField } from "./DateRange";
-import { DatetimeField } from "./Datetime";
+import { BlockType } from "./constants";
 import { DefaultField } from "./Default";
-import { EditableNumberField } from "./EditableNumber";
-import { EditableTextField } from "./EditableText";
-import { EditableTextareaField } from "./EditableTextarea";
-import { ListboxField } from "./Listbox";
-import { MultiListboxField } from "./MultiListbox";
-import { NumberField } from "./Number";
-import { ObjectField } from "./Object";
-import { PasswordField } from "./Password";
-import { PercentageField } from "./Percentage";
-import { PinField } from "./Pin";
-import { RadioGroupField } from "./RadioGroup";
-import { RangeSliderField } from "./RangeSlider";
-import { RatingField } from "./Rating";
-import { SegmentedControlField } from "./SegmentedControl";
-import { SelectField } from "./Select";
-import { SliderField } from "./Slider";
-import { StringField } from "./String";
-import { SwitchField } from "./Switch";
-import { SwitchGroupField } from "./SwitchGroup";
-import { TagField } from "./Tag";
-import { TextareaField } from "./Textarea";
-import { DuckWrapper, ReactHookFormWrapper } from "./wrappers";
+import { Div } from "./Div";
+import {
+  ArrayField,
+  CalendarField,
+  CheckboxField,
+  CheckboxGroupField,
+  ColorPickerField,
+  CurrencyField,
+  DateField,
+  DateRangeField,
+  DatetimeField,
+  EditableNumberField,
+  EditableTextareaField,
+  EditableTextField,
+  Form,
+  ListboxField,
+  MultiListboxField,
+  NumberField,
+  ObjectField,
+  PasswordField,
+  PercentageField,
+  PinField,
+  RadioGroupField,
+  RangeSliderField,
+  RatingField,
+  ReactHookFormWrapper,
+  SegmentedControlField,
+  SelectField,
+  SliderField,
+  StringField,
+  SwitchField,
+  SwitchGroupField,
+  TagField,
+  TextareaField,
+} from "./fields";
+import { Link } from "./Link";
+import { Paragraph } from "./Paragraph";
+import { Span } from "./Span";
+import { Text } from "./Text";
+import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 const wrapper = (Component: (props: any) => JSX.Element) => () =>
@@ -42,36 +51,42 @@ const wrapper = (Component: (props: any) => JSX.Element) => () =>
     </DuckWrapper>
   );
 
-export const quackFields: Record<FieldType, () => JSX.Element> = {
-  [FieldType.ARRAY]: ArrayField,
-  [FieldType.CALENDAR]: wrapper(CalendarField),
-  [FieldType.BOOLEAN]: wrapper(CheckboxField),
-  [FieldType.CHECKBOX_GROUP]: wrapper(CheckboxGroupField),
-  [FieldType.COLOR_PICKER]: wrapper(ColorPickerField),
-  [FieldType.CURRENCY_INPUT]: wrapper(CurrencyField),
-  [FieldType.DATE]: wrapper(DateField),
-  [FieldType.DATE_RANGE]: wrapper(DateRangeField),
-  [FieldType.DATE_TIME]: wrapper(DatetimeField),
-  [FieldType.DEFAULT]: wrapper(DefaultField),
-  [FieldType.EDITABLE_NUMBER]: wrapper(EditableNumberField),
-  [FieldType.EDITABLE_TEXT]: wrapper(EditableTextField),
-  [FieldType.EDITABLE_TEXTAREA]: wrapper(EditableTextareaField),
-  [FieldType.LISTBOX]: wrapper(ListboxField),
-  [FieldType.MULTI_LISTBOX]: wrapper(MultiListboxField),
-  [FieldType.NUMBER]: wrapper(NumberField),
-  [FieldType.OBJECT]: ObjectField,
-  [FieldType.PASSWORD]: wrapper(PasswordField),
-  [FieldType.PERCENTAGE_INPUT]: wrapper(PercentageField),
-  [FieldType.PIN]: wrapper(PinField),
-  [FieldType.RADIO]: wrapper(RadioGroupField),
-  [FieldType.RANGE_SLIDER]: wrapper(RangeSliderField),
-  [FieldType.RATING]: wrapper(RatingField),
-  [FieldType.SEGMENTED_CONTROL]: wrapper(SegmentedControlField),
-  [FieldType.SELECT]: wrapper(SelectField),
-  [FieldType.SLIDER]: wrapper(SliderField),
-  [FieldType.STRING]: wrapper(StringField),
-  [FieldType.SWTICH]: wrapper(SwitchField),
-  [FieldType.SWITCH_GROUP]: wrapper(SwitchGroupField),
-  [FieldType.TAG]: wrapper(TagField),
-  [FieldType.TEXTAREA]: wrapper(TextareaField),
+export const quackFields: Record<BlockType, () => JSX.Element> = {
+  [BlockType.ARRAY]: ArrayField,
+  [BlockType.CALENDAR]: wrapper(CalendarField),
+  [BlockType.BOOLEAN]: wrapper(CheckboxField),
+  [BlockType.CHECKBOX_GROUP]: wrapper(CheckboxGroupField),
+  [BlockType.COLOR_PICKER]: wrapper(ColorPickerField),
+  [BlockType.CURRENCY_INPUT]: wrapper(CurrencyField),
+  [BlockType.DATE]: wrapper(DateField),
+  [BlockType.DATE_RANGE]: wrapper(DateRangeField),
+  [BlockType.DATE_TIME]: wrapper(DatetimeField),
+  [BlockType.DEFAULT]: wrapper(DefaultField),
+  [BlockType.EDITABLE_NUMBER]: wrapper(EditableNumberField),
+  [BlockType.EDITABLE_TEXT]: wrapper(EditableTextField),
+  [BlockType.EDITABLE_TEXTAREA]: wrapper(EditableTextareaField),
+  [BlockType.LISTBOX]: wrapper(ListboxField),
+  [BlockType.MULTI_LISTBOX]: wrapper(MultiListboxField),
+  [BlockType.NUMBER]: wrapper(NumberField),
+  [BlockType.OBJECT]: ObjectField,
+  [BlockType.PASSWORD]: wrapper(PasswordField),
+  [BlockType.PERCENTAGE_INPUT]: wrapper(PercentageField),
+  [BlockType.PIN]: wrapper(PinField),
+  [BlockType.RADIO]: wrapper(RadioGroupField),
+  [BlockType.RANGE_SLIDER]: wrapper(RangeSliderField),
+  [BlockType.RATING]: wrapper(RatingField),
+  [BlockType.SEGMENTED_CONTROL]: wrapper(SegmentedControlField),
+  [BlockType.SELECT]: wrapper(SelectField),
+  [BlockType.SLIDER]: wrapper(SliderField),
+  [BlockType.STRING]: wrapper(StringField),
+  [BlockType.SWTICH]: wrapper(SwitchField),
+  [BlockType.SWITCH_GROUP]: wrapper(SwitchGroupField),
+  [BlockType.TAG]: wrapper(TagField),
+  [BlockType.TEXTAREA]: wrapper(TextareaField),
+  [BlockType.LINK]: Link,
+  [BlockType.DIV]: Div,
+  [BlockType.SPAN]: Span,
+  [BlockType.TEXT]: Text,
+  [BlockType.PARAGRAPH]: Paragraph,
+  [BlockType.FORM]: Form,
 };
