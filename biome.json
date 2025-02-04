@@ -11,8 +11,7 @@
   },
   "formatter": {
     "indentStyle": "space",
-    "lineWidth": 80,
-    "lineEnding": "crlf"
+    "lineWidth": 80
   },
   "vcs": {
     "enabled": true,

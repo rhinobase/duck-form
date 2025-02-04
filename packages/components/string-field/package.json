@@ -1,0 +1,13 @@
+{
+  "name": "@rhinobase/string-field",
+  "version": "0.0.1",
+  "dependencies": {
+    "@rafty/ui": "^2.0.0-rc.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "zod": "^3.24.1"
+  }
+}
