@@ -1,0 +1,14 @@
+{
+  "name": "@rhinobase/multi-listbox-field",
+  "version": "0.0.1",
+  "dependencies": {
+    "@rafty/corp": "^1.0.6"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rhinobase/shared": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}

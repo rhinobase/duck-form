@@ -1,0 +1,11 @@
+{
+  "name": "@rhinobase/text-field",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rhinobase/shared": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}

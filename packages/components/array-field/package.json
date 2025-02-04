@@ -1,0 +1,17 @@
+{
+  "name": "@rhinobase/array-field",
+  "version": "0.0.1",
+  "dependencies": {
+    "duck-form": "^0.1.4",
+    "@heroicons/react": "^2.2.0",
+    "@rafty/ui": "^2.0.0-rc.0",
+    "react-hook-form": "^7.54.2"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rhinobase/shared": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}

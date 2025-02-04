@@ -1,0 +1,28 @@
+import { ColorPicker as RaftyColorPicker, useBoolean } from "@rafty/ui";
+import type { colorPickerSchema } from "@rhinobase/shared";
+import React from "react";
+import type z from "zod";
+
+export type ColorPickerProps = z.infer<typeof colorPickerSchema>;
+
+export function ColorPickerField({
+  defaultValue,
+  value,
+  onChange,
+  name,
+}: ColorPickerProps) {
+  const [isOpen, setOpen] = useBoolean();
+
+  return (
+    <RaftyColorPicker
+      id={name}
+      open={isOpen}
+      onOpenChange={({ open }) => setOpen(open)}
+      defaultValue={defaultValue}
+      value={value}
+      onValueChange={({ valueAsString }: { valueAsString: string }) =>
+        onChange?.(valueAsString)
+      }
+    />
+  );
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@rhinobase/shared",
+  "version": "0.0.1",
+  "dependencies": {
+    "mustache": "^4.2.0"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@rhinobase/shared": "workspace:*",
+    "zod": "^3.24.1"
+  }
+}
