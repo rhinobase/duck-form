@@ -1,3 +1,4 @@
+"use client";
 import {
   Accordion,
   AccordionContent,
@@ -39,7 +40,7 @@ export function ObjectField() {
             key = field.fieldset;
           }
 
-          prev[key][name] = field;
+          prev[key]![name] = field;
 
           return prev;
         },

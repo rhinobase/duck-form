@@ -1,4 +1,4 @@
-import { ListboxField } from "./Listbox.js";
+import { MultiListboxField } from "./MultiListboxField.js";
 
-export default ListboxField;
-export type { ListboxProps } from "./Listbox.js";
+export default MultiListboxField;
+export type { MultiListboxProps } from "./MultiListboxField.js";

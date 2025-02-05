@@ -22,7 +22,7 @@ export const buttonSchema: z.ZodType<ButtonSchemaType> = z.object({
   blocks: z
     .record(
       z.string(),
-      z.lazy(() => duckSpecSchema),
+      z.lazy(() => duckSpecSchema)
     )
     .optional(),
 });

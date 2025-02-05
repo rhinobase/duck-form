@@ -38,6 +38,9 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Turbo
+.turbo
+
 .nx/cache
 .nx/workspace-data
 

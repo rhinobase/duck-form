@@ -1,13 +1,22 @@
 {
   "name": "@rhinobase/shared",
   "version": "0.0.1",
-  "dependencies": {
-    "mustache": "^4.2.0"
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "rollup -c=./rollup.config.js",
+    "publish": "pnpm publish"
   },
   "peerDependencies": {
+    "nunjucks": "^3.2.4",
+    "zod": "^3.24.1",
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "zod": "^3.24.1"
+    "@types/nunjucks": "^3.2.6",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0"
   }
 }

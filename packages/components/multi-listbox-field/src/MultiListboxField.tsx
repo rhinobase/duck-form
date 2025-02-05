@@ -5,7 +5,7 @@ import type z from "zod";
 
 export type MultiListboxProps = z.infer<typeof multiListboxSchema>;
 
-export default function MultiListboxField({
+export function MultiListboxField({
   options,
   onChange,
   defaultValue,

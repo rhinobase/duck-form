@@ -28,7 +28,7 @@ export function SliderField({
       step={step}
       defaultValue={defaultValue ? [defaultValue] : undefined}
       value={value ? [value] : undefined}
-      onValueChange={(value) => onChange?.(value[0])}
+      onValueChange={(value) => onChange?.(Number(value[0]))}
       className="mb-8 mt-5"
     >
       <SliderTrack>

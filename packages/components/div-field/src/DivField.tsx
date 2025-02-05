@@ -1,3 +1,4 @@
+"use client";
 import type { divSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";

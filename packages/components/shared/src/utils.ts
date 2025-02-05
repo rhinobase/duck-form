@@ -1,4 +1,4 @@
-import mustache from "mustache";
+import nunjucks from "nunjucks";
 
 export enum BlockType {
   ARRAY = "array",
@@ -52,12 +52,13 @@ const VARIABLE_REGEX = /\{\{(.*?)\}\}/g;
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export function valueResolver<T = any>(
   context: Record<string, unknown>,
-  value?: string,
+  value?: string
 ): T | undefined {
   if (!value) return undefined;
 
-  // biome-ignore lint/security/noGlobalEval: <explanation>
-  return eval(mustache.render(value, context));
+  const renderedValue = nunjucks.renderString(value, context);
+
+  return eval(renderedValue);
 }
 
 export function findAllVariables(...props: (string | undefined)[]) {
@@ -70,7 +71,7 @@ export function findAllVariables(...props: (string | undefined)[]) {
 
     if (result)
       tmp.push(
-        ...result.map((match) => match.replace(/\{\{|\}\}/g, "").trim()),
+        ...result.map((match) => match.replace(/\{\{|\}\}/g, "").trim())
       );
   }
 

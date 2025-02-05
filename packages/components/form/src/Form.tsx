@@ -1,3 +1,4 @@
+"use client";
 import { DevTool } from "@hookform/devtools";
 import type { formSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
