@@ -26,5 +26,5 @@
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "~5.5.2"
   },
-  "packageManager": "pnpm@9.1.1+sha1.4370a069f21873a0ad83c785b8048ed8caf6e6e9"
+  "packageManager": "pnpm@8.14.0+sha256.9cebf61abd83f68177b29484da72da9751390eaad46dfc3072d266bfbb1ba7bf"
 }

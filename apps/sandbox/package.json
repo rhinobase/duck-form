@@ -1,0 +1,23 @@
+{
+  "name": "sandbox",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^14",
+    "react": "^18.2",
+    "react-dom": "^18.2",
+    "@rafty/ui": "^2.0.0-rc.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3",
+    "autoprefixer": "^10.4.20",
+    "@types/react": "^18.2",
+    "@types/react-dom": "^18.2",
+    "@rafty/plugin": "^1.1.2"
+  }
+}
