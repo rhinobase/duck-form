@@ -1,17 +1,17 @@
 import z from "zod";
-import { ORIENTATION } from "../../../utils";
+import { ORIENTATION, scriptOrLiteral } from "../../../utils";
 
 export const fieldWrapperSchema = z.object({
-  label: z.string().optional(),
-  description: z.string().optional(),
-  primary: z.boolean().optional(),
-  unique: z.boolean().optional(),
-  required: z.boolean().optional(),
-  disabled: z.boolean().optional(),
-  readonly: z.boolean().optional(),
-  hidden: z.boolean().optional(),
-  orientation: z.nativeEnum(ORIENTATION).optional(),
+  label: scriptOrLiteral(z.string()).optional(),
+  description: scriptOrLiteral(z.string()).optional(),
+  primary: scriptOrLiteral(z.boolean()).optional(),
+  unique: scriptOrLiteral(z.boolean()).optional(),
+  required: scriptOrLiteral(z.boolean()).optional(),
+  disabled: scriptOrLiteral(z.boolean()).optional(),
+  readonly: scriptOrLiteral(z.boolean()).optional(),
+  hidden: scriptOrLiteral(z.boolean()).optional(),
+  orientation: scriptOrLiteral(z.nativeEnum(ORIENTATION)).optional(),
   onChange: z.function().returns(z.void()).optional(),
-  tooltip: z.string().max(2000).optional(),
-  fieldset: z.string().max(2000).optional(),
+  tooltip: scriptOrLiteral(z.string().max(2000)).optional(),
+  fieldset: scriptOrLiteral(z.string().max(2000)).optional(),
 });

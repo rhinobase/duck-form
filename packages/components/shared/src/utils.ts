@@ -1,3 +1,6 @@
+// import { renderString } from "nunjucks";
+import z from "zod";
+
 export enum BlockType {
   ARRAY = "array",
   CALENDAR = "calendar",
@@ -34,6 +37,7 @@ export enum BlockType {
   STRING = "string",
   SWTICH = "switch",
   SWITCH_GROUP = "switchGroup",
+  TABLE = "table",
   TAG = "tag",
   TEXT = "text",
   TEXTAREA = "textarea",
@@ -45,17 +49,38 @@ export enum ORIENTATION {
   ROW_REVERSE = "row-reverse",
 }
 
+export function from(
+  struct:
+    | { type: "literal"; value: unknown }
+    | { type: "script"; value: string }
+) {
+  if (struct.type === "literal") return struct.value;
+
+  // biome-ignore lint/security/noGlobalEval: <explanation>
+  return eval(addVariables(struct.value));
+}
+
+export function addVariables(template: string) {
+  return template;
+}
+
+export const scriptOrLiteral = <T extends z.ZodType>(value: T) =>
+  z.union([
+    z.object({ type: z.literal("script"), value }),
+    z.object({ type: z.literal("literal"), value }),
+  ]);
+
 // const VARIABLE_REGEX = /\{\{(.*?)\}\}/g;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 // export function valueResolver<T = any>(
 //   context: Record<string, unknown>,
 //   value?: string
 // ): T | undefined {
 //   if (!value) return undefined;
 
-//   const renderedValue = nunjucks.renderString(value, context);
+//   const renderedValue = renderString(value, context);
 
+//   // biome-ignore lint/security/noGlobalEval: <explanation>
 //   return eval(renderedValue);
 // }
 

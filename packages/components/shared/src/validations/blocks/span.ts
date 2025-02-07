@@ -1,16 +1,18 @@
 import z from "zod";
-import { BlockType } from "../../utils";
+import { BlockType, scriptOrLiteral } from "../../utils";
 // import { duckSpecSchema } from "../schema";
 
 type SpanSchemaType = {
   type: BlockType.SPAN;
-  className?: string;
+  className?:
+    | { type: "literal"; value: unknown }
+    | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 };
 
 export const spanSchema: z.ZodType<SpanSchemaType> = z.object({
   type: z.literal(BlockType.SPAN),
-  className: z.string().optional(),
+  className: scriptOrLiteral(z.string()).optional(),
   blocks: z
     .record(
       z.string(),

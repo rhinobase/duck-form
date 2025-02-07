@@ -1,11 +1,18 @@
-import type { defaultSchema } from "@rhinobase/shared";
+import { from, type defaultSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React, { type ElementType } from "react";
 import type z from "zod";
 
 export type DefaultProps = z.infer<typeof defaultSchema>;
 
-export function DefaultField({ blocks, type, ...props }: DefaultProps) {
+export function DefaultField({
+  blocks,
+  type,
+  className,
+  ...props
+}: DefaultProps) {
+  const fieldProps = className ? { className: from(className) } : props;
+
   const children =
     blocks &&
     Object.entries(blocks).map(([key, items]) => (
@@ -15,5 +22,5 @@ export function DefaultField({ blocks, type, ...props }: DefaultProps) {
   if (type === "fragment") return <>{children}</>;
 
   const Component = type as ElementType;
-  return <Component {...props}>{children}</Component>;
+  return <Component {...fieldProps}>{children}</Component>;
 }

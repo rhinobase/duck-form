@@ -19,7 +19,7 @@ export const schema = {
             blocks: {
               Image1: {
                 type: "Image",
-                src: { type: "literal", value: "{{ c.logo }}" },
+                src: { type: "script", value: "{{ c.logo }}" },
                 alt: { type: "literal", value: "Dezyne Ecole College" },
                 width: { type: "literal", value: 100 },
                 height: { type: "literal", value: 100 },

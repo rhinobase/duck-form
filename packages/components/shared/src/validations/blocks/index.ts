@@ -6,3 +6,4 @@ export { spanSchema } from "./span.js";
 export { textSchema } from "./text.js";
 export { buttonSchema } from "./button.js";
 export { defaultSchema } from "./default.js";
+export { tableSchema } from "./table.js";

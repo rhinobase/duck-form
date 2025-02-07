@@ -1,5 +1,5 @@
 {
-  "name": "@rhinobase/div-field",
+  "name": "@rhinobase/table-field",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",
@@ -12,14 +12,14 @@
     "publish": "pnpm publish"
   },
   "peerDependencies": {
-    "@swc/helpers": "~0.5.11",
-    "duck-form": "workspace:*",
-    "@rhinobase/shared": "workspace:*",
+    "@rafty/ui": "^2.0.0-rc.0",
+    "@rafty/corp": "^1.0.6",
     "react": "^18.2.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@rhinobase/shared": "workspace:*",
     "zod": "^3.24.1"
   }
 }

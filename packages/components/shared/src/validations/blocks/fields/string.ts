@@ -1,14 +1,14 @@
 import z from "zod";
-import { BlockType } from "../../../utils";
+import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
-  name: z.string().optional(),
+  name: scriptOrLiteral(z.string()).optional(),
   type: z.literal(BlockType.STRING),
-  inputType: z.string().optional(),
-  placeholder: z.string().optional(),
-  inputMode: z
-    .enum([
+  inputType: scriptOrLiteral(z.string()).optional(),
+  placeholder: scriptOrLiteral(z.string()).optional(),
+  inputMode: scriptOrLiteral(
+    z.enum([
       "search",
       "email",
       "tel",
@@ -18,15 +18,15 @@ const schema = z.object({
       "numeric",
       "decimal",
     ])
-    .optional(),
-  maxLength: z.number().optional(),
-  minLength: z.number().optional(),
-  defaultValue: z.string().optional(),
-  prefix: z.string().optional(),
-  suffix: z.string().optional(),
-  perfixIcon: z.string().optional(),
-  suffixIcon: z.string().optional(),
-  value: z.string().optional(),
+  ).optional(),
+  maxLength: scriptOrLiteral(z.number()).optional(),
+  minLength: scriptOrLiteral(z.string()).optional(),
+  defaultValue: scriptOrLiteral(z.string()).optional(),
+  prefix: scriptOrLiteral(z.string()).optional(),
+  suffix: scriptOrLiteral(z.string()).optional(),
+  perfixIcon: scriptOrLiteral(z.string()).optional(),
+  suffixIcon: scriptOrLiteral(z.string()).optional(),
+  value: scriptOrLiteral(z.string()).optional(),
   onChange: z
     .function()
     .args(z.string().optional())
