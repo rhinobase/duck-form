@@ -6,6 +6,7 @@ import pc from "picocolors";
 import { defineConfig } from "rollup";
 import copy from "rollup-plugin-copy";
 import typescript from "rollup-plugin-typescript2";
+import preserveDirectives from "rollup-plugin-preserve-directives";
 import pkg from "./package.json" with { type: "json" };
 
 const externalPackages = Object.keys(pkg.peerDependencies);
@@ -23,12 +24,14 @@ export default defineConfig({
       format: "cjs",
       entryFileNames: "[name].cjs",
       chunkFileNames: "[name]-[hash].cjs",
+      preserveModules: true,
     },
     {
       dir: "./dist",
       format: "esm",
       entryFileNames: "[name].js",
       chunkFileNames: "[name]-[hash].js",
+      preserveModules: true,
     },
   ],
   external: regexesOfPackages,
@@ -37,6 +40,7 @@ export default defineConfig({
     nodeResolve({
       extensions: [".js", ".jsx", ".ts", ".tsx"],
     }),
+    preserveDirectives(),
     swc({
       swc: {
         jsc: {
