@@ -1,8 +1,8 @@
-export { divSchema } from "./div";
-export * from "./fields";
-export { linkSchema } from "./link";
-export { paragraphSchema } from "./paragraph";
-export { spanSchema } from "./span";
-export { textSchema } from "./text";
-export { buttonSchema } from "./button";
-export { defaultSchema } from "./default";
+export { divSchema } from "./div.js";
+export * from "./fields/index.js";
+export { linkSchema } from "./link.js";
+export { paragraphSchema } from "./paragraph.js";
+export { spanSchema } from "./span.js";
+export { textSchema } from "./text.js";
+export { buttonSchema } from "./button.js";
+export { defaultSchema } from "./default.js";

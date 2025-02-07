@@ -1,4 +1,4 @@
-import { useField } from "../providers/field";
+import { useField } from "../providers/field.js";
 
 export function ComponentNotFound() {
   const options = useField();

@@ -12,7 +12,7 @@ export function Paragraph({ blocks, className }: ParagraphProps) {
     <p {...fieldProps}>
       {blocks &&
         Object.entries(blocks).map(([key, items]) => (
-          <DuckField key={key} id={key} {...items} />
+          <DuckField key={key} id={key} {...(items as object)} />
         ))}
     </p>
   );

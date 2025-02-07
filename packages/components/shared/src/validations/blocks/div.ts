@@ -1,11 +1,11 @@
 import z from "zod";
 import { BlockType } from "../../utils";
-import { duckSpecSchema } from "../schema";
+// import { duckSpecSchema } from "../schema";
 
 type DivSchemaType = {
   type: BlockType.DIV;
   className?: string;
-  blocks?: Record<string, z.infer<typeof duckSpecSchema>>;
+  blocks?: Record<string, unknown>;
 };
 
 export const divSchema: z.ZodType<DivSchemaType> = z.object({
@@ -14,7 +14,7 @@ export const divSchema: z.ZodType<DivSchemaType> = z.object({
   blocks: z
     .record(
       z.string(),
-      z.lazy(() => duckSpecSchema),
+      z.lazy(() => z.any())
     )
     .optional(),
 });

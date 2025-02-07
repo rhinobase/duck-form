@@ -4,15 +4,21 @@
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c=./rollup.config.js",
     "publish": "pnpm publish"
   },
   "peerDependencies": {
+    "@swc/helpers": "~0.5.11",
+    "@hookform/error-message": "^2.0.1",
     "nunjucks": "^3.2.4",
-    "zod": "^3.24.1",
-    "react": "^18.2.0"
+    "@rafty/ui": "^2.0.0-rc.0",
+    "duck-form": "workspace:*",
+    "react": "^18.2.0",
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/nunjucks": "^3.2.6",

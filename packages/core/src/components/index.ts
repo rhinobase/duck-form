@@ -1,1 +1,1 @@
-export { DuckField } from "./DuckField";
+export { DuckField } from "./DuckField.js";

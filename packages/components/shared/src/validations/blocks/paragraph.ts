@@ -1,11 +1,11 @@
 import z from "zod";
 import { BlockType } from "../../utils";
-import { duckSpecSchema } from "../schema";
+// import { duckSpecSchema } from "../schema";
 
 type ParagraphSchemaType = {
   type: BlockType.PARAGRAPH;
   className?: string;
-  blocks?: Record<string, z.infer<typeof duckSpecSchema>>;
+  blocks?: Record<string, unknown>;
 };
 
 export const paragraphSchema: z.ZodType<ParagraphSchemaType> = z.object({
@@ -14,7 +14,7 @@ export const paragraphSchema: z.ZodType<ParagraphSchemaType> = z.object({
   blocks: z
     .record(
       z.string(),
-      z.lazy(() => duckSpecSchema),
+      z.lazy(() => z.any())
     )
     .optional(),
 });

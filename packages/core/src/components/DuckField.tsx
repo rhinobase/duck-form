@@ -1,8 +1,12 @@
 import { Fragment } from "react";
-import { FieldProvider, useBlueprint, useDuckForm } from "../providers";
+import {
+  FieldProvider,
+  useBlueprint,
+  useDuckForm,
+} from "../providers/index.js";
 
 export type DuckField<
-  T extends Record<string, unknown> = Record<string, unknown>,
+  T extends Record<string, unknown> = Record<string, unknown>
 > = {
   type: string;
 } & T;
@@ -17,9 +21,7 @@ export function DuckField<T extends Record<string, unknown>>(props: T) {
 
   return (
     <FieldProvider {...options} type={options?.type ?? "default"}>
-      <Wrapper>
-        <Component />
-      </Wrapper>
+      <Wrapper>{Component && <Component />}</Wrapper>
     </FieldProvider>
   );
 }

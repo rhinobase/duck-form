@@ -12,7 +12,7 @@ export function DefaultField({ blocks, type, ...props }: DefaultProps) {
       <DuckField key={key} id={key} {...(items as object)} />
     ));
 
-  if (type === "Fragment") return <>{children}</>;
+  if (type === "fragment") return <>{children}</>;
 
   const Component = type as ElementType;
   return <Component {...props}>{children}</Component>;

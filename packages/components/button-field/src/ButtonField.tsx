@@ -20,7 +20,7 @@ export function ButtonField(props: ButtonProps) {
     <RaftyButton {...fieldProps}>
       {props.blocks &&
         Object.entries(props.blocks).map(([key, items]) => (
-          <DuckField key={key} {...items} />
+          <DuckField key={key} {...(items as object)} />
         ))}
     </RaftyButton>
   );

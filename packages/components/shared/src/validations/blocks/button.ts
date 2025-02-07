@@ -1,6 +1,6 @@
 import z from "zod";
 import { BlockType } from "../../utils";
-import { duckSpecSchema } from "../schema";
+// import { duckSpecSchema } from "../schema";
 
 type ButtonSchemaType = {
   type: BlockType.BUTTON;
@@ -9,7 +9,7 @@ type ButtonSchemaType = {
   leftIcon?: JSX.Element;
   rightIcon?: JSX.Element;
   isLoading?: boolean;
-  blocks?: Record<string, z.infer<typeof duckSpecSchema>>;
+  blocks?: Record<string, unknown>;
 };
 
 export const buttonSchema: z.ZodType<ButtonSchemaType> = z.object({
@@ -22,7 +22,7 @@ export const buttonSchema: z.ZodType<ButtonSchemaType> = z.object({
   blocks: z
     .record(
       z.string(),
-      z.lazy(() => duckSpecSchema)
+      z.lazy(() => z.any())
     )
     .optional(),
 });

@@ -1,5 +1,5 @@
 import { type PropsWithChildren, createContext, useContext } from "react";
-import type { DuckField } from "../components";
+import type { DuckField } from "../components/index.js";
 
 // biome-ignore lint/suspicious/noExplicitAny: Context is generic
 const FieldContext = createContext<DuckField<any> | null>(null);

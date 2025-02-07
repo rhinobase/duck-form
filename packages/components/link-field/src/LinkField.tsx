@@ -13,7 +13,7 @@ export function LinkField({ className, blocks, link }: LinkProps) {
     <a href={link} {...fieldProps}>
       {blocks &&
         Object.entries(blocks).map(([key, items]) => (
-          <DuckField key={key} id={key} {...items} />
+          <DuckField key={key} id={key} {...(items as object)} />
         ))}
     </a>
   );

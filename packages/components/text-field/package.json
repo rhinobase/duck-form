@@ -4,7 +4,9 @@
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c=./rollup.config.js",
     "publish": "pnpm publish"
@@ -13,6 +15,8 @@
     "react": "^18.2.0"
   },
   "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "@rhinobase/shared": "workspace:*",
     "zod": "^3.24.1"
   }

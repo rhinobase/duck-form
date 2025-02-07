@@ -1,10 +1,10 @@
 import z from "zod";
-import { duckSpecSchema } from "../schema";
+// import { duckSpecSchema } from "../schema";
 
 type DefaultSchemaType = {
   type: string;
   className?: string;
-  blocks?: Record<string, z.infer<typeof duckSpecSchema>>;
+  blocks?: Record<string, unknown>;
 } & Record<string, unknown>;
 
 export const defaultSchema: z.ZodType<DefaultSchemaType> = z
@@ -14,7 +14,7 @@ export const defaultSchema: z.ZodType<DefaultSchemaType> = z
     blocks: z
       .record(
         z.string(),
-        z.lazy(() => duckSpecSchema)
+        z.lazy(() => z.any())
       )
       .optional(),
   })

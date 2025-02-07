@@ -13,7 +13,7 @@ export function SpanField({ blocks, className }: SpanProps) {
     <span {...fieldProps}>
       {blocks &&
         Object.entries(blocks).map(([key, items]) => (
-          <DuckField key={key} id={key} {...items} />
+          <DuckField key={key} id={key} {...(items as object)} />
         ))}
     </span>
   );

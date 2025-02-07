@@ -1,2 +1,2 @@
-export { duckSpecSchema } from "./schema";
-export * from "./blocks";
+export { duckSpecSchema } from "./schema.js";
+export * from "./blocks/index.js";

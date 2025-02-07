@@ -1,5 +1,3 @@
-import nunjucks from "nunjucks";
-
 export enum BlockType {
   ARRAY = "array",
   CALENDAR = "calendar",
@@ -22,7 +20,7 @@ export enum BlockType {
   MULTI_LISTBOX = "multiListbox",
   NUMBER = "number",
   OBJECT = "object",
-  PARAGRAPH = "paragraph",
+  PARAGRAPH = "p",
   PASSWORD = "password",
   PERCENTAGE_INPUT = "percentageInput",
   PIN = "pin",
@@ -47,33 +45,33 @@ export enum ORIENTATION {
   ROW_REVERSE = "row-reverse",
 }
 
-const VARIABLE_REGEX = /\{\{(.*?)\}\}/g;
+// const VARIABLE_REGEX = /\{\{(.*?)\}\}/g;
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export function valueResolver<T = any>(
-  context: Record<string, unknown>,
-  value?: string
-): T | undefined {
-  if (!value) return undefined;
+// export function valueResolver<T = any>(
+//   context: Record<string, unknown>,
+//   value?: string
+// ): T | undefined {
+//   if (!value) return undefined;
 
-  const renderedValue = nunjucks.renderString(value, context);
+//   const renderedValue = nunjucks.renderString(value, context);
 
-  return eval(renderedValue);
-}
+//   return eval(renderedValue);
+// }
 
-export function findAllVariables(...props: (string | undefined)[]) {
-  const tmp: string[] = [];
+// export function findAllVariables(...props: (string | undefined)[]) {
+//   const tmp: string[] = [];
 
-  for (const prop of props) {
-    if (!prop) continue;
+//   for (const prop of props) {
+//     if (!prop) continue;
 
-    const result = prop.match(VARIABLE_REGEX);
+//     const result = prop.match(VARIABLE_REGEX);
 
-    if (result)
-      tmp.push(
-        ...result.map((match) => match.replace(/\{\{|\}\}/g, "").trim())
-      );
-  }
+//     if (result)
+//       tmp.push(
+//         ...result.map((match) => match.replace(/\{\{|\}\}/g, "").trim())
+//       );
+//   }
 
-  return Array.from(new Set(tmp));
-}
+//   return Array.from(new Set(tmp));
+// }
