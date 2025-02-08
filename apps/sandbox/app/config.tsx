@@ -85,6 +85,7 @@ export const components = {
   switch: wrapper(SwitchField),
   switchGroup: wrapper(SwitchGroupField),
   tag: wrapper(TagField),
-  text: wrapper(TextField),
+  literal: wrapper(TextField),
+  script: wrapper(TextField),
   textarea: wrapper(TextareaField),
 };

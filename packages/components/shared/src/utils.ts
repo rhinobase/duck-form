@@ -62,8 +62,8 @@ export function evalProp(
     // biome-ignore lint/security/noGlobalEval: <explanation>
     return eval(addVariables(struct.value));
   } catch (err) {
-    console.error(err);
-    return `[ERROR] ${struct.value}`;
+    // console.error(err);
+    return struct.value;
   }
 }
 

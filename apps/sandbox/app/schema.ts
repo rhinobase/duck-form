@@ -17,17 +17,17 @@ export const schema = {
             type: "div",
             className: { type: "literal", value: "flex w-max flex-col" },
             blocks: {
-              // Image1: {
-              //   type: "Image",
-              //   src: { type: "script", value: "{{ c.logo }}" },
-              //   alt: { type: "literal", value: "Dezyne Ecole College" },
-              //   width: { type: "literal", value: 100 },
-              //   height: { type: "literal", value: 100 },
-              //   className: {
-              //     type: "literal",
-              //     value: "h-[60px] w-[100px] object-cover",
-              //   },
-              // },
+              Image1: {
+                type: "Image",
+                // src: { type: "script", value: "{{ c.logo }}" },
+                alt: { type: "literal", value: "Dezyne Ecole College" },
+                width: { type: "literal", value: 100 },
+                height: { type: "literal", value: 100 },
+                className: {
+                  type: "literal",
+                  value: "h-[60px] w-[100px] object-cover",
+                },
+              },
               p2: {
                 type: "p",
                 className: {
@@ -101,28 +101,28 @@ export const schema = {
               },
             },
           },
-          // Image2: {
-          //   type: "Image",
-          //   src: {
-          //     type: "script",
-          //     value: "{{ c.queries.student.profile_image }}",
-          //   },
-          //   alt: { type: "literal", value: "student profile image" },
-          //   width: { type: "literal", value: 150 },
-          //   height: { type: "literal", value: 150 },
-          //   unoptimized: { type: "literal", value: true },
-          //   className: {
-          //     type: "script",
-          //     value: "{{ c.queries.student.profile_image }} ? '' : 'hidden'",
-          //   },
-          // },
+          Image2: {
+            type: "Image",
+            // src: {
+            //   type: "script",
+            //   value: "{{ c.queries.student.profile_image }}",
+            // },
+            alt: { type: "literal", value: "student profile image" },
+            width: { type: "literal", value: 150 },
+            height: { type: "literal", value: 150 },
+            unoptimized: { type: "literal", value: true },
+            className: {
+              type: "script",
+              value: "{{ c.queries.student.profile_image }} ? '' : 'hidden'",
+            },
+          },
           div4: {
             type: "div",
-            // className: {
-            //   type: "script",
-            //   value:
-            //     "{{ c.queries.student.profile_image }} ? 'hidden' : 'h-[150px] w-[150px] border'",
-            // },
+            className: {
+              type: "script",
+              value:
+                "{{ c.queries.student.profile_image }} ? 'hidden' : 'h-[150px] w-[150px] border'",
+            },
           },
         },
       },
