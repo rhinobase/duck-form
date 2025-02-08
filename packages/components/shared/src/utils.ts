@@ -49,15 +49,20 @@ export enum ORIENTATION {
   ROW_REVERSE = "row-reverse",
 }
 
-export function from(
+export function evalProp(
   struct:
     | { type: "literal"; value: unknown }
-    | { type: "script"; value: string }
+    | { type: "script"; value: string },
 ) {
   if (struct.type === "literal") return struct.value;
 
-  // biome-ignore lint/security/noGlobalEval: <explanation>
-  return eval(addVariables(struct.value));
+  try {
+    // biome-ignore lint/security/noGlobalEval: <explanation>
+    return eval(addVariables(struct.value));
+  } catch (err) {
+    console.error(err);
+    return `[ERROR] ${struct.value}`;
+  }
 }
 
 export function addVariables(template: string) {

@@ -1,4 +1,4 @@
-import { from, type defaultSchema } from "@rhinobase/shared";
+import { evalProp, type defaultSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React, { type ElementType } from "react";
 import type z from "zod";
@@ -11,7 +11,7 @@ export function DefaultField({
   className,
   ...props
 }: DefaultProps) {
-  const fieldProps = className ? { className: from(className) } : props;
+  const fieldProps = className ? { className: evalProp(className) } : props;
 
   const children =
     blocks &&

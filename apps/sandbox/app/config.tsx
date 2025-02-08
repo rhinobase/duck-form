@@ -1,3 +1,4 @@
+"use client";
 import ArrayField from "@rhinobase/array-field";
 import ButtonField from "@rhinobase/button-field";
 import CalendarField from "@rhinobase/calendar-field";
@@ -40,12 +41,11 @@ import { ImageField } from "./ImageField";
 import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const wrapper = (Component: (props: any) => JSX.Element) => () =>
-  (
-    <DuckWrapper>
-      <Component />
-    </DuckWrapper>
-  );
+const wrapper = (Component: (props: any) => JSX.Element) => () => (
+  <DuckWrapper>
+    <Component />
+  </DuckWrapper>
+);
 
 export const components = {
   array: ArrayField,

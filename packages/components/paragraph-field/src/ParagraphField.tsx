@@ -1,4 +1,4 @@
-import { from, type paragraphSchema } from "@rhinobase/shared";
+import { evalProp, type paragraphSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
 import type z from "zod";
@@ -6,7 +6,7 @@ import type z from "zod";
 export type ParagraphProps = z.infer<typeof paragraphSchema>;
 
 export function Paragraph({ blocks, className }: ParagraphProps) {
-  const fieldProps = className ? { className: from(className) } : {};
+  const fieldProps = className ? { className: evalProp(className) } : {};
 
   return (
     <p {...fieldProps}>

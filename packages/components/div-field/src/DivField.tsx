@@ -1,5 +1,5 @@
 "use client";
-import { from, type divSchema } from "@rhinobase/shared";
+import { evalProp, type divSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
 import type z from "zod";
@@ -7,7 +7,7 @@ import type z from "zod";
 export type DivProps = z.infer<typeof divSchema>;
 
 export function DivField({ blocks, className }: DivProps) {
-  const fieldProps = className ? { className: from(className) } : {};
+  const fieldProps = className ? { className: evalProp(className) } : {};
 
   return (
     <div {...fieldProps}>
