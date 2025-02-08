@@ -1,5 +1,5 @@
 {
-  "name": "@rhinobase/text-field",
+  "name": "@rhinobase/text",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",

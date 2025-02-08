@@ -1,10 +1,12 @@
 {
-  "name": "@rhinobase/segmented-control-field",
+  "name": "@rhinobase/segmented-control",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "rollup -c=./rollup.config.js",
     "publish": "pnpm publish"

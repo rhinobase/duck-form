@@ -5,7 +5,7 @@ import type z from "zod";
 
 export type ListboxProps = z.infer<typeof listboxSchema>;
 
-export function ListboxField({
+export function Listbox({
   onChange,
   options,
   defaultValue,

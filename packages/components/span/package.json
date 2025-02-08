@@ -1,5 +1,5 @@
 {
-  "name": "@rhinobase/span-field",
+  "name": "@rhinobase/span",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",

@@ -1,5 +1,5 @@
 {
-  "name": "@rhinobase/div-field",
+  "name": "@rhinobase/div",
   "version": "0.0.1",
   "type": "module",
   "module": "./dist/index.js",

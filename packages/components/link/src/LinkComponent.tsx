@@ -6,7 +6,7 @@ import type z from "zod";
 
 export type LinkProps = z.infer<typeof linkSchema>;
 
-export function LinkField({ className, blocks, link }: LinkProps) {
+export function LinkComponent({ className, blocks, link }: LinkProps) {
   const fieldProps = className ? { className } : {};
 
   return (

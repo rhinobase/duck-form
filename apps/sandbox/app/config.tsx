@@ -1,6 +1,6 @@
 "use client";
 import ArrayField from "@rhinobase/array-field";
-import ButtonField from "../../../packages/components/button/dist/index.js";
+import ButtonField from "@rhinobase/button";
 import CalendarField from "@rhinobase/calendar-field";
 import CheckboxField from "@rhinobase/checkbox-field";
 import CheckboxGroupField from "@rhinobase/checkbox-group-field";
@@ -9,15 +9,15 @@ import CurrencyField from "@rhinobase/currency-field";
 import DateField from "@rhinobase/date-field";
 import DateRangeField from "@rhinobase/date-range-field";
 import DatetimeField from "@rhinobase/date-time-field";
-import DefaultField from "../../../packages/components/default/dist/index.js";
-import DivField from "../../../packages/components/div/dist/index.js";
+import DefaultField from "@rhinobase/default";
+import DivField from "@rhinobase/div";
 import EditableNumberField from "@rhinobase/editable-number-field";
 import EditableTextField from "@rhinobase/editable-text-field";
 import EditableTextareaField from "@rhinobase/editable-textarea-field";
 import Form from "@rhinobase/form";
-import LinkField from "../../../packages/components/link/dist/index.js";
-import ListboxField from "../../../packages/components/listbox/dist/index.js";
-import MultiListboxField from "../../../packages/components/multi-listbox/dist/index.js";
+import LinkField from "@rhinobase/link";
+import ListboxField from "@rhinobase/listbox";
+import MultiListboxField from "@rhinobase/multi-listbox";
 import NumberField from "@rhinobase/number-field";
 import ObjectField from "@rhinobase/object-field";
 import ParagraphField from "@rhinobase/paragraph-field";
@@ -27,15 +27,15 @@ import PinField from "@rhinobase/pin-field";
 import RadioGroupField from "@rhinobase/radio-group-field";
 import RangeSliderField from "@rhinobase/range-slider-field";
 import RatingField from "@rhinobase/rating-field";
-import SegmentedControlField from "../../../packages/components/segmented-control/dist/index.js";
+import SegmentedControlField from "@rhinobase/segmented-control";
 import SelectField from "@rhinobase/select-field";
 import SliderField from "@rhinobase/slider-field";
-import SpanField from "../../../packages/components/span/dist/index.js";
+import SpanField from "@rhinobase/span";
 import StringField from "@rhinobase/string-field";
 import SwitchField from "@rhinobase/switch-field";
 import SwitchGroupField from "@rhinobase/switch-group-field";
 import TagField from "@rhinobase/tag-field";
-import TextField from "../../../packages/components/text/dist/index.js";
+import TextField from "@rhinobase/text";
 import TextareaField from "@rhinobase/textarea-field";
 import { ImageField } from "./ImageField";
 import { DuckWrapper } from "./wrappers";
@@ -52,7 +52,7 @@ export const components = {
   calendar: wrapper(CalendarField),
   boolean: wrapper(CheckboxField),
   button: wrapper(ButtonField),
-  image: wrapper(ImageField),
+  Image: wrapper(ImageField),
   checkboxgroup: wrapper(CheckboxGroupField),
   colorPicker: wrapper(ColorPickerField),
   currencyInput: wrapper(CurrencyField),
@@ -73,7 +73,7 @@ export const components = {
   p: wrapper(ParagraphField),
   password: wrapper(PasswordField),
   percentageInput: wrapper(PercentageField),
-  pin: wrapper(PinField),
+  Pin: wrapper(PinField),
   radio: wrapper(RadioGroupField),
   rangeSlider: wrapper(RangeSliderField),
   rating: wrapper(RatingField),

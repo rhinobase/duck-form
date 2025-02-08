@@ -1,4 +1,4 @@
-import { LinkField } from "./LinkField.js";
+import { LinkComponent } from "./LinkComponent.js";
 
-export default LinkField;
-export type { LinkProps } from "./LinkField.js";
+export default LinkComponent;
+export type { LinkProps } from "./LinkComponent.js";
