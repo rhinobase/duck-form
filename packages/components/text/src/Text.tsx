@@ -4,8 +4,9 @@ import React from "react";
 
 export type TextProps = z.infer<typeof textSchema>;
 
-export function TextField({ content }: TextProps) {
-  const updatedContent = evalProp(content);
+export function TextField(props: TextProps) {
+  // @ts-expect-error
+  const updatedContent = evalProp(props);
 
   return <>{updatedContent}</>;
 }

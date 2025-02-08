@@ -50,10 +50,12 @@ export enum ORIENTATION {
 }
 
 export function evalProp(
-  struct:
+  struct?:
     | { type: "literal"; value: unknown }
     | { type: "script"; value: string },
 ) {
+  if (!struct) return "[UNDEFINED]";
+
   if (struct.type === "literal") return struct.value;
 
   try {

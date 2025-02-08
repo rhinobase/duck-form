@@ -5,13 +5,18 @@ import type z from "zod";
 
 export type DefaultProps = z.infer<typeof defaultSchema>;
 
-export function DefaultField({
-  blocks,
-  type,
-  className,
-  ...props
-}: DefaultProps) {
-  const fieldProps = className ? { className: evalProp(className) } : props;
+export function DefaultField({ blocks, type, ...props }: DefaultProps) {
+  const fieldProps = Object.entries(props).reduce<Record<string, unknown>>(
+    (prev, [key, val]) => {
+      if (val && typeof val === "object" && Object.keys(val).length === 2) {
+        // @ts-expect-error
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {},
+  );
 
   const children =
     blocks &&
