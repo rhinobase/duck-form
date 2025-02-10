@@ -1,4 +1,4 @@
-import { TableField } from "./TableField.js";
+import { TableComponent } from "./TableField.js";
 
-export default TableField;
+export default TableComponent;
 export type { TableProps } from "./TableField.js";

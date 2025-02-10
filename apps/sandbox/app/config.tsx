@@ -38,6 +38,7 @@ import TagField from "@rhinobase/tag-field";
 import TextField from "@rhinobase/text";
 import TextareaField from "@rhinobase/textarea-field";
 import ImageComponent from "@rhinobase/image";
+import TableComponent from "@rhinobase/table";
 import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -85,6 +86,7 @@ export const components = {
   string: wrapper(StringField),
   switch: wrapper(SwitchField),
   switchGroup: wrapper(SwitchGroupField),
+  table: wrapper(TableComponent),
   tag: wrapper(TagField),
   literal: wrapper(TextField),
   script: wrapper(TextField),

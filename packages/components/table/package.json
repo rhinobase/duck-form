@@ -12,8 +12,8 @@
     "publish": "pnpm publish"
   },
   "peerDependencies": {
+    "@swc/helpers": "~0.5.11",
     "@rafty/ui": "^2.0.0-rc.0",
-    "@rafty/corp": "^1.0.6",
     "react": "^18.2.0"
   },
   "devDependencies": {

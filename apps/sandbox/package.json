@@ -50,6 +50,7 @@
     "@rhinobase/string-field": "workspace:*",
     "@rhinobase/switch-field": "workspace:*",
     "@rhinobase/switch-group-field": "workspace:*",
+    "@rhinobase/table": "workspace:*",
     "@rhinobase/tag-field": "workspace:*",
     "@rhinobase/text": "workspace:*",
     "@rhinobase/textarea-field": "workspace:*",
