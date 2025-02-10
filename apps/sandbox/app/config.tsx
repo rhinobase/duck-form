@@ -86,7 +86,7 @@ export const components = {
   string: wrapper(StringField),
   switch: wrapper(SwitchField),
   switchGroup: wrapper(SwitchGroupField),
-  table: wrapper(TableComponent),
+  data_table: wrapper(TableComponent),
   tag: wrapper(TagField),
   literal: wrapper(TextField),
   script: wrapper(TextField),

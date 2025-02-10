@@ -215,6 +215,9 @@ importers:
       axios:
         specifier: ^1.7.9
         version: 1.7.9
+      dayjs:
+        specifier: ^1.11.13
+        version: 1.11.13
       duck-form:
         specifier: workspace:*
         version: link:../../packages/core
