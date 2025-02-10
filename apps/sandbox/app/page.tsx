@@ -1,13 +1,13 @@
 import { Blueprint, DuckField, DuckForm } from "duck-form";
 import { components } from "./config";
-import { schema } from "./schema";
+import { applicationFormSchema } from "./dez";
 import axios from "axios";
 import nunjucks from "nunjucks";
 
 export default async function HomePage() {
   const student = await axios
     .get(
-      "https://api.rhinobase.io/api/organisations/dez_erp/collections/student/6777952984427e9bd2beca47",
+      "https://api.rhinobase.io/api/organisations/dez_erp/collections/application_form/679737515a9c3a3b8cddd53d",
       {
         headers: {
           Authorization: `Bearer ${process.env.USER_TOKEN}`,
@@ -25,7 +25,7 @@ export default async function HomePage() {
   };
 
   const renderedValue = JSON.parse(
-    nunjucks.renderString(JSON.stringify(schema), context),
+    nunjucks.renderString(JSON.stringify(applicationFormSchema), context),
   );
 
   return (
