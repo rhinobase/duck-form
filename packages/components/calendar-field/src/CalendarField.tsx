@@ -1,5 +1,5 @@
 import { Calendar as RaftyCalendar } from "@rafty/ui";
-import type { calendarSchema } from "@rhinobase/shared";
+import { evalProp, type calendarSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -12,13 +12,38 @@ export function CalendarField({
   placeholder,
   value,
 }: CalendarProps) {
+  const props = {
+    defaultValue,
+    name,
+    placeholder,
+    value,
+    onChange,
+  };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
+
   return (
     <RaftyCalendar
-      id={name}
-      value={value}
-      placeholder={placeholder}
-      defaultValue={defaultValue}
-      onValueChange={onChange}
+      id={fieldProps.name}
+      value={fieldProps.value}
+      placeholder={fieldProps.placeholder}
+      defaultValue={fieldProps.defaultValue}
+      onValueChange={fieldProps.onChange}
       className="w-max"
     />
   );

@@ -5,7 +5,7 @@ import { BlockType, scriptOrLiteral } from "../../utils";
 type SpanSchemaType = {
   type: BlockType.SPAN;
   className?:
-    | { type: "literal"; value: unknown }
+    | { type: "literal"; value: string }
     | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 };

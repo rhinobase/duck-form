@@ -11,7 +11,7 @@ export const fieldWrapperSchema = z.object({
   readonly: scriptOrLiteral(z.boolean()).optional(),
   hidden: scriptOrLiteral(z.boolean()).optional(),
   orientation: scriptOrLiteral(z.nativeEnum(ORIENTATION)).optional(),
-  onChange: z.function().returns(z.void()).optional(),
+  onChange: scriptOrLiteral(z.function().returns(z.void())).optional(),
   tooltip: scriptOrLiteral(z.string().max(2000)).optional(),
   fieldset: scriptOrLiteral(z.string().max(2000)).optional(),
 });

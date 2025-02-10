@@ -1,5 +1,5 @@
 import { EditableText as RaftyEditableText } from "@rafty/ui";
-import type { editableTextSchema } from "@rhinobase/shared";
+import { evalProp, type editableTextSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -12,13 +12,32 @@ export function EditableTextField({
   placeholder,
   value,
 }: EditableTextProps) {
+  const props = { name, placeholder, value, defaultValue, onChange };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
+
   return (
     <RaftyEditableText
-      id={name}
-      defaultValue={defaultValue}
-      placeholder={placeholder}
-      value={value}
-      onValueChange={onChange}
+      id={fieldProps.name}
+      defaultValue={fieldProps.defaultValue}
+      placeholder={fieldProps.placeholder}
+      value={fieldProps.value}
+      onValueChange={fieldProps.onChange}
     />
   );
 }

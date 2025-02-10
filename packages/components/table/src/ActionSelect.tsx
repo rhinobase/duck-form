@@ -73,7 +73,7 @@ export function ActionSelect({ handler, actions = [] }: ActionSelect) {
 
 function CustomTriggerRender() {
   const { selected, options } = useComboboxContext();
-  const label = findLabel(selected[0], options);
+  const label = findLabel(selected[0] ?? "", options);
 
   if (!selected || selected.length > 0)
     return (

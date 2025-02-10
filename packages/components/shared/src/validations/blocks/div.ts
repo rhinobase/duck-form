@@ -5,7 +5,7 @@ import { BlockType, scriptOrLiteral } from "../../utils";
 type DivSchemaType = {
   type: BlockType.DIV;
   className?:
-    | { type: "literal"; value: unknown }
+    | { type: "literal"; value: string }
     | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 };

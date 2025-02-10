@@ -6,8 +6,23 @@ import type z from "zod";
 
 export type DivProps = z.infer<typeof divSchema>;
 
-export function DivField({ blocks, className }: DivProps) {
-  const fieldProps = className ? { className: evalProp(className) } : {};
+export function DivField({ blocks, ...props }: DivProps) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
 
   return (
     <div {...fieldProps}>

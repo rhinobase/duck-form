@@ -6,8 +6,23 @@ import type z from "zod";
 
 export type SpanProps = z.infer<typeof spanSchema>;
 
-export function SpanField({ blocks, className }: SpanProps) {
-  const fieldProps = className ? { className: evalProp(className) } : {};
+export function SpanField({ blocks, ...props }: SpanProps) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
 
   return (
     <span {...fieldProps}>

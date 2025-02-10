@@ -323,22 +323,22 @@ export const schema = {
                         type: "div",
                         className: {
                           type: "literal",
-                          value: "flex items-center gap-2",
+                          value: "flex items-center gap-6",
                         },
                         blocks: {
                           Pin1: {
                             type: "Pin",
-                            placeholder: { type: "literal", value: "DD" },
+                            placeholder: { type: "literal", value: "D" },
                             length: { type: "literal", value: "2" },
                           },
                           Pin2: {
                             type: "Pin",
-                            placeholder: { type: "literal", value: "MM" },
+                            placeholder: { type: "literal", value: "M" },
                             length: { type: "literal", value: "2" },
                           },
                           Pin3: {
                             type: "Pin",
-                            placeholder: { type: "literal", value: "YYYY" },
+                            placeholder: { type: "literal", value: "Y" },
                             length: { type: "literal", value: "4" },
                           },
                         },

@@ -53,6 +53,7 @@
     "@rhinobase/tag-field": "workspace:*",
     "@rhinobase/text": "workspace:*",
     "@rhinobase/textarea-field": "workspace:*",
+    "@rhinobase/image": "workspace:*",
     "@rhinobase/shared": "workspace:*"
   },
   "devDependencies": {

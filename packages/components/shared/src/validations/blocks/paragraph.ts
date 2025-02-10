@@ -5,7 +5,7 @@ import { BlockType, scriptOrLiteral } from "../../utils";
 type ParagraphSchemaType = {
   type: BlockType.PARAGRAPH;
   className?:
-    | { type: "literal"; value: unknown }
+    | { type: "literal"; value: string }
     | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 };

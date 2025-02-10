@@ -3,8 +3,8 @@ import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
-  name: scriptOrLiteral(z.string()).optional(),
   type: z.literal(BlockType.STRING),
+  name: scriptOrLiteral(z.string()).optional(),
   inputType: scriptOrLiteral(z.string()).optional(),
   placeholder: scriptOrLiteral(z.string()).optional(),
   inputMode: scriptOrLiteral(
@@ -27,11 +27,9 @@ const schema = z.object({
   perfixIcon: scriptOrLiteral(z.string()).optional(),
   suffixIcon: scriptOrLiteral(z.string()).optional(),
   value: scriptOrLiteral(z.string()).optional(),
-  onChange: z
-    .function()
-    .args(z.string().optional())
-    .returns(z.void())
-    .optional(),
+  onChange: scriptOrLiteral(
+    z.function().args(z.string().optional()).returns(z.void())
+  ).optional(),
 });
 
 export const stringSchema = fieldWrapperSchema.merge(schema);

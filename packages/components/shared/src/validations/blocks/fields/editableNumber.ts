@@ -1,18 +1,16 @@
 import z from "zod";
-import { BlockType } from "../../../utils";
+import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
 export const schema = z.object({
-  name: z.string().optional(),
   type: z.literal(BlockType.EDITABLE_NUMBER),
-  placeholder: z.string().optional(),
-  defaultValue: z.number().optional(),
-  value: z.number().optional(),
-  onChange: z
-    .function()
-    .args(z.number().optional())
-    .returns(z.void())
-    .optional(),
+  name: scriptOrLiteral(z.string()).optional(),
+  placeholder: scriptOrLiteral(z.string()).optional(),
+  defaultValue: scriptOrLiteral(z.number()).optional(),
+  value: scriptOrLiteral(z.number()).optional(),
+  onChange: scriptOrLiteral(
+    z.function().args(z.number().optional()).returns(z.void())
+  ).optional(),
 });
 
 export const editableNumberSchema = fieldWrapperSchema.merge(schema);

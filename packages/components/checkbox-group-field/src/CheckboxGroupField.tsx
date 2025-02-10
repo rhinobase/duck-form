@@ -1,5 +1,5 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import type { checkboxGroupSchema } from "@rhinobase/shared";
+import { evalProp, type checkboxGroupSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -12,16 +12,45 @@ export function CheckboxGroupField({
   value,
   onChange,
 }: CheckboxGroupProps) {
+  const props = {
+    name,
+    options,
+    defaultValue,
+    value,
+    onChange,
+  };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
+
   return (
     <div
-      id={name}
-      // biome-ignore lint/a11y/useSemanticElements: <explanation>
+      id={fieldProps.name}
       role="group"
       aria-labelledby="checkbox-group"
       className="flex w-full flex-col gap-1.5"
     >
-      {options.map((option, index) => {
-        const _id = `${name}.${option.value}`;
+      {(
+        fieldProps.options as {
+          value: string | number;
+          label?: string | undefined;
+        }[]
+      ).map((option, index) => {
+        const _id = `${fieldProps.name}.${option.value}`;
 
         return (
           <RaftyCheckbox
@@ -29,14 +58,14 @@ export function CheckboxGroupField({
             key={index}
             id={_id}
             name={_id}
-            defaultChecked={defaultValue?.includes(option.value)}
-            checked={value?.includes(option.value)}
+            defaultChecked={fieldProps.defaultValue?.includes(option.value)}
+            checked={fieldProps.value?.includes(option.value)}
             onCheckedChange={(checked) => {
-              let tmp = value ? [...value] : [];
+              let tmp = fieldProps.value ? [...fieldProps.value] : [];
               if (checked) tmp.push(option.value);
               else tmp = tmp.filter((value) => value !== option.value);
 
-              onChange?.(tmp);
+              fieldProps.onChange?.(tmp);
             }}
             isRequired={false}
           >

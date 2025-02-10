@@ -5,7 +5,7 @@ import { scriptOrLiteral } from "../../utils";
 type DefaultSchemaType = {
   type: string;
   className?:
-    | { type: "literal"; value: unknown }
+    | { type: "literal"; value: string }
     | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 } & Record<string, unknown>;

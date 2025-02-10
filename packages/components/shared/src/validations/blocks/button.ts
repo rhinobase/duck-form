@@ -1,24 +1,34 @@
 import z from "zod";
-import { BlockType } from "../../utils";
+import { BlockType, scriptOrLiteral } from "../../utils";
 // import { duckSpecSchema } from "../schema";
 
 type ButtonSchemaType = {
   type: BlockType.BUTTON;
-  className?: string;
-  btnType?: "submit" | "reset" | "button";
-  leftIcon?: JSX.Element;
-  rightIcon?: JSX.Element;
-  isLoading?: boolean;
+  className?:
+    | { type: "literal"; value: string }
+    | { type: "script"; value: string };
+  btnType?:
+    | { type: "literal"; value: "submit" | "reset" | "button" }
+    | { type: "script"; value: string };
+  leftIcon?:
+    | { type: "literal"; value?: JSX.Element }
+    | { type: "script"; value: string };
+  rightIcon?:
+    | { type: "literal"; value?: JSX.Element }
+    | { type: "script"; value: string };
+  isLoading?:
+    | { type: "literal"; value: boolean }
+    | { type: "script"; value: string };
   blocks?: Record<string, unknown>;
 };
 
 export const buttonSchema: z.ZodType<ButtonSchemaType> = z.object({
   type: z.literal(BlockType.BUTTON),
-  className: z.string().optional(),
-  btnType: z.enum(["submit", "reset", "button"]).optional(),
-  leftIcon: z.any().optional(),
-  rightIcon: z.any().optional(),
-  isLoading: z.boolean().optional(),
+  className: scriptOrLiteral(z.string()).optional(),
+  btnType: scriptOrLiteral(z.enum(["submit", "reset", "button"])).optional(),
+  leftIcon: scriptOrLiteral(z.any()).optional(),
+  rightIcon: scriptOrLiteral(z.any()).optional(),
+  isLoading: scriptOrLiteral(z.boolean()).optional(),
   blocks: z
     .record(
       z.string(),

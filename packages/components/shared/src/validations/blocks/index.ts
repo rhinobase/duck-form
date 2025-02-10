@@ -7,3 +7,4 @@ export { textSchema } from "./text.js";
 export { buttonSchema } from "./button.js";
 export { defaultSchema } from "./default.js";
 export { tableSchema } from "./table.js";
+export { imageSchema } from "./image.js";

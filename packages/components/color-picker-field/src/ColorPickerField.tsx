@@ -11,17 +11,33 @@ export function ColorPickerField({
   onChange,
   name,
 }: ColorPickerProps) {
-  const [isOpen, setOpen] = useBoolean();
+  const props = { name, value, defaultValue, onChange };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        // @ts-expect-error
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
 
   return (
     <RaftyColorPicker
-      id={name}
-      open={isOpen}
-      onOpenChange={({ open }) => setOpen(open)}
-      defaultValue={defaultValue}
-      value={value}
+      id={fieldProps.name}
+      defaultValue={fieldProps.defaultValue}
+      value={fieldProps.value}
       onValueChange={({ valueAsString }: { valueAsString: string }) =>
-        onChange?.(valueAsString)
+        fieldProps.onChange?.(valueAsString)
       }
     />
   );

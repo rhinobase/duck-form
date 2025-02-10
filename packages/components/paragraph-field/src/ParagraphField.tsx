@@ -5,8 +5,23 @@ import type z from "zod";
 
 export type ParagraphProps = z.infer<typeof paragraphSchema>;
 
-export function Paragraph({ blocks, className }: ParagraphProps) {
-  const fieldProps = className ? { className: evalProp(className) } : {};
+export function Paragraph({ blocks, ...props }: ParagraphProps) {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
 
   return (
     <p {...fieldProps}>

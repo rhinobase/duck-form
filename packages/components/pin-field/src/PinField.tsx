@@ -5,38 +5,48 @@ import type z from "zod";
 
 export type PinInputProps = z.infer<typeof pinSchema>;
 
-export function PinField(props: PinInputProps) {
-  const componentProps = {
-    // @ts-expect-error
-    defaultValue: evalProp(props.defaultValue),
-    // @ts-expect-error
-    value: evalProp(props.value),
-    // @ts-expect-error
-    onChange: evalProp(props.onChange),
-    // @ts-expect-error
-    length: evalProp(props.length),
-    // @ts-expect-error
-    name: evalProp(props.name),
-    // @ts-expect-error
-    placeholder: evalProp(props.placeholder),
-  };
+export function PinField({
+  defaultValue,
+  length,
+  onChange,
+  placeholder,
+  value,
+  name,
+}: PinInputProps) {
+  const props = { name, placeholder, defaultValue, value, onChange, length };
 
-  const { defaultValue, value, onChange, length, name, placeholder } =
-    componentProps;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
 
-  const formattedValue = value ? Array.from<string>(value) : undefined;
+      return prev;
+    },
+    {}
+  );
+
+  const formattedValue = fieldProps.value
+    ? Array.from<string>(fieldProps.value)
+    : undefined;
   const formattedDefaultValue = defaultValue
-    ? Array.from<string>(defaultValue)
+    ? Array.from<string>(fieldProps.defaultValue)
     : undefined;
 
   return (
     <RaftyPinInput
-      id={name}
-      length={length}
-      placeholder={placeholder}
+      id={fieldProps.name}
+      length={fieldProps.length}
+      placeholder={fieldProps.placeholder}
       defaultValue={formattedDefaultValue}
       value={formattedValue}
-      onValueChange={({ value }) => onChange?.(value)}
+      onValueChange={({ value }) => fieldProps.onChange?.(value)}
     />
   );
 }

@@ -16,27 +16,46 @@ export function StringField({
   placeholder,
   value,
 }: StringProps) {
-  const updatedName = name ? evalProp(name) : undefined;
-  const updatedInputType = inputType ? evalProp(inputType) : undefined;
-  const updatedDefaultValue = defaultValue ? evalProp(defaultValue) : undefined;
-  const updatedValue = value ? evalProp(value) : undefined;
-  // @ts-expect-error
-  const updatedMaxLength = maxLength ? evalProp(maxLength) : undefined;
-  const updatedMinLength = minLength ? evalProp(minLength) : undefined;
-  const updatedInputMode = inputMode ? evalProp(inputMode) : undefined;
-  const updatedPlaceholder = placeholder ? evalProp(placeholder) : undefined;
+  const props = {
+    onChange,
+    inputType,
+    defaultValue,
+    inputMode,
+    maxLength,
+    minLength,
+    name,
+    placeholder,
+    value,
+  };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
 
   return (
     <RaftyInputField
-      id={updatedName}
-      defaultValue={updatedDefaultValue}
-      inputMode={updatedInputMode}
-      maxLength={updatedMaxLength}
-      minLength={updatedMinLength}
-      placeholder={updatedPlaceholder}
-      value={updatedValue}
-      type={updatedInputType}
-      onChange={(event) => onChange?.(event.target.value)}
+      id={fieldProps.name}
+      defaultValue={fieldProps.defaultValue}
+      inputMode={fieldProps.inputMode}
+      maxLength={fieldProps.maxLength}
+      minLength={fieldProps.minLength}
+      placeholder={fieldProps.placeholder}
+      value={fieldProps.value}
+      type={fieldProps.inputType}
+      onChange={(event) => fieldProps.onChange?.(event.target.value)}
     />
   );
 }

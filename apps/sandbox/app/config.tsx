@@ -37,22 +37,23 @@ import SwitchGroupField from "@rhinobase/switch-group-field";
 import TagField from "@rhinobase/tag-field";
 import TextField from "@rhinobase/text";
 import TextareaField from "@rhinobase/textarea-field";
-import { ImageField } from "./ImageField";
+import ImageComponent from "@rhinobase/image";
 import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const wrapper = (Component: (props: any) => JSX.Element) => () => (
-  <DuckWrapper>
-    <Component />
-  </DuckWrapper>
-);
+const wrapper = (Component: (props: any) => JSX.Element) => () =>
+  (
+    <DuckWrapper>
+      <Component />
+    </DuckWrapper>
+  );
 
 export const components = {
   array: ArrayField,
   calendar: wrapper(CalendarField),
   boolean: wrapper(CheckboxField),
   button: wrapper(ButtonField),
-  Image: wrapper(ImageField),
+  image: wrapper(ImageComponent),
   checkboxgroup: wrapper(CheckboxGroupField),
   colorPicker: wrapper(ColorPickerField),
   currencyInput: wrapper(CurrencyField),

@@ -7,7 +7,7 @@ import {
   eventHandler,
   useBoolean,
 } from "@rafty/ui";
-import type { passwordSchema } from "@rhinobase/shared";
+import { evalProp, type passwordSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -22,6 +22,25 @@ export function PasswordField({
 }: PasswordProps) {
   const [showPassword, toggle] = useBoolean(false);
 
+  const props = { name, placeholder, defaultValue, value, onChange };
+
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
+    (prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    },
+    {}
+  );
+
   const Icon = showPassword ? EyeSlashIcon : EyeIcon;
 
   const handlerToggleShowPassword = eventHandler(() => toggle());
@@ -29,12 +48,12 @@ export function PasswordField({
   return (
     <InputGroup>
       <InputField
-        id={name}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
+        id={fieldProps.name}
+        defaultValue={fieldProps.defaultValue}
+        placeholder={fieldProps.placeholder}
         type={showPassword ? "text" : "password"}
-        value={value}
-        onChange={(event) => onChange?.(event.target.value)}
+        value={fieldProps.value}
+        onChange={(event) => fieldProps.onChange?.(event.target.value)}
       />
       <Suffix className="pointer-events-auto">
         <Button

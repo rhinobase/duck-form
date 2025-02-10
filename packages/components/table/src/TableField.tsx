@@ -38,7 +38,7 @@ export function TableField({
 
   return (
     <div className="h-full w-full overflow-x-hidden overflow-y-auto scroll-smooth flex flex-col gap-3 md:gap-4 lg:gap-5 xl:gap-6 p-3 md:p-4 lg:p-5 xl:p-6">
-      {selectedRowsLength > 0 && enableSelection === true && (
+      {selectedRowsLength > 0 && enableSelection?.value === true && (
         <div className="w-full min-h-[38px] flex items-center">
           <Text className="text-sm">
             {selectedRowsLength} {selectedRowsLength > 1 ? "rows" : "row"}{" "}
@@ -54,14 +54,14 @@ export function TableField({
           /> */}
         </div>
       )}
-      <DataTable
+      {/* <DataTable
         columns={columns}
         data={displayedData}
         onRowsSelectedChange={setRowsSelected}
         rowsSelected={rowsSelected}
         enableRowSelection={enableSelection}
         className="h-max grid overflow-hidden"
-      />
+      /> */}
       {enablePagination && (
         <Pagination
           pages={pages}

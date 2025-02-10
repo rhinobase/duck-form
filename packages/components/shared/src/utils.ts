@@ -52,7 +52,7 @@ export enum ORIENTATION {
 export function evalProp(
   struct?:
     | { type: "literal"; value: unknown }
-    | { type: "script"; value: string },
+    | { type: "script"; value: string }
 ) {
   if (!struct) return "[UNDEFINED]";
 
@@ -73,7 +73,7 @@ export function addVariables(template: string) {
 
 export const scriptOrLiteral = <T extends z.ZodType>(value: T) =>
   z.union([
-    z.object({ type: z.literal("script"), value }),
+    z.object({ type: z.literal("script"), value: z.string() }),
     z.object({ type: z.literal("literal"), value }),
   ]);
 

@@ -1,6 +1,6 @@
 "use client";
 import { DevTool } from "@hookform/devtools";
-import type { formSchema } from "@rhinobase/shared";
+import { evalProp, type formSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -22,7 +22,22 @@ export function Form() {
   );
 
   const { handleSubmit } = methods;
-  const { onSubmit, onError, blocks, enableDevtool, className, title } = props;
+  const { onSubmit, onError, blocks, enableDevtool, className, title } =
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    Object.entries(props).reduce<Record<string, any>>((prev, [key, val]) => {
+      if (
+        val &&
+        typeof val === "object" &&
+        "type" in val &&
+        (val.type === "literal" || val.type === "script")
+      ) {
+        // @ts-expect-error
+        prev[key] = evalProp(val);
+      }
+
+      return prev;
+    }, {});
+
   const fieldProps = className ? { className } : {};
 
   const componentId = customId ?? autoId;
@@ -40,7 +55,7 @@ export function Form() {
       >
         {blocks &&
           Object.entries(blocks).map(([key, items]) => (
-            <DuckField key={key} id={key} {...items} />
+            <DuckField key={key} id={key} {...(items as object)} />
           ))}
         {enableDevtool && <DevTool control={methods.control} />}
       </form>
