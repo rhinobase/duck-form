@@ -17,8 +17,8 @@ type LinkSchemaType = {
 
 export const linkSchema: z.ZodType<LinkSchemaType> = z.object({
   type: z.literal(BlockType.LINK),
-  link: scriptOrLiteral(z.string()).optional(),
-  className: scriptOrLiteral(z.string()).optional(),
+  link: scriptOrLiteral(z.coerce.string()).optional(),
+  className: scriptOrLiteral(z.coerce.string()).optional(),
   target: scriptOrLiteral(
     z.enum(["_blank", "_parent", "_self", "_top"])
   ).optional(),

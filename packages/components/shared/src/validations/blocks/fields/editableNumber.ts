@@ -4,10 +4,10 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 export const schema = z.object({
   type: z.literal(BlockType.EDITABLE_NUMBER),
-  name: scriptOrLiteral(z.string()).optional(),
-  placeholder: scriptOrLiteral(z.string()).optional(),
-  defaultValue: scriptOrLiteral(z.number()).optional(),
-  value: scriptOrLiteral(z.number()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.number()).optional(),
+  value: scriptOrLiteral(z.coerce.number()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.number().optional()).returns(z.void())
   ).optional(),

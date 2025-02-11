@@ -4,9 +4,9 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.STRING),
-  name: scriptOrLiteral(z.string()).optional(),
-  inputType: scriptOrLiteral(z.string()).optional(),
-  placeholder: scriptOrLiteral(z.string()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  inputType: scriptOrLiteral(z.coerce.string()).optional(),
+  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
   inputMode: scriptOrLiteral(
     z.enum([
       "search",
@@ -19,14 +19,14 @@ const schema = z.object({
       "decimal",
     ])
   ).optional(),
-  maxLength: scriptOrLiteral(z.number()).optional(),
-  minLength: scriptOrLiteral(z.string()).optional(),
-  defaultValue: scriptOrLiteral(z.string()).optional(),
-  prefix: scriptOrLiteral(z.string()).optional(),
-  suffix: scriptOrLiteral(z.string()).optional(),
-  perfixIcon: scriptOrLiteral(z.string()).optional(),
-  suffixIcon: scriptOrLiteral(z.string()).optional(),
-  value: scriptOrLiteral(z.string()).optional(),
+  maxLength: scriptOrLiteral(z.coerce.number()).optional(),
+  minLength: scriptOrLiteral(z.coerce.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
+  prefix: scriptOrLiteral(z.coerce.string()).optional(),
+  suffix: scriptOrLiteral(z.coerce.string()).optional(),
+  perfixIcon: scriptOrLiteral(z.coerce.string()).optional(),
+  suffixIcon: scriptOrLiteral(z.coerce.string()).optional(),
+  value: scriptOrLiteral(z.coerce.string()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.string().optional()).returns(z.void())
   ).optional(),

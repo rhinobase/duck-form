@@ -4,10 +4,10 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.DATE),
-  name: scriptOrLiteral(z.string()).optional(),
-  placeholder: scriptOrLiteral(z.string()).optional(),
-  defaultValue: scriptOrLiteral(z.string()).optional(),
-  value: scriptOrLiteral(z.string()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
+  value: scriptOrLiteral(z.coerce.string()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.string().optional()).returns(z.void())
   ).optional(),

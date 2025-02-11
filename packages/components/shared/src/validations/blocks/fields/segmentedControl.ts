@@ -4,7 +4,7 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.SEGMENTED_CONTROL),
-  name: scriptOrLiteral(z.string()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
   options: scriptOrLiteral(
     z.array(
       z.object({
@@ -13,8 +13,8 @@ const schema = z.object({
       })
     )
   ),
-  defaultValue: scriptOrLiteral(z.string()).optional(),
-  value: scriptOrLiteral(z.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
+  value: scriptOrLiteral(z.coerce.string()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.string().optional()).returns(z.void())
   ).optional(),

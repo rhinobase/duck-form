@@ -24,7 +24,7 @@ type ButtonSchemaType = {
 
 export const buttonSchema: z.ZodType<ButtonSchemaType> = z.object({
   type: z.literal(BlockType.BUTTON),
-  className: scriptOrLiteral(z.string()).optional(),
+  className: scriptOrLiteral(z.coerce.string()).optional(),
   btnType: scriptOrLiteral(z.enum(["submit", "reset", "button"])).optional(),
   leftIcon: scriptOrLiteral(z.any()).optional(),
   rightIcon: scriptOrLiteral(z.any()).optional(),

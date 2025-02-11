@@ -4,11 +4,11 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.PIN),
-  name: scriptOrLiteral(z.string()).optional(),
-  length: scriptOrLiteral(z.number()),
-  placeholder: scriptOrLiteral(z.string()).optional(),
-  defaultValue: scriptOrLiteral(z.string()).optional(),
-  value: scriptOrLiteral(z.string()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  length: scriptOrLiteral(z.coerce.number()),
+  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
+  value: scriptOrLiteral(z.coerce.string()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.array(z.string()).optional()).returns(z.void())
   ).optional(),

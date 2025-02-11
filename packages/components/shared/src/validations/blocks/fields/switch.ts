@@ -4,9 +4,9 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.SWTICH),
-  name: scriptOrLiteral(z.string()).optional(),
-  defaultValue: scriptOrLiteral(z.boolean()).optional(),
-  value: scriptOrLiteral(z.boolean()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.boolean()).optional(),
+  value: scriptOrLiteral(z.coerce.boolean()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.boolean().optional()).returns(z.void())
   ).optional(),

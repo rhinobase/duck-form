@@ -12,7 +12,7 @@ type SpanSchemaType = {
 
 export const spanSchema: z.ZodType<SpanSchemaType> = z.object({
   type: z.literal(BlockType.SPAN),
-  className: scriptOrLiteral(z.string()).optional(),
+  className: scriptOrLiteral(z.coerce.string()).optional(),
   blocks: z
     .record(
       z.string(),

@@ -3,7 +3,7 @@ import { BlockType, scriptOrLiteral } from "../../../utils";
 
 export const formSchema = z.object({
   type: z.literal(BlockType.FORM),
-  title: scriptOrLiteral(z.string()).optional(),
+  title: scriptOrLiteral(z.coerce.string()).optional(),
   enableDevtool: scriptOrLiteral(z.boolean()).optional(),
   onSubmit: scriptOrLiteral(
     z.function().args(z.any(), z.any()).returns(z.void())

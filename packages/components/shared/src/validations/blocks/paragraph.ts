@@ -12,7 +12,7 @@ type ParagraphSchemaType = {
 
 export const paragraphSchema: z.ZodType<ParagraphSchemaType> = z.object({
   type: z.literal(BlockType.PARAGRAPH),
-  className: scriptOrLiteral(z.string()).optional(),
+  className: scriptOrLiteral(z.coerce.string()).optional(),
   blocks: z
     .record(
       z.string(),

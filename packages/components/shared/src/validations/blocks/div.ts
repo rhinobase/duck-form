@@ -12,7 +12,7 @@ type DivSchemaType = {
 
 export const divSchema: z.ZodType<DivSchemaType> = z.object({
   type: z.literal(BlockType.DIV),
-  className: scriptOrLiteral(z.string()).optional(),
+  className: scriptOrLiteral(z.coerce.string()).optional(),
   blocks: z
     .record(
       z.string(),

@@ -4,7 +4,7 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.SWITCH_GROUP),
-  name: scriptOrLiteral(z.string()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
   options: scriptOrLiteral(
     z.array(
       z.object({

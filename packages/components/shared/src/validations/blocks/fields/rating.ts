@@ -4,11 +4,11 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.RATING),
-  name: scriptOrLiteral(z.string()).optional(),
-  count: scriptOrLiteral(z.number()).optional(),
-  allowHalf: scriptOrLiteral(z.boolean()).optional(),
-  defaultValue: scriptOrLiteral(z.number()).optional(),
-  value: scriptOrLiteral(z.number()).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  count: scriptOrLiteral(z.coerce.number()).optional(),
+  allowHalf: scriptOrLiteral(z.coerce.boolean()).optional(),
+  defaultValue: scriptOrLiteral(z.coerce.number()).optional(),
+  value: scriptOrLiteral(z.coerce.number()).optional(),
   onChange: scriptOrLiteral(
     z.function().args(z.number().optional()).returns(z.void())
   ).optional(),

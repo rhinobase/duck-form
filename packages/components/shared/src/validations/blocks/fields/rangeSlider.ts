@@ -4,12 +4,16 @@ import { fieldWrapperSchema } from "./fieldWrapper";
 
 const schema = z.object({
   type: z.literal(BlockType.RANGE_SLIDER),
-  name: scriptOrLiteral(z.string()).optional(),
-  min: scriptOrLiteral(z.number()).optional(),
-  max: scriptOrLiteral(z.number()).optional(),
-  step: scriptOrLiteral(z.number()).optional(),
-  defaultValue: scriptOrLiteral(z.tuple([z.number(), z.number()])).optional(),
-  value: scriptOrLiteral(z.tuple([z.number(), z.number()])).optional(),
+  name: scriptOrLiteral(z.coerce.string()).optional(),
+  min: scriptOrLiteral(z.coerce.number()).optional(),
+  max: scriptOrLiteral(z.coerce.number()).optional(),
+  step: scriptOrLiteral(z.coerce.number()).optional(),
+  defaultValue: scriptOrLiteral(
+    z.tuple([z.coerce.number(), z.coerce.number()])
+  ).optional(),
+  value: scriptOrLiteral(
+    z.tuple([z.coerce.number(), z.coerce.number()])
+  ).optional(),
   onChange: scriptOrLiteral(
     z
       .function()
