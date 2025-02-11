@@ -1,25 +1,21 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.RADIO),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
+const schema = type({
+  type: `'${BlockType.RADIO}'`,
+  name: scriptOrLiteral("string").optional(),
   options: scriptOrLiteral(
-    z.array(
-      z.object({
-        value: z.union([z.string(), z.number()]),
-        label: z.any().optional(),
-        description: z.coerce.string().optional(),
-      })
-    )
+    type({
+      value: "string|number",
+      label: "unknown?",
+      description: "string?",
+    }).array()
   ),
-  orientation: scriptOrLiteral(z.enum(["horizontal", "vertical"])).optional(),
-  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
-  value: scriptOrLiteral(z.coerce.string()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.string().optional()).returns(z.void())
-  ).optional(),
+  orientation: scriptOrLiteral('"horizontal" | "vertical"').optional(),
+  defaultValue: scriptOrLiteral("string").optional(),
+  value: scriptOrLiteral("string").optional(),
+  onChange: scriptOrLiteral("(string?) => void").optional(),
 });
 
-export const radioGroupSchema = fieldWrapperSchema.merge(schema);
+export const radioGroupSchema = fieldWrapperSchema.and(schema);

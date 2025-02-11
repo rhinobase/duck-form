@@ -1,9 +1,8 @@
 import { InputField as RaftyInputField } from "@rafty/ui";
 import { evalProp, type numberSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type NumberProps = z.infer<typeof numberSchema>;
+export type NumberProps = typeof numberSchema.infer;
 
 export function NumberField({
   onChange,

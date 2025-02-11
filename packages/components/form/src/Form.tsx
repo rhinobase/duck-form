@@ -4,9 +4,8 @@ import { evalProp, type formSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import type z from "zod";
 
-export type FormProps = z.infer<typeof formSchema>;
+export type FormProps = typeof formSchema.infer;
 
 export function Form() {
   const props = useField<FormProps>();

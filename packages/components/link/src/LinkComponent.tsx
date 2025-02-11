@@ -2,9 +2,8 @@
 import { evalProp, type linkSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
-import type z from "zod";
 
-export type LinkProps = z.infer<typeof linkSchema>;
+export type LinkProps = typeof linkSchema.infer;
 
 export function LinkComponent({ blocks, ...props }: LinkProps) {
   const { link, fieldProps } = Object.entries(props).reduce<

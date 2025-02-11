@@ -6,9 +6,8 @@ import {
 } from "@rafty/ui";
 import { evalProp, type rangeSliderSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type RangeSliderProps = z.infer<typeof rangeSliderSchema>;
+export type RangeSliderProps = typeof rangeSliderSchema.infer;
 
 export function RangeSliderField({
   onChange,

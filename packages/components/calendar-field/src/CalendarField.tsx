@@ -1,9 +1,8 @@
 import { Calendar as RaftyCalendar } from "@rafty/ui";
 import { evalProp, type calendarSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type CalendarProps = z.infer<typeof calendarSchema>;
+export type CalendarProps = typeof calendarSchema.infer;
 
 export function CalendarField({
   onChange,

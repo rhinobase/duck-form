@@ -1,17 +1,15 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.RATING),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  count: scriptOrLiteral(z.coerce.number()).optional(),
-  allowHalf: scriptOrLiteral(z.coerce.boolean()).optional(),
-  defaultValue: scriptOrLiteral(z.coerce.number()).optional(),
-  value: scriptOrLiteral(z.coerce.number()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.number().optional()).returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.RATING}'`,
+  name: scriptOrLiteral("string").optional(),
+  count: scriptOrLiteral("number").optional(),
+  allowHalf: scriptOrLiteral("boolean").optional(),
+  defaultValue: scriptOrLiteral("number").optional(),
+  value: scriptOrLiteral("number").optional(),
+  onChange: scriptOrLiteral("(number?) => void").optional(),
 });
 
-export const ratingSchema = fieldWrapperSchema.merge(schema);
+export const ratingSchema = fieldWrapperSchema.and(schema);

@@ -9,9 +9,8 @@ import {
 import type { objectSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
-import type z from "zod";
 
-export type ObjectProps = z.infer<typeof objectSchema>;
+export type ObjectProps = typeof objectSchema.infer;
 
 const DEFAULT_GROUP_KEY = "__default";
 

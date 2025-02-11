@@ -1,11 +1,12 @@
-import z from "zod";
-import { scriptOrLiteral } from "../../utils";
+import { type } from "arktype";
+import { BlockType, scriptOrLiteral } from "../../utils";
 
-export const imageSchema = z.object({
-  src: scriptOrLiteral(z.coerce.string()),
-  alt: scriptOrLiteral(z.coerce.string()),
-  width: scriptOrLiteral(z.coerce.number()).optional(),
-  height: scriptOrLiteral(z.coerce.number()).optional(),
-  className: scriptOrLiteral(z.coerce.string()).optional(),
-  unoptimized: scriptOrLiteral(z.coerce.boolean()).optional(),
+export const imageSchema = type({
+  type: `'${BlockType.IMAGE}'`,
+  src: scriptOrLiteral("string"),
+  alt: scriptOrLiteral("string"),
+  width: scriptOrLiteral("number").optional(),
+  height: scriptOrLiteral("number").optional(),
+  className: scriptOrLiteral("string").optional(),
+  unoptimized: scriptOrLiteral("boolean").optional(),
 });

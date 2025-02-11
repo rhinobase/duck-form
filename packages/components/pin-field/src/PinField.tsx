@@ -1,9 +1,8 @@
 import { PinInput as RaftyPinInput } from "@rafty/ui";
 import { evalProp, type pinSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type PinInputProps = z.infer<typeof pinSchema>;
+export type PinInputProps = typeof pinSchema.infer;
 
 export function PinField({
   defaultValue,

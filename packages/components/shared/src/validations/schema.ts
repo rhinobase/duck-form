@@ -1,4 +1,4 @@
-import z from "zod";
+import { type } from "arktype";
 import {
   arraySchema,
   calendarSchema,
@@ -38,42 +38,41 @@ import {
   textareaSchema,
 } from "./blocks";
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const duckSpecSchema: z.ZodType<any> = z.union([
-  datetimeSchema,
-  divSchema,
-  dateRangeSchema,
-  objectSchema,
-  editableTextareaSchema,
-  editableNumberSchema,
-  sliderSchema,
-  numberSchema,
-  dateSchema,
-  multiListboxSchema,
-  passwordSchema,
-  listboxSchema,
-  formSchema,
-  ratingSchema,
-  editableTextSchema,
-  percentageInputSchema,
-  spanSchema,
-  pinSchema,
-  selectSchema,
-  rangeSliderSchema,
-  paragraphSchema,
-  switchSchema,
-  tagSchema,
-  segmentedControlSchema,
-  stringSchema,
-  textareaSchema,
-  textSchema,
-  linkSchema,
-  arraySchema,
-  radioGroupSchema,
-  switchGroupSchema,
-  calendarSchema,
-  checkboxGroupSchema,
-  checkboxSchema,
-  colorPickerSchema,
-  currencyInputSchema,
-]);
+const schema = type(datetimeSchema)
+  .or(divSchema)
+  .or(dateRangeSchema)
+  .or(objectSchema)
+  .or(editableTextareaSchema)
+  .or(editableNumberSchema)
+  .or(sliderSchema)
+  .or(numberSchema)
+  .or(dateSchema)
+  .or(multiListboxSchema)
+  .or(passwordSchema)
+  .or(listboxSchema)
+  .or(formSchema)
+  .or(ratingSchema)
+  .or(editableTextSchema)
+  .or(percentageInputSchema);
+
+export const duckSpecSchema = type(schema)
+  .or(spanSchema)
+  .or(pinSchema)
+  .or(selectSchema)
+  .or(rangeSliderSchema)
+  .or(paragraphSchema)
+  .or(switchSchema)
+  .or(tagSchema)
+  .or(segmentedControlSchema)
+  .or(stringSchema)
+  .or(textareaSchema)
+  .or(textSchema)
+  .or(linkSchema)
+  .or(arraySchema)
+  .or(radioGroupSchema)
+  .or(switchGroupSchema)
+  .or(calendarSchema)
+  .or(checkboxGroupSchema)
+  .or(checkboxSchema)
+  .or(colorPickerSchema)
+  .or(currencyInputSchema);

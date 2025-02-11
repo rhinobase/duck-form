@@ -1,9 +1,8 @@
 import { Listbox as RaftyListbox } from "@rafty/corp";
 import { evalProp, type listboxSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type ListboxProps = z.infer<typeof listboxSchema>;
+export type ListboxProps = typeof listboxSchema.infer;
 
 export function Listbox({
   onChange,

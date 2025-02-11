@@ -1,9 +1,8 @@
 import { PercentageInput as RaftyPercentageInput } from "@rafty/ui";
 import { evalProp, type percentageInputSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type PercentageInputProps = z.infer<typeof percentageInputSchema>;
+export type PercentageInputProps = typeof percentageInputSchema.infer;
 
 export function PercentageField({
   defaultValue,

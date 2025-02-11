@@ -1,7 +1,7 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../utils";
 
-export const textSchema = z.object({
-  type: z.literal(BlockType.TEXT),
-  content: scriptOrLiteral(z.coerce.string()),
+export const textSchema = type({
+  type: `'${BlockType.TEXT}'`,
+  content: scriptOrLiteral("string"),
 });

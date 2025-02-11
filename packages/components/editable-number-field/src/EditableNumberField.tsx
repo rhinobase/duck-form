@@ -1,9 +1,8 @@
 import { EditableNumber as RaftyEditableNumber } from "@rafty/ui";
 import { evalProp, type editableNumberSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type EditableNumberProps = z.infer<typeof editableNumberSchema>;
+export type EditableNumberProps = typeof editableNumberSchema.infer;
 
 export function EditableNumberField({
   onChange,

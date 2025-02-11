@@ -1,9 +1,8 @@
 import { RangePicker as RaftyRangePicker } from "@rafty/ui";
 import { evalProp, type dateRangeSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type DateRangeFieldProps = z.infer<typeof dateRangeSchema>;
+export type DateRangeFieldProps = typeof dateRangeSchema.infer;
 
 export function DateRangeField({
   onChange,

@@ -1,9 +1,8 @@
 import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui";
 import { evalProp, type currencyInputSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type CurrencyInputProps = z.infer<typeof currencyInputSchema>;
+export type CurrencyInputProps = typeof currencyInputSchema.infer;
 
 export function CurrencyField({
   currencyCode,

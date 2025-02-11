@@ -6,9 +6,8 @@ import {
 } from "@rafty/ui";
 import { evalProp, type sliderSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type SliderProps = z.infer<typeof sliderSchema>;
+export type SliderProps = typeof sliderSchema.infer;
 
 export function SliderField({
   defaultValue,

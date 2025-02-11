@@ -1,9 +1,8 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
 import { evalProp, type switchGroupSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type SwitchGroupProps = z.infer<typeof switchGroupSchema>;
+export type SwitchGroupProps = typeof switchGroupSchema.infer;
 
 export function SwitchGroupField({
   name,

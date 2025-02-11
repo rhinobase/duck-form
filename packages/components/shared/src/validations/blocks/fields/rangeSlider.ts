@@ -1,25 +1,16 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.RANGE_SLIDER),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  min: scriptOrLiteral(z.coerce.number()).optional(),
-  max: scriptOrLiteral(z.coerce.number()).optional(),
-  step: scriptOrLiteral(z.coerce.number()).optional(),
-  defaultValue: scriptOrLiteral(
-    z.tuple([z.coerce.number(), z.coerce.number()])
-  ).optional(),
-  value: scriptOrLiteral(
-    z.tuple([z.coerce.number(), z.coerce.number()])
-  ).optional(),
-  onChange: scriptOrLiteral(
-    z
-      .function()
-      .args(z.tuple([z.number(), z.number()]).optional())
-      .returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.RANGE_SLIDER}'`,
+  name: scriptOrLiteral("string").optional(),
+  min: scriptOrLiteral("number").optional(),
+  max: scriptOrLiteral("number").optional(),
+  step: scriptOrLiteral("number").optional(),
+  defaultValue: scriptOrLiteral("[number, number]").optional(),
+  value: scriptOrLiteral("[number, number]").optional(),
+  onChange: scriptOrLiteral("(['string', 'number']?) => void"),
 });
 
-export const rangeSliderSchema = fieldWrapperSchema.merge(schema);
+export const rangeSliderSchema = fieldWrapperSchema.and(schema);

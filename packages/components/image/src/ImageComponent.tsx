@@ -1,9 +1,8 @@
 import { evalProp, type imageSchema } from "@rhinobase/shared";
 import Image from "next/image";
 import React from "react";
-import type z from "zod";
 
-export type ImageComponentProps = z.infer<typeof imageSchema>;
+export type ImageComponentProps = typeof imageSchema.infer;
 
 export function ImageComponent(props: ImageComponentProps) {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

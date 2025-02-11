@@ -1,27 +1,20 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.SELECT),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
+const schema = type({
+  type: `'${BlockType.SELECT}'`,
+  name: scriptOrLiteral("string").optional(),
+  placeholder: scriptOrLiteral("string").optional(),
   options: scriptOrLiteral(
-    z.array(
-      z.object({
-        value: z.union([z.string(), z.number()]),
-        label: z.string().optional(),
-      })
-    )
+    type({
+      value: "string | number",
+      label: "string?",
+    }).array()
   ),
-  defaultValue: scriptOrLiteral(z.union([z.string(), z.number()])).optional(),
-  value: scriptOrLiteral(z.union([z.string(), z.number()])).optional(),
-  onChange: scriptOrLiteral(
-    z
-      .function()
-      .args(z.union([z.string(), z.number()]).optional())
-      .returns(z.void())
-  ).optional(),
+  defaultValue: scriptOrLiteral("string | number").optional(),
+  value: scriptOrLiteral("string | number").optional(),
+  onChange: scriptOrLiteral("(string | number?)=>void").optional(),
 });
 
 export const selectSchema = fieldWrapperSchema.merge(schema);

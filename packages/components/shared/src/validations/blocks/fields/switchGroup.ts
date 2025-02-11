@@ -1,28 +1,19 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.SWITCH_GROUP),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
+const schema = type({
+  type: `'${BlockType.SWITCH_GROUP}'`,
+  name: scriptOrLiteral("string").optional(),
   options: scriptOrLiteral(
-    z.array(
-      z.object({
-        value: z.union([z.string(), z.number()]),
-        label: z.string().optional(),
-      })
-    )
+    type({
+      value: "string|number",
+      label: "string?",
+    }).array()
   ),
-  defaultValue: scriptOrLiteral(
-    z.array(z.union([z.string(), z.number()]))
-  ).optional(),
-  value: scriptOrLiteral(z.array(z.union([z.string(), z.number()]))).optional(),
-  onChange: scriptOrLiteral(
-    z
-      .function()
-      .args(z.array(z.union([z.string(), z.number()])).optional())
-      .returns(z.void())
-  ).optional(),
+  defaultValue: scriptOrLiteral(type("string|number").array()).optional(),
+  value: scriptOrLiteral(type("string|number").array()).optional(),
+  onChange: scriptOrLiteral("(string|number[]?) => void").optional(),
 });
 
 export const switchGroupSchema = fieldWrapperSchema.merge(schema);

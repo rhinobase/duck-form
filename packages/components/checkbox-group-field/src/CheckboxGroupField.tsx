@@ -1,9 +1,8 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
 import { evalProp, type checkboxGroupSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type CheckboxGroupProps = z.infer<typeof checkboxGroupSchema>;
+export type CheckboxGroupProps = typeof checkboxGroupSchema.infer;
 
 export function CheckboxGroupField({
   name,

@@ -1,9 +1,8 @@
 import { EditableTextarea as RaftyEditableTextarea } from "@rafty/ui";
 import { evalProp, type editableTextareaSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type EditableTextareaProps = z.infer<typeof editableTextareaSchema>;
+export type EditableTextareaProps = typeof editableTextareaSchema.infer;
 
 export function EditableTextareaField({
   onChange,

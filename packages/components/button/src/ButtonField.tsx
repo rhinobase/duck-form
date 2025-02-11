@@ -3,9 +3,8 @@ import { Button as RaftyButton } from "@rafty/ui";
 import { evalProp, type buttonSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
-import type z from "zod";
 
-export type ButtonProps = z.infer<typeof buttonSchema>;
+export type ButtonProps = typeof buttonSchema.infer;
 
 export function ButtonField(props: ButtonProps) {
   const fieldProps = {

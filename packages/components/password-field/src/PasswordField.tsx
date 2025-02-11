@@ -9,9 +9,8 @@ import {
 } from "@rafty/ui";
 import { evalProp, type passwordSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type PasswordProps = z.infer<typeof passwordSchema>;
+export type PasswordProps = typeof passwordSchema.infer;
 
 export function PasswordField({
   onChange,

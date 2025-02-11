@@ -1,17 +1,19 @@
-import z from "zod";
+import { type } from "arktype";
 import { ORIENTATION, scriptOrLiteral } from "../../../utils";
 
-export const fieldWrapperSchema = z.object({
-  label: scriptOrLiteral(z.coerce.string()).optional(),
-  description: scriptOrLiteral(z.coerce.string()).optional(),
-  primary: scriptOrLiteral(z.coerce.boolean()).optional(),
-  unique: scriptOrLiteral(z.coerce.boolean()).optional(),
-  required: scriptOrLiteral(z.coerce.boolean()).optional(),
-  disabled: scriptOrLiteral(z.coerce.boolean()).optional(),
-  readonly: scriptOrLiteral(z.coerce.boolean()).optional(),
-  hidden: scriptOrLiteral(z.coerce.boolean()).optional(),
-  orientation: scriptOrLiteral(z.nativeEnum(ORIENTATION)).optional(),
-  onChange: scriptOrLiteral(z.function().returns(z.void())).optional(),
-  tooltip: scriptOrLiteral(z.coerce.string().max(2000)).optional(),
-  fieldset: scriptOrLiteral(z.coerce.string().max(2000)).optional(),
+export const fieldWrapperSchema = type({
+  label: scriptOrLiteral("string").optional(),
+  description: scriptOrLiteral("string").optional(),
+  primary: scriptOrLiteral("boolean").optional(),
+  unique: scriptOrLiteral("boolean").optional(),
+  required: scriptOrLiteral("boolean").optional(),
+  disabled: scriptOrLiteral("boolean").optional(),
+  readonly: scriptOrLiteral("boolean").optional(),
+  hidden: scriptOrLiteral("boolean").optional(),
+  orientation: scriptOrLiteral(
+    `'${Object.values(ORIENTATION).join("' | '")}'`
+  ).optional(),
+  onChange: scriptOrLiteral("() => void").optional(),
+  tooltip: scriptOrLiteral("string<=2000").optional(),
+  fieldset: scriptOrLiteral("string<=2000").optional(),
 });
