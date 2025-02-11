@@ -2,9 +2,8 @@ import { InputField } from "@rafty/ui";
 import { evalProp, type dateSchema } from "@rhinobase/shared";
 import dayjs from "dayjs";
 import React from "react";
-import type z from "zod";
 
-export type DateFieldProps = z.infer<typeof dateSchema>;
+export type DateFieldProps = typeof dateSchema.infer;
 
 export function DateField({
   value,

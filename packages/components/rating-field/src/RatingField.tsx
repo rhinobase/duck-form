@@ -1,9 +1,8 @@
 import { Rating as RaftyRating } from "@rafty/ui";
 import { evalProp, type ratingSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type RatingProps = z.infer<typeof ratingSchema>;
+export type RatingProps = typeof ratingSchema.infer;
 
 export function RatingField({
   onChange,

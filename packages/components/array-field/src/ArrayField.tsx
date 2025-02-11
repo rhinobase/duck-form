@@ -10,9 +10,8 @@ import type { arraySchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import type z from "zod";
 
-export type ArrayProps = z.infer<typeof arraySchema>;
+export type ArrayProps = typeof arraySchema.infer;
 
 export function ArrayField() {
   const props = useField<ArrayProps>();

@@ -1,9 +1,8 @@
 import { InputField as RaftyInputField } from "@rafty/ui/input-field";
 import { evalProp, type stringSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type StringProps = z.infer<typeof stringSchema>;
+export type StringProps = typeof stringSchema.infer;
 
 export function StringField({
   onChange,

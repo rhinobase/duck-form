@@ -1,9 +1,8 @@
 import { EditableText as RaftyEditableText } from "@rafty/ui";
 import { evalProp, type editableTextSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type EditableTextProps = z.infer<typeof editableTextSchema>;
+export type EditableTextProps = typeof editableTextSchema.infer;
 
 export function EditableTextField({
   onChange,

@@ -1,9 +1,8 @@
 import { evalProp, type defaultSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React, { type ElementType } from "react";
-import type z from "zod";
 
-export type DefaultProps = z.infer<typeof defaultSchema>;
+export type DefaultProps = typeof defaultSchema.infer;
 
 export function DefaultField({ blocks, type, ...props }: DefaultProps) {
   const children =
@@ -22,13 +21,12 @@ export function DefaultField({ blocks, type, ...props }: DefaultProps) {
         "type" in val &&
         (val.type === "literal" || val.type === "script")
       ) {
-        // @ts-expect-error
         prev[key] = evalProp(val);
       }
 
       return prev;
     },
-    {},
+    {}
   );
 
   const Component = type as ElementType;

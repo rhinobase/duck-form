@@ -1,15 +1,13 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.SWTICH),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  defaultValue: scriptOrLiteral(z.coerce.boolean()).optional(),
-  value: scriptOrLiteral(z.coerce.boolean()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.boolean().optional()).returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.SWTICH}'`,
+  name: scriptOrLiteral("string").optional(),
+  defaultValue: scriptOrLiteral("boolean").optional(),
+  value: scriptOrLiteral("boolean").optional(),
+  onChange: scriptOrLiteral("(boolean?) => void").optional(),
 });
 
 export const switchSchema = fieldWrapperSchema.merge(schema);

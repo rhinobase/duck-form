@@ -5,9 +5,8 @@ import {
 } from "@rafty/ui";
 import { evalProp, type radioGroupSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type RadioGroupProps = z.infer<typeof radioGroupSchema>;
+export type RadioGroupProps = typeof radioGroupSchema.infer;
 
 export function RadioGroupField({
   options,

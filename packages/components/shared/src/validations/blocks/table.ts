@@ -1,11 +1,11 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../utils";
 
-export const tableSchema = z.object({
-  type: z.literal(BlockType.TABLE),
-  columns: scriptOrLiteral(z.array(z.string())),
-  data: scriptOrLiteral(z.array(z.record(z.string()))),
-  className: scriptOrLiteral(z.coerce.string()).optional(),
-  variant: scriptOrLiteral(z.enum(["simple", "striped"])).optional(),
-  size: scriptOrLiteral(z.enum(["sm", "md", "lg"])).optional(),
+export const tableSchema = type({
+  type: `'${BlockType.TABLE}'`,
+  columns: scriptOrLiteral("string[]"),
+  data: scriptOrLiteral(type("Record<string,string>").array()),
+  className: scriptOrLiteral("string").optional(),
+  variant: scriptOrLiteral("'simple' | 'striped'").optional(),
+  size: scriptOrLiteral("'sm' | 'md' | 'lg'").optional(),
 });

@@ -1,8 +1,7 @@
 import { evalProp, type textSchema } from "@rhinobase/shared";
-import type z from "zod";
 import React from "react";
 
-export type TextProps = z.infer<typeof textSchema>;
+export type TextProps = typeof textSchema.infer;
 
 export function TextField(props: TextProps) {
   // @ts-expect-error

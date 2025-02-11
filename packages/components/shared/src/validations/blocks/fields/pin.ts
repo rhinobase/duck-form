@@ -1,17 +1,15 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.PIN),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  length: scriptOrLiteral(z.coerce.number()),
-  placeholder: scriptOrLiteral(z.coerce.string()).optional(),
-  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
-  value: scriptOrLiteral(z.coerce.string()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.array(z.string()).optional()).returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.PIN}'`,
+  name: scriptOrLiteral("string").optional(),
+  length: scriptOrLiteral("number"),
+  placeholder: scriptOrLiteral("string").optional(),
+  defaultValue: scriptOrLiteral("string").optional(),
+  value: scriptOrLiteral("string").optional(),
+  onChange: scriptOrLiteral("([value?]) => void").optional(),
 });
 
-export const pinSchema = fieldWrapperSchema.merge(schema);
+export const pinSchema = fieldWrapperSchema.and(schema);

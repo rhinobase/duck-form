@@ -1,9 +1,8 @@
 import { Select as RaftySelect, SelectItem } from "@rafty/ui";
 import { evalProp, type selectSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type SelectProps = z.infer<typeof selectSchema>;
+export type SelectProps = typeof selectSchema.infer;
 
 export function SelectField({
   onChange,

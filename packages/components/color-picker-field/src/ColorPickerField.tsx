@@ -1,9 +1,8 @@
-import { ColorPicker as RaftyColorPicker, useBoolean } from "@rafty/ui";
+import { ColorPicker as RaftyColorPicker } from "@rafty/ui";
 import type { colorPickerSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type ColorPickerProps = z.infer<typeof colorPickerSchema>;
+export type ColorPickerProps = typeof colorPickerSchema.infer;
 
 export function ColorPickerField({
   defaultValue,

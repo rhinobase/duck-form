@@ -1,23 +1,19 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.SEGMENTED_CONTROL),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
+const schema = type({
+  type: `'${BlockType.SEGMENTED_CONTROL}'`,
+  name: scriptOrLiteral("string").optional(),
   options: scriptOrLiteral(
-    z.array(
-      z.object({
-        value: z.string(),
-        label: z.string().optional(),
-      })
-    )
+    type({
+      value: "string",
+      label: "string?",
+    }).array()
   ),
-  defaultValue: scriptOrLiteral(z.coerce.string()).optional(),
-  value: scriptOrLiteral(z.coerce.string()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.string().optional()).returns(z.void())
-  ).optional(),
+  defaultValue: scriptOrLiteral("string").optional(),
+  value: scriptOrLiteral("string").optional(),
+  onChange: scriptOrLiteral("(string?) => void").optional(),
 });
 
-export const segmentedControlSchema = fieldWrapperSchema.merge(schema);
+export const segmentedControlSchema = fieldWrapperSchema.and(schema);

@@ -4,9 +4,8 @@ import {
 } from "@rafty/ui";
 import { evalProp, type segmentedControlSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type SegmentedControlProps = z.infer<typeof segmentedControlSchema>;
+export type SegmentedControlProps = typeof segmentedControlSchema.infer;
 
 export function SegmentedControlField({
   onChange,

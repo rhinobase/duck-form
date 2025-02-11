@@ -1,9 +1,8 @@
 import { Table, TableBody, TableHeader, Td, Th, Tr } from "@rafty/ui";
 import { evalProp, type tableSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type TableProps = z.infer<typeof tableSchema>;
+export type TableProps = typeof tableSchema.infer;
 
 export function TableComponent(props: TableProps) {
   const { columns, data, ...fieldProps } = Object.entries(props).reduce<

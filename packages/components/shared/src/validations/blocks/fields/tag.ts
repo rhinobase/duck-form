@@ -1,15 +1,13 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.TAG),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  defaultValue: scriptOrLiteral(z.array(z.string())).optional(),
-  value: scriptOrLiteral(z.array(z.string())).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.array(z.string()).optional()).returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.TAG}'`,
+  name: scriptOrLiteral("string").optional(),
+  defaultValue: scriptOrLiteral(type("string").array()).optional(),
+  value: scriptOrLiteral(type("string").array()).optional(),
+  onChange: scriptOrLiteral("(string[]?) => void").optional(),
 });
 
 export const tagSchema = fieldWrapperSchema.merge(schema);

@@ -2,9 +2,8 @@
 import { evalProp, type divSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
-import type z from "zod";
 
-export type DivProps = z.infer<typeof divSchema>;
+export type DivProps = typeof divSchema.infer;
 
 export function DivField({ blocks, ...props }: DivProps) {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

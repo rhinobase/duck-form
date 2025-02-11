@@ -1,18 +1,16 @@
-import z from "zod";
+import { type } from "arktype";
 import { BlockType, scriptOrLiteral } from "../../../utils";
 import { fieldWrapperSchema } from "./fieldWrapper";
 
-const schema = z.object({
-  type: z.literal(BlockType.SLIDER),
-  name: scriptOrLiteral(z.coerce.string()).optional(),
-  min: scriptOrLiteral(z.coerce.number()).optional(),
-  max: scriptOrLiteral(z.coerce.number()).optional(),
-  step: scriptOrLiteral(z.coerce.number()).optional(),
-  defaultValue: scriptOrLiteral(z.coerce.number()).optional(),
-  value: scriptOrLiteral(z.coerce.number()).optional(),
-  onChange: scriptOrLiteral(
-    z.function().args(z.number()).returns(z.void())
-  ).optional(),
+const schema = type({
+  type: `'${BlockType.SLIDER}'`,
+  name: scriptOrLiteral("string").optional(),
+  min: scriptOrLiteral("number").optional(),
+  max: scriptOrLiteral("number").optional(),
+  step: scriptOrLiteral("number").optional(),
+  defaultValue: scriptOrLiteral("number").optional(),
+  value: scriptOrLiteral("number").optional(),
+  onChange: scriptOrLiteral("(number)=>void").optional(),
 });
 
 export const sliderSchema = fieldWrapperSchema.merge(schema);

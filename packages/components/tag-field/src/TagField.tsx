@@ -1,9 +1,8 @@
 import { TagField as RaftyTagField } from "@rafty/ui";
 import { evalProp, type tagSchema } from "@rhinobase/shared";
 import React from "react";
-import type z from "zod";
 
-export type TagFieldProps = z.infer<typeof tagSchema>;
+export type TagFieldProps = typeof tagSchema.infer;
 
 export function TagField({
   onChange,

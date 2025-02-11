@@ -1,9 +1,8 @@
 import { evalProp, type paragraphSchema } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
-import type z from "zod";
 
-export type ParagraphProps = z.infer<typeof paragraphSchema>;
+export type ParagraphProps = typeof paragraphSchema.infer;
 
 export function Paragraph({ blocks, ...props }: ParagraphProps) {
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>

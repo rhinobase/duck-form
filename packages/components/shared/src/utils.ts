@@ -1,5 +1,5 @@
 // import { renderString } from "nunjucks";
-import z from "zod";
+import { type, type Type } from "arktype";
 
 export enum BlockType {
   ARRAY = "array",
@@ -18,6 +18,7 @@ export enum BlockType {
   EDITABLE_TEXT = "editableText",
   EDITABLE_TEXTAREA = "editableTextarea",
   FORM = "form",
+  IMAGE = "image",
   LINK = "link",
   LISTBOX = "listbox",
   MULTI_LISTBOX = "multiListbox",
@@ -71,11 +72,12 @@ export function addVariables(template: string) {
   return template;
 }
 
-export const scriptOrLiteral = <T extends z.ZodType>(value: T) =>
-  z.union([
-    z.object({ type: z.literal("script"), value: z.string() }),
-    z.object({ type: z.literal("literal"), value }),
-  ]);
+export const scriptOrLiteral = <T extends string | Type>(value: T) =>
+  type({ type: "'script'", value: "string" }).or({
+    type: "'literal'",
+    // @ts-expect-error
+    value,
+  });
 
 // const VARIABLE_REGEX = /\{\{(.*?)\}\}/g;
 
