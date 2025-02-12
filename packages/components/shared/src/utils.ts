@@ -49,28 +49,6 @@ export enum ORIENTATION {
   ROW_REVERSE = "row-reverse",
 }
 
-export function evalProp(
-  struct?:
-    | { type: "literal"; value: unknown }
-    | { type: "script"; value: string }
-) {
-  if (!struct) return "[UNDEFINED]";
-
-  if (struct.type === "literal") return struct.value;
-
-  try {
-    // biome-ignore lint/security/noGlobalEval: <explanation>
-    return eval(addVariables(struct.value));
-  } catch (err) {
-    // console.error(err);
-    return struct.value;
-  }
-}
-
-export function addVariables(template: string) {
-  return template;
-}
-
 export const scriptOrLiteral = <T extends z.ZodType>(value: T) =>
   z.union([
     z.object({ type: z.literal("script"), value: z.string() }),
