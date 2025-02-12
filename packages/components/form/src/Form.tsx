@@ -1,6 +1,6 @@
 "use client";
 import { DevTool } from "@hookform/devtools";
-import { evalProp, type formSchema } from "@rhinobase/shared";
+import { evalProp, useEvaluate, type formSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -23,35 +23,20 @@ export function Form() {
 
   const { handleSubmit } = methods;
   const { onSubmit, onError, blocks, enableDevtool, className, title } =
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    Object.entries(props).reduce<Record<string, any>>((prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        // @ts-expect-error
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    }, {});
-
-  const fieldProps = className ? { className } : {};
+    useEvaluate(props);
 
   const componentId = customId ?? autoId;
 
   return (
     <FormProvider {...methods}>
       <form
-        {...fieldProps}
         id={componentId}
         title={title}
         onSubmit={handleSubmit(
           onSubmit ?? console.log,
           onError ?? console.error
         )}
+        className={className}
       >
         {blocks &&
           Object.entries(blocks).map(([key, items]) => (

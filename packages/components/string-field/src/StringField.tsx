@@ -1,5 +1,5 @@
 import { InputField as RaftyInputField } from "@rafty/ui/input-field";
-import { evalProp, type stringSchema } from "@rhinobase/shared";
+import { type stringSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -28,32 +28,12 @@ export function StringField({
     value,
   };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyInputField
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      inputMode={fieldProps.inputMode}
-      maxLength={fieldProps.maxLength}
-      minLength={fieldProps.minLength}
-      placeholder={fieldProps.placeholder}
-      value={fieldProps.value}
       type={fieldProps.inputType}
       onChange={(event) => fieldProps.onChange?.(event.target.value)}
     />

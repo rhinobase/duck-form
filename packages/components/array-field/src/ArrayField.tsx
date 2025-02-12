@@ -6,7 +6,7 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Button, eventHandler } from "@rafty/ui";
-import type { arraySchema } from "@rhinobase/shared";
+import { useEvaluate, type arraySchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -19,10 +19,12 @@ export function ArrayField() {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
+  const fieldProps = useEvaluate(props);
+
   const autoId = useId();
   const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
+    () => generateId?.(schema, fieldProps),
+    [generateId, schema, fieldProps]
   );
 
   const componentId = customId ?? autoId;
@@ -68,7 +70,7 @@ export function ArrayField() {
                 <ArrowDownIcon className="size-4 stroke-2" />
               </Button>
             </div>
-            <DuckField id={`${componentId}.${index}`} {...props.of} />
+            <DuckField id={`${componentId}.${index}`} {...fieldProps.of} />
             <div className="space-y-2">
               <Button
                 variant="ghost"

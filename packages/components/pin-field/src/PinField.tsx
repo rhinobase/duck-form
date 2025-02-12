@@ -1,5 +1,5 @@
 import { PinInput as RaftyPinInput } from "@rafty/ui";
-import { evalProp, type pinSchema } from "@rhinobase/shared";
+import { type pinSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -15,22 +15,7 @@ export function PinField({
 }: PinInputProps) {
   const props = { name, placeholder, defaultValue, value, onChange, length };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   const formattedValue = fieldProps.value
     ? Array.from<string>(fieldProps.value)
@@ -41,9 +26,8 @@ export function PinField({
 
   return (
     <RaftyPinInput
+      {...fieldProps}
       id={fieldProps.name}
-      length={fieldProps.length}
-      placeholder={fieldProps.placeholder}
       defaultValue={formattedDefaultValue}
       value={formattedValue}
       onValueChange={({ value }) => fieldProps.onChange?.(value)}

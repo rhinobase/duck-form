@@ -4,7 +4,7 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
-import { evalProp, type sliderSchema } from "@rhinobase/shared";
+import { type sliderSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -28,30 +28,12 @@ export function SliderField({
     value,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftySlider
+      {...fieldProps}
       id={fieldProps.name}
-      name={fieldProps.name}
-      min={fieldProps.min}
-      max={fieldProps.max}
-      step={fieldProps.step}
       defaultValue={
         fieldProps.defaultValue ? [fieldProps.defaultValue] : undefined
       }

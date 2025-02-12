@@ -4,7 +4,7 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@rafty/ui";
-import { evalProp, type rangeSliderSchema } from "@rhinobase/shared";
+import { type rangeSliderSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -26,33 +26,15 @@ export function RangeSliderField({
     max,
     defaultValue,
     onChange,
+    step,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
 
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftySlider
+      {...fieldProps}
       id={fieldProps.name}
-      max={fieldProps.max}
-      min={fieldProps.min}
-      name={fieldProps.name}
-      step={fieldProps.step}
-      value={fieldProps.value}
-      defaultValue={fieldProps.defaultValue}
       onValueChange={(value) => {
         fieldProps.onChange?.(value.splice(0, 2));
       }}

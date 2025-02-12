@@ -2,7 +2,7 @@ import {
   SegmentedControl as RaftySegmentedControl,
   SegmentedControlItem,
 } from "@rafty/ui";
-import { evalProp, type segmentedControlSchema } from "@rhinobase/shared";
+import { type segmentedControlSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -22,32 +22,17 @@ export function SegmentedControlField({
     options,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
 
-      return prev;
-    },
-    {}
-  );
+  const { options: fieldOptions, ...fieldProps } = useEvaluate(props);
 
   return (
     <RaftySegmentedControl
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      value={fieldProps.value}
       onValueChange={fieldProps.onChange}
     >
       {(
-        fieldProps.options as {
+        fieldOptions as {
           value: string;
           label?: string | undefined;
         }[]

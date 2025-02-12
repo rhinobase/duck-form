@@ -1,5 +1,5 @@
 import { TagField as RaftyTagField } from "@rafty/ui";
-import { evalProp, type tagSchema } from "@rhinobase/shared";
+import { type tagSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -17,27 +17,12 @@ export function TagField({
     value,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
+  const fieldProps = useEvaluate(props);
 
-      return prev;
-    },
-    {}
-  );
   return (
     <RaftyTagField
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      value={fieldProps.value}
       onValueChange={({ value }) => fieldProps.onChange?.(value)}
     />
   );

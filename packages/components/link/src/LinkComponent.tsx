@@ -1,27 +1,13 @@
 "use client";
-import { evalProp, type linkSchema } from "@rhinobase/shared";
+import { type linkSchema, useEvaluate } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";
 import type z from "zod";
 
 export type LinkProps = z.infer<typeof linkSchema>;
 
-export function LinkComponent({ blocks, ...props }: LinkProps) {
-  const { link, fieldProps } = Object.entries(props).reduce<
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    Record<string, any>
-  >((prev, [key, val]) => {
-    if (
-      val &&
-      typeof val === "object" &&
-      "type" in val &&
-      (val.type === "literal" || val.type === "script")
-    ) {
-      prev[key] = evalProp(val);
-    }
-
-    return prev;
-  }, {});
+export function LinkComponent({ blocks, type, ...props }: LinkProps) {
+  const { link, ...fieldProps } = useEvaluate(props);
 
   return (
     <a href={link} {...fieldProps}>

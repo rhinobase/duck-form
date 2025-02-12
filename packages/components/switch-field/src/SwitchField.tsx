@@ -1,5 +1,5 @@
 import { Switch as RaftySwitch } from "@rafty/ui";
-import { evalProp, type switchSchema } from "@rhinobase/shared";
+import { type switchSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -18,25 +18,11 @@ export function SwitchField({
     onChange,
   };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftySwitch
+      {...fieldProps}
       id={fieldProps.name}
       defaultChecked={fieldProps.defaultValue}
       checked={fieldProps.value}

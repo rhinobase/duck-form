@@ -1,5 +1,5 @@
 import { Select as RaftySelect, SelectItem } from "@rafty/ui";
-import { evalProp, type selectSchema } from "@rhinobase/shared";
+import { useEvaluate, type selectSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -21,36 +21,19 @@ export function SelectField({
     value,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const { options: fieldOptions, ...fieldProps } = useEvaluate(props);
 
   return (
     <RaftySelect
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      placeholder={fieldProps.placeholder}
-      value={fieldProps.value}
       onChange={(e) => {
         const value = e.currentTarget.value;
         let valueAsNumber: number | undefined = Number(value);
 
         if (Number.isNaN(valueAsNumber)) valueAsNumber = undefined;
 
-        for (const option of fieldProps.options) {
+        for (const option of fieldOptions) {
           if (
             value === option.value ||
             (valueAsNumber && valueAsNumber === option.value)
@@ -61,7 +44,7 @@ export function SelectField({
       className="w-full"
     >
       {(
-        fieldProps.options as {
+        fieldOptions as {
           value: string | number;
           label?: string | undefined;
         }[]

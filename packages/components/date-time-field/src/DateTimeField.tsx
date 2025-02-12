@@ -1,5 +1,5 @@
 import { InputField } from "@rafty/ui";
-import { evalProp, type datetimeSchema } from "@rhinobase/shared";
+import { type datetimeSchema, useEvaluate } from "@rhinobase/shared";
 import dayjs from "dayjs";
 import React from "react";
 import type z from "zod";
@@ -20,22 +20,8 @@ export function DatetimeField({
     defaultValue,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
 
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   const formattedValue = fieldProps.value
     ? dayjs(fieldProps.value).format("YYYY-MM-DDThh:mm")
@@ -43,10 +29,9 @@ export function DatetimeField({
 
   return (
     <InputField
-      id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
+      {...fieldProps}
       type="datetime-local"
-      placeholder={fieldProps.placeholder}
+      id={fieldProps.name}
       value={formattedValue}
       onChange={(e) =>
         fieldProps.onChange?.(dayjs(e.target.value).toISOString())

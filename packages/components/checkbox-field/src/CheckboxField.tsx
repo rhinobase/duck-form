@@ -1,5 +1,5 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui";
-import { evalProp, type checkboxSchema } from "@rhinobase/shared";
+import { type checkboxSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -18,22 +18,7 @@ export function CheckboxField({
     name,
   };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyCheckbox

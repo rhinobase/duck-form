@@ -1,5 +1,5 @@
-import { ColorPicker as RaftyColorPicker, useBoolean } from "@rafty/ui";
-import type { colorPickerSchema } from "@rhinobase/shared";
+import { ColorPicker as RaftyColorPicker } from "@rafty/ui";
+import { type colorPickerSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -13,29 +13,12 @@ export function ColorPickerField({
 }: ColorPickerProps) {
   const props = { name, value, defaultValue, onChange };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        // @ts-expect-error
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyColorPicker
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      value={fieldProps.value}
       onValueChange={({ valueAsString }: { valueAsString: string }) =>
         fieldProps.onChange?.(valueAsString)
       }

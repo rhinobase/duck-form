@@ -364,7 +364,7 @@ export const schema = {
                       Pin4: {
                         type: "Pin",
                         value: { type: "literal", value: "" },
-                        length: { type: "literal", value: 12 },
+                        length: { type: "literal", value: "12" },
                       },
                     },
                   },

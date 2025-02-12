@@ -3,7 +3,7 @@ import {
   RadioGroup as RaftyRadioGroup,
   classNames,
 } from "@rafty/ui";
-import { evalProp, type radioGroupSchema } from "@rhinobase/shared";
+import { type radioGroupSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -26,29 +26,12 @@ export function RadioGroupField({
     value,
   };
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyRadioGroup
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      value={fieldProps.value}
-      orientation={fieldProps.orientation}
       onValueChange={fieldProps.onChange}
       className={classNames(
         fieldProps.orientation === "horizontal" ? "flex-row gap-4" : "flex-col",

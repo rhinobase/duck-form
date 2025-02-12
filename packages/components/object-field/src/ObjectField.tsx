@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
   Label,
 } from "@rafty/ui";
-import type { objectSchema } from "@rhinobase/shared";
+import { useEvaluate, type objectSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import type z from "zod";
@@ -20,18 +20,21 @@ export function ObjectField() {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
+  const fieldProps = useEvaluate(props);
+
   const autoId = useId();
   const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
+    () => generateId?.(schema, fieldProps),
+    [generateId, schema, fieldProps]
   );
 
   const componentId = customId ?? autoId;
 
   const [groupedFields, fieldSetsRegistry] = useMemo(
     () => [
-      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-      Object.entries(props.fields).reduce<Record<string, Record<string, any>>>(
+      Object.entries(fieldProps.fields).reduce<
+        Record<string, Record<string, any>>
+      >(
         (prev, [name, field]) => {
           let key = DEFAULT_GROUP_KEY;
 
@@ -46,12 +49,12 @@ export function ObjectField() {
         },
         { [DEFAULT_GROUP_KEY]: {} }
       ),
-      props.fieldsets?.reduce<Record<string, string>>((prev, cur) => {
+      fieldProps.fieldsets?.reduce<Record<string, string>>((prev, cur) => {
         prev[cur.name] = cur.label;
         return prev;
       }, {}),
     ],
-    [props.fields, props.fieldsets]
+    [fieldProps.fields, fieldProps.fieldsets]
   );
 
   return (
@@ -76,7 +79,7 @@ export function ObjectField() {
 
         const uniqueName = `${componentId}.${index}`;
 
-        if (props.options?.collapsible)
+        if (fieldProps.options?.collapsible)
           return (
             <Accordion type="multiple" variant="outline" key={uniqueName}>
               <AccordionItem value={uniqueName}>

@@ -1,5 +1,5 @@
 import { Textarea as RaftyTextarea } from "@rafty/ui";
-import { evalProp, type textareaSchema } from "@rhinobase/shared";
+import { type textareaSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
 
@@ -19,29 +19,12 @@ export function TextareaField({
     value,
     onChange,
   };
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  const fieldProps = Object.entries(props).reduce<Record<string, any>>(
-    (prev, [key, val]) => {
-      if (
-        val &&
-        typeof val === "object" &&
-        "type" in val &&
-        (val.type === "literal" || val.type === "script")
-      ) {
-        prev[key] = evalProp(val);
-      }
-
-      return prev;
-    },
-    {}
-  );
+  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyTextarea
+      {...fieldProps}
       id={fieldProps.name}
-      defaultValue={fieldProps.defaultValue}
-      placeholder={fieldProps.placeholder}
-      value={fieldProps.value}
       onChange={(event) => fieldProps.onChange?.(event.target.value)}
     />
   );
