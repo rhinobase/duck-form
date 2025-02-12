@@ -20,12 +20,12 @@ export function ObjectField() {
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
-  const fieldProps = useEvaluate(props);
+  const fieldProps = useEvaluate(props) as ObjectProps;
 
   const autoId = useId();
   const customId = useMemo(
     () => generateId?.(schema, fieldProps),
-    [generateId, schema, fieldProps]
+    [generateId, schema, fieldProps],
   );
 
   const componentId = customId ?? autoId;
@@ -47,14 +47,14 @@ export function ObjectField() {
 
           return prev;
         },
-        { [DEFAULT_GROUP_KEY]: {} }
+        { [DEFAULT_GROUP_KEY]: {} },
       ),
       fieldProps.fieldsets?.reduce<Record<string, string>>((prev, cur) => {
         prev[cur.name] = cur.label;
         return prev;
       }, {}),
     ],
-    [fieldProps.fields, fieldProps.fieldsets]
+    [fieldProps.fields, fieldProps.fieldsets],
   );
 
   return (

@@ -1,8 +1,10 @@
+import { usePageContext } from "../../dist";
+
 // biome-ignore lint/complexity/noBannedTypes: We are using Function constructor to evaluate the expression
 type VaribalesPayloadType = { variables?: string[]; func: Function };
 
 export function useEvaluate(
-  props: Record<string, unknown>
+  props: Record<string, unknown>,
   // biome-ignore lint/suspicious/noExplicitAny: We need this to resolve errors for components
 ): Record<string, any> {
   const { type, blocks, ...properties } = props;
@@ -11,11 +13,16 @@ export function useEvaluate(
   const evaluatedProps = evalProp(properties, variables);
 
   const uniqueVariables = Array.from(
-    new Set(variables.flatMap((v) => v.variables || []))
+    new Set(variables.flatMap((v) => v.variables || [])),
   );
 
-  // TODO: Get the context from the variables
-  // TODO: Execute the functions in variables
+  // TODO: Get the context from the variables for the uniqueVariables
+  const c = usePageContext((state) => state);
+
+  // Execute the functions in variables
+  for (const { func } of variables) {
+    func();
+  }
 
   return {
     type,
@@ -27,13 +34,14 @@ export function useEvaluate(
 
 export function evalProp(
   struct: NonNullable<unknown>,
-  variables: VaribalesPayloadType[]
+  variables: VaribalesPayloadType[],
 ): Record<string, unknown> | unknown {
   if (typeof struct === "object" && "type" in struct && "value" in struct) {
     if (struct.type === "literal") return struct.value;
 
-    const variable = findVariable(struct.value as string);
-    const func = Function(`return ${struct.value}`);
+    const valueAsString = String(struct.value);
+    const variable = findVariable(valueAsString);
+    const func = Function(`return ${cleanupExpression(valueAsString)}`);
 
     let value: unknown = undefined;
 
@@ -55,11 +63,11 @@ export function evalProp(
         if (val) prev[key] = evalProp(val, variables);
         return prev;
       },
-      {}
+      {},
     );
   }
 
-  throw new Error("Invalid struct");
+  return struct;
 }
 
 function findVariable(expression: string) {

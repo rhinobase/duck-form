@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const schema = {
   fragment1: {
     type: "fragment",
@@ -1034,4 +1036,22 @@ export const schema = {
       },
     },
   },
+};
+
+export const queries = async () => {
+  const data = await axios
+    .get(
+      "https://api.rhinobase.io/api/organisations/dez_erp/collections/student/6777952984427e9bd2beca47",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.USER_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      },
+    )
+    .then((res) => res.data);
+
+  return {
+    student: data,
+  };
 };

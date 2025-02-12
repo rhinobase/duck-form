@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const schema = {
   fragment1: {
     type: "fragment",
@@ -23,7 +25,7 @@ export const schema = {
             blocks: {
               image1: {
                 type: "image",
-                src: { type: "script", value: "{{ c.logo }}" },
+                // src: { type: "script", value: "{{ c.logo }}" },
                 alt: { type: "literal", value: "Dezyne Ecole College" },
                 width: { type: "literal", value: "100" },
                 height: { type: "literal", value: "100" },
@@ -1033,4 +1035,22 @@ export const schema = {
       },
     },
   },
+};
+
+export const queries = async () => {
+  const data = await axios
+    .get(
+      "https://api.rhinobase.io/api/organisations/dez_erp/collections/application_form/679737515a9c3a3b8cddd53d",
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.USER_TOKEN}`,
+          "Content-Type": "application/json",
+        },
+      },
+    )
+    .then((res) => res.data);
+
+  return {
+    student: data,
+  };
 };
