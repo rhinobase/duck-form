@@ -1,6 +1,6 @@
 "use client";
 import { DevTool } from "@hookform/devtools";
-import { evalProp, useEvaluate, type formSchema } from "@rhinobase/shared";
+import { useEvaluate, type formSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";

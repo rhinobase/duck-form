@@ -1,11 +1,13 @@
 import { Table, TableBody, TableHeader, Td, Th, Tr } from "@rafty/ui/table";
 import { type tableSchema, useEvaluate } from "@rhinobase/shared";
+import { useField } from "duck-form";
 import React from "react";
 import type z from "zod";
 
 export type TableProps = z.infer<typeof tableSchema>;
 
-export function TableComponent(props: TableProps) {
+export function TableComponent() {
+  const props = useField<TableProps>();
   const { columns, data, ...fieldProps } = useEvaluate(props);
 
   return (

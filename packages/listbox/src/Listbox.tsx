@@ -2,16 +2,13 @@ import { Listbox as RaftyListbox } from "@rafty/corp";
 import { type listboxSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";
+import { useField } from "../../core/dist";
 
 export type ListboxProps = z.infer<typeof listboxSchema>;
 
-export function Listbox({
-  onChange,
-  options,
-  defaultValue,
-  name,
-  value,
-}: ListboxProps) {
+export function Listbox() {
+  const { onChange, options, defaultValue, name, value } =
+    useField<ListboxProps>();
   const props = {
     name,
     defaultValue,

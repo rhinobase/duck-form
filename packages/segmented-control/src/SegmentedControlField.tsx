@@ -3,18 +3,15 @@ import {
   SegmentedControlItem,
 } from "@rafty/ui/segmented-control";
 import { type segmentedControlSchema, useEvaluate } from "@rhinobase/shared";
+import { useField } from "duck-form";
 import React from "react";
 import type z from "zod";
 
 export type SegmentedControlProps = z.infer<typeof segmentedControlSchema>;
 
-export function SegmentedControlField({
-  onChange,
-  options,
-  defaultValue,
-  name,
-  value,
-}: SegmentedControlProps) {
+export function SegmentedControlField() {
+  const { onChange, options, defaultValue, name, value } =
+    useField<SegmentedControlProps>();
   const props = {
     name,
     defaultValue,

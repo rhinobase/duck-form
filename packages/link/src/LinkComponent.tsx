@@ -1,12 +1,13 @@
 "use client";
 import { type linkSchema, useEvaluate } from "@rhinobase/shared";
-import { DuckField } from "duck-form";
+import { DuckField, useField } from "duck-form";
 import React from "react";
 import type z from "zod";
 
 export type LinkProps = z.infer<typeof linkSchema>;
 
-export function LinkComponent({ blocks, type, ...props }: LinkProps) {
+export function LinkComponent() {
+  const { blocks, type, ...props } = useField<LinkProps>();
   const { link, ...fieldProps } = useEvaluate(props);
 
   return (

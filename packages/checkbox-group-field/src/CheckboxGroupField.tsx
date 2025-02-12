@@ -1,17 +1,17 @@
 import { Checkbox as RaftyCheckbox } from "@rafty/ui/checkbox";
 import { type checkboxGroupSchema, useEvaluate } from "@rhinobase/shared";
-import React from "react";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import React, { useId, useMemo } from "react";
 import type z from "zod";
 
 export type CheckboxGroupProps = z.infer<typeof checkboxGroupSchema>;
 
-export function CheckboxGroupField({
-  name,
-  options,
-  defaultValue,
-  value,
-  onChange,
-}: CheckboxGroupProps) {
+export function CheckboxGroupField() {
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
+  const { name, options, defaultValue, value, onChange } =
+    useField<CheckboxGroupProps>();
+
   const props = {
     name,
     options,
@@ -19,6 +19,15 @@ export function CheckboxGroupField({
     value,
     onChange,
   };
+
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    [generateId, schema, props]
+  );
+
+  const componentId = customId ?? autoId;
 
   const fieldProps = useEvaluate(props);
 
@@ -34,30 +43,26 @@ export function CheckboxGroupField({
           value: string | number;
           label?: string | undefined;
         }[]
-      ).map((option, index) => {
-        const _id = `${fieldProps.name}.${option.value}`;
+      ).map((option, index) => (
+        <RaftyCheckbox
+          // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
+          key={index}
+          id={`${fieldProps.name}.${option.value}`}
+          name={`${componentId}.${index}`}
+          defaultChecked={fieldProps.defaultValue?.includes(option.value)}
+          checked={fieldProps.value?.includes(option.value)}
+          onCheckedChange={(checked) => {
+            let tmp = fieldProps.value ? [...fieldProps.value] : [];
+            if (checked) tmp.push(option.value);
+            else tmp = tmp.filter((value) => value !== option.value);
 
-        return (
-          <RaftyCheckbox
-            // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-            key={index}
-            id={_id}
-            name={_id}
-            defaultChecked={fieldProps.defaultValue?.includes(option.value)}
-            checked={fieldProps.value?.includes(option.value)}
-            onCheckedChange={(checked) => {
-              let tmp = fieldProps.value ? [...fieldProps.value] : [];
-              if (checked) tmp.push(option.value);
-              else tmp = tmp.filter((value) => value !== option.value);
-
-              fieldProps.onChange?.(tmp);
-            }}
-            isRequired={false}
-          >
-            {option.label ?? option.value}
-          </RaftyCheckbox>
-        );
-      })}
+            fieldProps.onChange?.(tmp);
+          }}
+          isRequired={false}
+        >
+          {option.label ?? option.value}
+        </RaftyCheckbox>
+      ))}
     </div>
   );
 }

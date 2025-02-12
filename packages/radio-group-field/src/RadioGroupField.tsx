@@ -1,19 +1,24 @@
 import { RadioGroupItem, RadioGroup as RaftyRadioGroup } from "@rafty/ui/radio";
 import { classNames } from "@rafty/ui/utils";
 import { type radioGroupSchema, useEvaluate } from "@rhinobase/shared";
-import React from "react";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import React, { useId, useMemo } from "react";
 import type z from "zod";
 
 export type RadioGroupProps = z.infer<typeof radioGroupSchema>;
 
-export function RadioGroupField({
-  options,
-  orientation = { type: "literal", value: "vertical" },
-  onChange,
-  defaultValue,
-  name,
-  value,
-}: RadioGroupProps) {
+export function RadioGroupField() {
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
+  const {
+    options,
+    orientation = { type: "literal", value: "vertical" },
+    onChange,
+    defaultValue,
+    name,
+    value,
+  } = useField<RadioGroupProps>();
+
   const props = {
     options,
     orientation,
@@ -23,11 +28,21 @@ export function RadioGroupField({
     value,
   };
 
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    [generateId, schema, props]
+  );
+
+  const componentId = customId ?? autoId;
+
   const fieldProps = useEvaluate(props);
 
   return (
     <RaftyRadioGroup
       {...fieldProps}
+      name={componentId}
       id={fieldProps.name}
       onValueChange={fieldProps.onChange}
       className={classNames(

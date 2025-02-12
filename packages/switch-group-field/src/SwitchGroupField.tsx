@@ -1,18 +1,27 @@
 import { Switch as RaftySwitch } from "@rafty/ui/switch";
 import { type switchGroupSchema, useEvaluate } from "@rhinobase/shared";
-import React from "react";
+import { useBlueprint, useDuckForm, useField } from "duck-form";
+import React, { useId, useMemo } from "react";
 import type z from "zod";
 
 export type SwitchGroupProps = z.infer<typeof switchGroupSchema>;
 
-export function SwitchGroupField({
-  name,
-  options,
-  value,
-  onChange,
-  defaultValue,
-}: SwitchGroupProps) {
+export function SwitchGroupField() {
+  const { generateId } = useDuckForm();
+  const { schema } = useBlueprint();
+  const { name, options, value, onChange, defaultValue } =
+    useField<SwitchGroupProps>();
+
   const props = { name, options, defaultValue, value, onChange };
+
+  const autoId = useId();
+  const customId = useMemo(
+    () => generateId?.(schema, props),
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
+    [generateId, schema, props]
+  );
+
+  const componentId = customId ?? autoId;
 
   const fieldProps = useEvaluate(props);
 
@@ -30,7 +39,7 @@ export function SwitchGroupField({
           <RaftySwitch
             key={`${index}-${fieldProps.name}`}
             id={_id}
-            name={_id}
+            name={`${componentId}.${index}`}
             defaultChecked={fieldProps.defaultValue?.includes(option.value)}
             checked={fieldProps.value?.includes(option.value)}
             onCheckedChange={(checked) => {
