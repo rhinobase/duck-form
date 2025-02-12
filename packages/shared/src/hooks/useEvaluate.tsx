@@ -1,4 +1,4 @@
-import { usePageContext } from "../../dist";
+import { usePageContext } from "../providers/index.js";
 
 // biome-ignore lint/complexity/noBannedTypes: We are using Function constructor to evaluate the expression
 type VaribalesPayloadType = { variables?: string[]; func: Function };

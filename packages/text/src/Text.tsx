@@ -5,7 +5,7 @@ import type z from "zod";
 export type TextProps = z.infer<typeof textSchema>;
 
 export function TextField(props: TextProps) {
-  const { content } = useEvaluate(props);
+  const { value } = useEvaluate(props);
 
-  return <>{content}</>;
+  return <>{value}</>;
 }
