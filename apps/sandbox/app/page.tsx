@@ -5,9 +5,7 @@ import { queries, schema } from "./dez/application_form";
 
 export default async function HomePage() {
   const context = {
-    c: {
-      queries: queries(),
-    },
+    queries: await queries(),
   };
 
   return (

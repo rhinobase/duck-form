@@ -11,7 +11,7 @@ export const schema = {
           script1: {
             type: "script",
             value:
-              "`R/${new Date('{{ c.queries.student.created_on }}').getFullYear()}/${String('{{ c.queries.student._nid }}').padStart(4, '0')}`",
+              "`R/${new Date({{ c.queries.student.created_on }}).getFullYear()}/${String({{ c.queries.student._nid }}).padStart(4, '0')}`",
           },
         },
       },

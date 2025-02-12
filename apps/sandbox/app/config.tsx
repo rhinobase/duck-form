@@ -39,12 +39,11 @@ import TextareaField from "@rhinobase/textarea-field";
 import { DuckWrapper } from "./wrappers";
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-const wrapper = (Component: (props: any) => JSX.Element) => () =>
-  (
-    <DuckWrapper>
-      <Component />
-    </DuckWrapper>
-  );
+const wrapper = (Component: (props: any) => JSX.Element) => () => (
+  <DuckWrapper>
+    <Component />
+  </DuckWrapper>
+);
 
 export const components = {
   array: ArrayField,
@@ -57,7 +56,7 @@ export const components = {
   date: wrapper(DateField),
   dateRange: wrapper(DateRangeField),
   datetime: wrapper(DatetimeField),
-  default: DefaultField,
+  default: wrapper(DefaultField),
   editableNumber: wrapper(EditableNumberField),
   editableText: wrapper(EditableTextField),
   editableTextarea: wrapper(EditableTextareaField),
@@ -82,7 +81,7 @@ export const components = {
   switchGroup: wrapper(SwitchGroupField),
   data_table: TableComponent,
   tag: wrapper(TagField),
-  literal: TextField,
-  script: TextField,
+  literal: wrapper(TextField),
+  script: wrapper(TextField),
   textarea: wrapper(TextareaField),
 };

@@ -1,66 +1,51 @@
 import { usePageContext } from "../providers/index.js";
 
-// biome-ignore lint/complexity/noBannedTypes: We are using Function constructor to evaluate the expression
-type VaribalesPayloadType = { variables?: string[]; func: Function };
-
 export function useEvaluate(
   props: Record<string, unknown>,
   // biome-ignore lint/suspicious/noExplicitAny: We need this to resolve errors for components
 ): Record<string, any> {
-  const { type, blocks, ...properties } = props;
+  const { blocks, ...properties } = props;
 
-  const variables: VaribalesPayloadType[] = [];
-  const evaluatedProps = evalProp(properties, variables);
-
-  const uniqueVariables = Array.from(
-    new Set(variables.flatMap((v) => v.variables || [])),
-  );
+  const variables = figureOutVariables(properties);
+  const uniqueVariables = Array.from(new Set(variables));
 
   // TODO: Get the context from the variables for the uniqueVariables
-  const c = usePageContext((state) => state);
+  const c = usePageContext((state) => state.context);
 
-  // Execute the functions in variables
-  for (const { func } of variables) {
-    func();
+  // Evaluate the properties
+  let evaluatedProps = evalProp(properties, c);
+
+  if (typeof evaluatedProps === "string") {
+    evaluatedProps = { value: evaluatedProps };
   }
 
   return {
-    type,
     blocks,
     // @ts-expect-error
     ...evaluatedProps,
   };
 }
 
-export function evalProp(
+function evalProp(
   struct: NonNullable<unknown>,
-  variables: VaribalesPayloadType[],
+  context: unknown,
 ): Record<string, unknown> | unknown {
   if (typeof struct === "object" && "type" in struct && "value" in struct) {
     if (struct.type === "literal") return struct.value;
 
-    const valueAsString = String(struct.value);
-    const variable = findVariable(valueAsString);
-    const func = Function(`return ${cleanupExpression(valueAsString)}`);
-
-    let value: unknown = undefined;
-
-    variables.push({
-      variables: variable,
-      func: () => {
-        value = func();
-      },
-    });
-
-    return value;
+    if (struct.type === "script") {
+      return Function(
+        `const c = arguments[0]; return ${cleanupExpression(String(struct.value))}`,
+      )(context);
+    }
   }
   if (Array.isArray(struct)) {
-    return struct.map((val) => evalProp(val, variables));
+    return struct.map((val) => evalProp(val, context));
   }
   if (typeof struct === "object") {
     return Object.entries(struct).reduce<Record<string, unknown>>(
       (prev, [key, val]) => {
-        if (val) prev[key] = evalProp(val, variables);
+        if (val) prev[key] = evalProp(val, context);
         return prev;
       },
       {},
@@ -68,6 +53,26 @@ export function evalProp(
   }
 
   return struct;
+}
+
+function figureOutVariables(
+  struct: Record<string, unknown> | unknown[] | unknown,
+  variables: string[] = [],
+) {
+  if (typeof struct === "string") {
+    const variable = findVariable(struct);
+    if (variable) variables.push(...variable);
+  }
+
+  if (typeof struct === "object") {
+    const values = Array.isArray(struct)
+      ? struct
+      : Object.values(struct as Record<string, unknown>);
+
+    for (const val of values) {
+      figureOutVariables(val, variables);
+    }
+  } else return variables;
 }
 
 function findVariable(expression: string) {
