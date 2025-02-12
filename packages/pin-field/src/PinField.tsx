@@ -28,6 +28,7 @@ export function PinField({
     <RaftyPinInput
       {...fieldProps}
       id={fieldProps.name}
+      length={fieldProps.length}
       defaultValue={formattedDefaultValue}
       value={formattedValue}
       onValueChange={({ value }) => fieldProps.onChange?.(value)}

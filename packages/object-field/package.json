@@ -11,13 +11,11 @@
     "build": "rollup -c=./rollup.config.js",
     "publish": "pnpm publish"
   },
-  "peerDependencies": {
+  "devDependencies": {
     "@swc/helpers": "~0.5.11",
     "duck-form": "workspace:*",
     "@rafty/ui": "^2.0.0-rc.0",
-    "react": "^18.2.0"
-  },
-  "devDependencies": {
+    "react": "^18.2.0",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@rhinobase/shared": "workspace:*",

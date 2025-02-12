@@ -1,4 +1,4 @@
-import { RangePicker as RaftyRangePicker } from "@rafty/ui";
+import { RangePicker as RaftyRangePicker } from "@rafty/ui/range-picker";
 import { type dateRangeSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

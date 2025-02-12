@@ -11,13 +11,11 @@
     "build": "rollup -c=./rollup.config.js",
     "publish": "pnpm publish"
   },
-  "peerDependencies": {
+  "devDependencies": {
     "@rhinobase/shared": "workspace:*",
     "@swc/helpers": "~0.5.11",
     "react": "^18.2.0",
-    "next": "^14"
-  },
-  "devDependencies": {
+    "next": "^14",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "zod": "^3.24.1"

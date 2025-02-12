@@ -2,15 +2,16 @@
 type VaribalesPayloadType = { variables?: string[]; func: Function };
 
 export function useEvaluate(
-  props: Record<string, unknown>,
-): Record<string, unknown> {
+  props: Record<string, unknown>
+  // biome-ignore lint/suspicious/noExplicitAny: We need this to resolve errors for components
+): Record<string, any> {
   const { type, blocks, ...properties } = props;
 
   const variables: VaribalesPayloadType[] = [];
   const evaluatedProps = evalProp(properties, variables);
 
   const uniqueVariables = Array.from(
-    new Set(variables.flatMap((v) => v.variables || [])),
+    new Set(variables.flatMap((v) => v.variables || []))
   );
 
   // TODO: Get the context from the variables
@@ -26,7 +27,7 @@ export function useEvaluate(
 
 export function evalProp(
   struct: NonNullable<unknown>,
-  variables: VaribalesPayloadType[],
+  variables: VaribalesPayloadType[]
 ): Record<string, unknown> | unknown {
   if (typeof struct === "object" && "type" in struct && "value" in struct) {
     if (struct.type === "literal") return struct.value;
@@ -54,7 +55,7 @@ export function evalProp(
         if (val) prev[key] = evalProp(val, variables);
         return prev;
       },
-      {},
+      {}
     );
   }
 

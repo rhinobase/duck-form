@@ -8,10 +8,7 @@ import copy from "rollup-plugin-copy";
 import typescript from "rollup-plugin-typescript2";
 import pkg from "./package.json" with { type: "json" };
 
-const externalPackages = [
-  ...Object.keys(pkg.peerDependencies),
-  ...Object.keys(pkg.devDependencies),
-];
+const externalPackages = Object.keys(pkg.devDependencies);
 // Creating regexes of the packages to make sure subpaths of the
 // packages are also treated as external
 const regexesOfPackages = externalPackages.map(
