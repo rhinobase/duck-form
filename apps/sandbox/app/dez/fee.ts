@@ -123,7 +123,7 @@ export const schema = {
               script5: {
                 type: "script",
                 value:
-                  "Father&apos;s Name - {{ c.queries.fees.student.father_name }}",
+                  "Father's Name - {{ c.queries.fees.student.father_name }}",
               },
             },
           },
@@ -441,7 +441,7 @@ export const queries = async () => {
           Authorization: `Bearer ${process.env.USER_TOKEN}`,
           "Content-Type": "application/json",
         },
-      }
+      },
     )
     .then((res) => {
       const data = res.data?.data?.fee;
@@ -450,23 +450,23 @@ export const queries = async () => {
         ...data,
         created_on: dayjs(data.created_on).format("D MMM YYYY"),
         total_amount: currencyFormatter(
-          data.amount + Number(data.bus_amount ?? 0) + data.fine
+          data.amount + Number(data.bus_amount ?? 0) + data.fine,
         ),
         fine: currencyFormatter(data.fine),
         concession: currencyFormatter(data.concession),
         net_amount: currencyFormatter(
-          data.amount + data.concession + Number(data.bus_amount ?? 0)
+          data.amount + data.concession + Number(data.bus_amount ?? 0),
         ),
         mode: MODE[data.mode],
         sessions: data.sessions.flatMap((i) =>
           i.installments.map((item) => {
             const index = i.session.installments.findIndex(
-              (_, index) => index === item.index
+              (_, index) => index === item.index,
             );
             const installments = {
               name: i.session.installments[index]?.name ?? "",
               amount: currencyFormatter(
-                i.session.installments[index]?.amount ?? 0
+                i.session.installments[index]?.amount ?? 0,
               ),
             };
 
@@ -475,7 +475,7 @@ export const queries = async () => {
               deposit: currencyFormatter(item.deposit),
               ...installments,
             };
-          })
+          }),
         ),
       };
     });
