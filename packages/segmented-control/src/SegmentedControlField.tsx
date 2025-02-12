@@ -1,7 +1,7 @@
 import {
   SegmentedControl as RaftySegmentedControl,
   SegmentedControlItem,
-} from "@rafty/ui";
+} from "@rafty/ui/segmented-control";
 import { type segmentedControlSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

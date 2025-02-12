@@ -1,4 +1,4 @@
-import { Table, TableBody, TableHeader, Td, Th, Tr } from "@rafty/ui";
+import { Table, TableBody, TableHeader, Td, Th, Tr } from "@rafty/ui/table";
 import { type tableSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

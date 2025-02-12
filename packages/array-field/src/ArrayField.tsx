@@ -5,7 +5,8 @@ import {
   PlusIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
-import { Button, eventHandler } from "@rafty/ui";
+import { Button } from "@rafty/ui/button";
+import { eventHandler } from "@rafty/ui/utils";
 import { useEvaluate, type arraySchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";

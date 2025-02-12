@@ -1,4 +1,4 @@
-import { InputField } from "@rafty/ui";
+import { InputField } from "@rafty/ui/input-field";
 import { type dateSchema, useEvaluate } from "@rhinobase/shared";
 import dayjs from "dayjs";
 import React from "react";

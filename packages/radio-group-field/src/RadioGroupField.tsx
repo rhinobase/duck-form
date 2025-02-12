@@ -1,8 +1,5 @@
-import {
-  RadioGroupItem,
-  RadioGroup as RaftyRadioGroup,
-  classNames,
-} from "@rafty/ui";
+import { RadioGroupItem, RadioGroup as RaftyRadioGroup } from "@rafty/ui/radio";
+import { classNames } from "@rafty/ui/utils";
 import { type radioGroupSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

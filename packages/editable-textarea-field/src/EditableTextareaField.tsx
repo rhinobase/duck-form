@@ -1,4 +1,4 @@
-import { EditableTextarea as RaftyEditableTextarea } from "@rafty/ui";
+import { EditableTextarea as RaftyEditableTextarea } from "@rafty/ui/editable-textarea";
 import { type editableTextareaSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

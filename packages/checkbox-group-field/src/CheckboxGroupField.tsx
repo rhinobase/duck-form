@@ -1,4 +1,4 @@
-import { Checkbox as RaftyCheckbox } from "@rafty/ui";
+import { Checkbox as RaftyCheckbox } from "@rafty/ui/checkbox";
 import { type checkboxGroupSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

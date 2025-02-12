@@ -5,8 +5,8 @@ import {
   Prefix,
   RightAddon,
   Suffix,
-  classNames,
-} from "@rafty/ui";
+} from "@rafty/ui/input-group";
+import { classNames } from "@rafty/ui/utils";
 import { useField } from "duck-form";
 import type { PropsWithChildren, ReactNode } from "react";
 import React from "react";

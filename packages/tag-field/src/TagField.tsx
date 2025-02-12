@@ -1,4 +1,4 @@
-import { TagField as RaftyTagField } from "@rafty/ui";
+import { TagField as RaftyTagField } from "@rafty/ui/tag-field";
 import { type tagSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

@@ -1,4 +1,4 @@
-import { InputField as RaftyInputField } from "@rafty/ui";
+import { InputField as RaftyInputField } from "@rafty/ui/input-field";
 import { type numberSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

@@ -1,5 +1,5 @@
 "use client";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@rafty/ui";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@rafty/ui/tooltip";
 import { useField } from "duck-form";
 import type { PropsWithChildren } from "react";
 import React from "react";

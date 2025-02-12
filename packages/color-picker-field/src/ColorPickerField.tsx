@@ -1,4 +1,4 @@
-import { ColorPicker as RaftyColorPicker } from "@rafty/ui";
+import { ColorPicker as RaftyColorPicker } from "@rafty/ui/color-picker";
 import { type colorPickerSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

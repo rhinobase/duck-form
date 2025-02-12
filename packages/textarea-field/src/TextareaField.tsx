@@ -1,4 +1,4 @@
-import { Textarea as RaftyTextarea } from "@rafty/ui";
+import { Textarea as RaftyTextarea } from "@rafty/ui/textarea";
 import { type textareaSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

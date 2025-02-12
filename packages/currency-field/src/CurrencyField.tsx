@@ -1,4 +1,4 @@
-import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui";
+import { CurrencyInput as RaftyCurrencyInput } from "@rafty/ui/currency-input";
 import { type currencyInputSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

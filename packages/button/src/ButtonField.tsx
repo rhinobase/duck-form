@@ -1,5 +1,5 @@
 "use client";
-import { Button as RaftyButton } from "@rafty/ui";
+import { Button as RaftyButton } from "@rafty/ui/button";
 import { type buttonSchema, useEvaluate } from "@rhinobase/shared";
 import { DuckField } from "duck-form";
 import React from "react";

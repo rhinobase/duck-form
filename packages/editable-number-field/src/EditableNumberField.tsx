@@ -1,4 +1,4 @@
-import { EditableNumber as RaftyEditableNumber } from "@rafty/ui";
+import { EditableNumber as RaftyEditableNumber } from "@rafty/ui/editable-number";
 import { type editableNumberSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

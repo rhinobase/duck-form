@@ -4,8 +4,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-  Label,
-} from "@rafty/ui";
+} from "@rafty/ui/accordion";
+import { Label } from "@rafty/ui/label";
 import { useEvaluate, type objectSchema } from "@rhinobase/shared";
 import { DuckField, useBlueprint, useDuckForm, useField } from "duck-form";
 import React, { useId, useMemo } from "react";

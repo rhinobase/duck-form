@@ -1,4 +1,4 @@
-import { PercentageInput as RaftyPercentageInput } from "@rafty/ui";
+import { PercentageInput as RaftyPercentageInput } from "@rafty/ui/percentage-input";
 import { type percentageInputSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

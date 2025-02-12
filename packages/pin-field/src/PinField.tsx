@@ -1,4 +1,4 @@
-import { PinInput as RaftyPinInput } from "@rafty/ui";
+import { PinInput as RaftyPinInput } from "@rafty/ui/pin-input";
 import { type pinSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

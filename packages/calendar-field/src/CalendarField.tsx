@@ -1,4 +1,4 @@
-import { Calendar as RaftyCalendar } from "@rafty/ui";
+import { Calendar as RaftyCalendar } from "@rafty/ui/calendar";
 import { type calendarSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

@@ -1,12 +1,9 @@
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/outline";
-import {
-  Button,
-  InputField,
-  InputGroup,
-  Suffix,
-  eventHandler,
-  useBoolean,
-} from "@rafty/ui";
+import { Button } from "@rafty/ui/button";
+import { InputField } from "@rafty/ui/input-field";
+import { InputGroup, Suffix } from "@rafty/ui/input-group";
+import { eventHandler } from "@rafty/ui/utils";
+import { useBoolean } from "@rafty/ui/hooks";
 import { type passwordSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

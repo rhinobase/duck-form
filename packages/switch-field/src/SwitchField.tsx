@@ -1,4 +1,4 @@
-import { Switch as RaftySwitch } from "@rafty/ui";
+import { Switch as RaftySwitch } from "@rafty/ui/switch";
 import { type switchSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

@@ -1,4 +1,4 @@
-import { Select as RaftySelect, SelectItem } from "@rafty/ui";
+import { Select as RaftySelect, SelectItem } from "@rafty/ui/select";
 import { useEvaluate, type selectSchema } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

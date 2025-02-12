@@ -1,4 +1,4 @@
-import { Rating as RaftyRating } from "@rafty/ui";
+import { Rating as RaftyRating } from "@rafty/ui/rating";
 import { type ratingSchema, useEvaluate } from "@rhinobase/shared";
 import React from "react";
 import type z from "zod";

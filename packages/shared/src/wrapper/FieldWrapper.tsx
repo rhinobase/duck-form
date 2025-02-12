@@ -1,14 +1,9 @@
 "use client";
 import { ErrorMessage } from "@hookform/error-message";
-import {
-  classNames,
-  FieldControl,
-  getValue,
-  ErrorMessage as RaftyErrorMessage,
-  type FieldWrapper as RaftyFieldWrapper,
-  Text,
-  type ValueOrFunction,
-} from "@rafty/ui";
+import { classNames, getValue, type ValueOrFunction } from "@rafty/ui/utils";
+import { FieldControl } from "@rafty/ui/field-control";
+import { ErrorMessage as RaftyErrorMessage } from "@rafty/ui/error-message";
+import type { FieldWrapper as RaftyFieldWrapper } from "@rafty/ui/field-wrapper";
 import { useBlueprint, useDuckForm, useField } from "duck-form";
 import React, {
   Fragment,
@@ -87,9 +82,9 @@ export function FieldWrapper({ className, children }: FieldWrapper) {
         <LabelAndDescriptionWrapper>
           {label && <Label className="leading-snug">{label}</Label>}
           {description && (
-            <Text className="text-secondary-600 dark:text-secondary-400 text-xs font-medium">
+            <p className="text-secondary-600 dark:text-secondary-400 text-xs font-medium">
               {description}
-            </Text>
+            </p>
           )}
         </LabelAndDescriptionWrapper>
         {children}
