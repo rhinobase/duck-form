@@ -1,5 +1,4 @@
-import { Blueprint, DuckField, DuckForm } from "duck-form";
-import { PageContextProvider } from "@rhinobase/shared";
+import { Blueprint, DuckField, DuckForm, PageContextProvider } from "duck-form";
 import { components } from "./config";
 import { schema } from "./sample/test";
 

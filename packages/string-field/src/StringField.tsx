@@ -1,6 +1,6 @@
 import { InputField as RaftyInputField } from "@rafty/ui/input-field";
-import { type stringSchema, usePageContext } from "@rhinobase/shared";
-import { useField } from "duck-form";
+import type { stringSchema } from "@rhinobase/shared";
+import { useField, usePageContext } from "duck-form";
 import React from "react";
 import type z from "zod";
 

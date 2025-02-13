@@ -1,9 +1,5 @@
-import {
-  type defaultSchema,
-  useEvaluate,
-  usePageContext,
-} from "@rhinobase/shared";
-import { DuckField, useField } from "duck-form";
+import type { defaultSchema } from "@rhinobase/shared";
+import { DuckField, useField, usePageContext } from "duck-form";
 import React, { type ElementType } from "react";
 import type z from "zod";
 
@@ -24,8 +20,6 @@ export function DefaultField() {
 
   if (type === "fragment") return <>{children}</>;
 
-  const fieldProps = useEvaluate(props);
-
   const Component = type as ElementType;
-  return <Component {...fieldProps}>{children}</Component>;
+  return <Component {...props}>{children}</Component>;
 }

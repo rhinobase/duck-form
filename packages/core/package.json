@@ -33,6 +33,7 @@
     "url": "https://github.com/rhinobase/duck-form/issues"
   },
   "peerDependencies": {
+    "zustand": "^5.0.3",
     "@swc/helpers": "~0.5.11",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",

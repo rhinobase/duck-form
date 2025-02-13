@@ -1,5 +1,5 @@
-import { type textSchema, usePageContext } from "@rhinobase/shared";
-import { useField } from "duck-form";
+import type { textSchema } from "@rhinobase/shared";
+import { useField, usePageContext } from "duck-form";
 import React from "react";
 import type z from "zod";
 
