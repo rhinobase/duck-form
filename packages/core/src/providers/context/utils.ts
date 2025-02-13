@@ -44,8 +44,6 @@ export class PageContext {
       context[block.id] = block.toJSON();
     }
 
-    console.log(JSON.stringify(context, null, 2));
-
     return context;
   }
 }
@@ -136,6 +134,8 @@ class Property {
   ) {
     this.block = block;
     this._value = value;
+
+    this.analyze();
   }
 
   analyze() {
@@ -144,15 +144,14 @@ class Property {
     if (variables?.length) {
       this.isDynamic = true;
       this.dependecies = variables;
+    } else {
+      this.isDynamic = false;
+      this.dependecies = undefined;
     }
-
-    this.isDynamic = false;
-    this.dependecies = undefined;
   }
 
   get value() {
     if (this.isDynamic) {
-      console.log(this.generateContextForValue());
       return Function(
         `const components = arguments[0]; return ${cleanupExpression(this._value)}`,
       )(this.generateContextForValue());
@@ -165,7 +164,7 @@ class Property {
     this._value = val;
     this.analyze();
 
-    // if (this.isDynamic) this.connectDependencies();
+    if (this.isDynamic) this.connectDependencies();
   }
 
   private generateContextForValue() {
