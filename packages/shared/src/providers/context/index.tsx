@@ -7,10 +7,13 @@ import React, {
 } from "react";
 import { useStore } from "zustand";
 import { type StoreType, createStore } from "./store.js";
+import type { PageContextOptions } from "./utils.js";
 
 const PageContext = createContext<ReturnType<typeof createStore> | null>(null);
 
-export type PageContextProvider = PropsWithChildren<{ context: unknown }>;
+export type PageContextProvider = PropsWithChildren<{
+  context: PageContextOptions;
+}>;
 
 export function PageContextProvider({
   children,

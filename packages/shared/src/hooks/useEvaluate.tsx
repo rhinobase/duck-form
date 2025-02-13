@@ -72,7 +72,9 @@ export function figureOutVariables(
     for (const val of values) {
       figureOutVariables(val, variables);
     }
-  } else return variables;
+  }
+
+  return variables;
 }
 
 function findVariable(expression: string) {
@@ -83,6 +85,6 @@ function findVariable(expression: string) {
   return undefined;
 }
 
-function cleanupExpression(expression: string) {
+export function cleanupExpression(expression: string) {
   return expression.replace(/\{\{|\}\}/g, "").trim();
 }

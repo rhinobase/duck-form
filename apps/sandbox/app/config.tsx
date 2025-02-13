@@ -75,5 +75,6 @@ export const components = {
   tag: TagField,
   literal: TextField,
   script: TextField,
+  text: TextField,
   textarea: TextareaField,
 };

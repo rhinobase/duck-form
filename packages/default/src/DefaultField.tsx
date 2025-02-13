@@ -1,4 +1,8 @@
-import { type defaultSchema, useEvaluate } from "@rhinobase/shared";
+import {
+  type defaultSchema,
+  useEvaluate,
+  usePageContext,
+} from "@rhinobase/shared";
 import { DuckField, useField } from "duck-form";
 import React, { type ElementType } from "react";
 import type z from "zod";
@@ -6,7 +10,11 @@ import type z from "zod";
 export type DefaultProps = z.infer<typeof defaultSchema>;
 
 export function DefaultField() {
-  const { blocks, type, ...props } = useField<DefaultProps>();
+  const { id, blocks } = useField<DefaultProps>();
+  const { type, ...props } = usePageContext(
+    // @ts-expect-error
+    (state) => state.context[id],
+  );
 
   const children =
     blocks &&

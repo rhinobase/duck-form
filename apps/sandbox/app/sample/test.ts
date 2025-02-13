@@ -5,9 +5,13 @@ export const schema = {
       div1: {
         type: "div",
         blocks: {
-          literal1: {
-            type: "literal",
-            value: "Hello, world!",
+          string1: {
+            type: "string",
+            value: "some",
+          },
+          text1: {
+            type: "text",
+            value: "{{ components.string1.value }}",
           },
         },
       },

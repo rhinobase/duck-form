@@ -6,6 +6,7 @@ import { schema } from "./sample/test";
 export default async function HomePage() {
   const context = {
     // queries: await queries(),
+    schema,
   };
 
   return (

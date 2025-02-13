@@ -1,56 +1,29 @@
 import { InputField as RaftyInputField } from "@rafty/ui/input-field";
-import { type stringSchema, useEvaluate } from "@rhinobase/shared";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import React, { useId, useMemo } from "react";
+import { type stringSchema, usePageContext } from "@rhinobase/shared";
+import { useField } from "duck-form";
+import React from "react";
 import type z from "zod";
 
 export type StringProps = z.infer<typeof stringSchema>;
 
 export function StringField() {
-  const { generateId } = useDuckForm();
-  const { schema } = useBlueprint();
-  const {
-    onChange,
-    inputType,
-    defaultValue,
-    inputMode,
-    maxLength,
-    minLength,
-    name,
-    placeholder,
-    value,
-  } = useField<StringProps>();
-
-  const props = {
-    onChange,
-    inputType,
-    defaultValue,
-    inputMode,
-    maxLength,
-    minLength,
-    name,
-    placeholder,
-    value,
-  };
-
-  const autoId = useId();
-  const customId = useMemo(
-    () => generateId?.(schema, props),
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
-    [generateId, schema, props]
+  // @ts-expect-error
+  const { id } = useField<StringProps>();
+  const update = usePageContext((state) => state.update);
+  const { inputType, ...props } = usePageContext(
+    // @ts-expect-error
+    (state) => state.context[id],
   );
-
-  const componentId = customId ?? autoId;
-
-  const fieldProps = useEvaluate(props);
 
   return (
     <RaftyInputField
-      {...fieldProps}
-      name={componentId}
-      id={fieldProps.name}
-      type={fieldProps.inputType}
-      onChange={(event) => fieldProps.onChange?.(event.target.value)}
+      {...props}
+      id={props.name}
+      type={inputType}
+      onChange={(event) => {
+        console.log("Function Called");
+        update(`${id}.value`, event.target.value);
+      }}
     />
   );
 }
