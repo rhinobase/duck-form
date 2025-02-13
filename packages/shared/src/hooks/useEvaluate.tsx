@@ -55,7 +55,7 @@ function evalProp(
   return struct;
 }
 
-function figureOutVariables(
+export function figureOutVariables(
   struct: Record<string, unknown> | unknown[] | unknown,
   variables: string[] = [],
 ) {

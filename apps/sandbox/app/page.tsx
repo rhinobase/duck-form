@@ -1,11 +1,11 @@
 import { Blueprint, DuckField, DuckForm } from "duck-form";
 import { PageContextProvider } from "@rhinobase/shared";
 import { components } from "./config";
-import { queries, schema } from "./dez/application_form";
+import { schema } from "./sample/test";
 
 export default async function HomePage() {
   const context = {
-    queries: await queries(),
+    // queries: await queries(),
   };
 
   return (

@@ -58,7 +58,7 @@ export default defineConfig({
           type: "es6",
         },
         minify: true,
-        sourceMaps: false,
+        sourceMaps: true,
         exclude: ["./**/*.stories.tsx?$"],
       },
     }),
