@@ -108,9 +108,10 @@ class Block {
   }
 }
 
+type NestedProperties = Record<string, string | NestedProperties>;
+
 // TODO: find the variable in the string, Eg. '_.sum(components.tag1)' => 'components.tag1'
 class Property {
-  block: Block;
   isDynamic = false;
 
   /**
@@ -122,21 +123,55 @@ class Property {
    * The list of properties that depend on this property
    */
   dependent: Property[] = [];
-  private _value: string;
+  private _value: string | Property[] | Record<string, Property>;
 
   constructor(
-    block: Block,
+    public block: Block | Property,
     public key: string,
-    value: string,
+    value: string | (string | NestedProperties)[] | NestedProperties,
   ) {
-    this.block = block;
-    this._value = value;
+    this._value = this.extractValue(value);
 
     this.analyze();
   }
 
+  get id(): string {
+    return `${this.block.id}.${this.key}`;
+  }
+
+  get context(): PageContext {
+    return this.block.context;
+  }
+
+  toJSON({ force }: { force?: boolean } = {}): Record<string, unknown> {
+    return this.block.toJSON({ force });
+  }
+
+  extractValue(
+    value: string | (string | NestedProperties)[] | NestedProperties,
+  ) {
+    if (typeof value === "string") return value;
+
+    if (Array.isArray(value))
+      return value.map(
+        (item, index) => new Property(this, String(index), item),
+      );
+
+    return Object.entries(value).reduce<Record<string, Property>>(
+      (acc, [subKey, subValue]) => {
+        if (subValue) acc[subKey] = new Property(this, subKey, subValue);
+        return acc;
+      },
+      {},
+    );
+  }
+
   analyze() {
-    const variables = findVariable(this._value);
+    let variables: string[] | undefined;
+
+    if (typeof this._value === "string") {
+      variables = findVariable(this._value);
+    }
 
     if (variables?.length) {
       this.isDynamic = true;
@@ -147,18 +182,34 @@ class Property {
     }
   }
 
-  get value() {
-    if (this.isDynamic) {
-      return Function(
-        `const components = arguments[0]; return ${cleanupExpression(this._value)}`,
-      )(this.generateContextForValue());
-    }
-
-    return this._value;
+  execute(expression: string) {
+    return Function(
+      `const components = arguments[0]; return ${cleanupExpression(expression)}`,
+    )(this.generateContextForValue());
   }
 
-  set value(val: string) {
-    this._value = val;
+  get value() {
+    if (typeof this._value === "string") {
+      if (this.isDynamic) return this.execute(this._value);
+
+      return this._value;
+    }
+
+    if (Array.isArray(this._value)) {
+      return this._value.map((item) => item.value);
+    }
+
+    return Object.entries(this._value).reduce<Record<string, unknown>>(
+      (acc, [key, property]) => {
+        acc[key] = property.value;
+        return acc;
+      },
+      {},
+    );
+  }
+
+  set value(val: string | (string | NestedProperties)[] | NestedProperties) {
+    this._value = this.extractValue(val);
 
     this.analyze();
 
@@ -223,10 +274,18 @@ class Property {
   }
 }
 
-function findVariable(expression: string) {
-  const result = expression.match(/\{\{(.*?)\}\}/g);
+function findVariable(...expression: string[]) {
+  const result = expression.flatMap((val) => val.match(/\{\{(.*?)\}\}/g));
 
-  if (result) return result.map(cleanupExpression);
+  if (result) {
+    const set = new Set<string>();
+
+    for (const item of result) {
+      if (item) set.add(item);
+    }
+
+    return Array.from(set).map(cleanupExpression);
+  }
 
   return undefined;
 }
