@@ -44,31 +44,6 @@ export class PageContext {
   }
 }
 
-// function generateDependencyGraph(
-//   components: Record<string, Record<string, unknown>>,
-// ) {
-//   const ids = Object.keys(components);
-//   const graph: Record<string, string[]> = {};
-
-//   for (const id of ids) {
-//     const variables = findVariables(components[id]);
-
-//     if (variables?.length) {
-//       for (const variable of variables) {
-//         // TODO: find the variable in the string, Eg. '_.sum(components.tag1)' => 'components.tag1'
-//         const componentId = variable.split(".")[1];
-
-//         if (componentId) {
-//           if (!graph[componentId]) graph[componentId] = [];
-//           graph[componentId].push(id);
-//         }
-//       }
-//     }
-//   }
-
-//   return graph;
-// }
-
 class Block {
   context: PageContext;
   id: string;
@@ -103,9 +78,15 @@ class Block {
   }
 
   update(key: string, value: string) {
-    if (this.properties[key]) {
-      this.properties[key].value = value;
-    }
+    if (this.properties[key]) this.properties[key].value = value;
+    else this.addProperty(key, value);
+
+    this.toJSON({ force: true });
+  }
+
+  addProperty(key: string, value: string) {
+    // TODO: check if the property even exists for this block
+    this.properties[key] = new Property(this, key, value);
   }
 
   toJSON({ force }: { force?: boolean } = {}): Record<string, unknown> {
@@ -127,6 +108,7 @@ class Block {
   }
 }
 
+// TODO: find the variable in the string, Eg. '_.sum(components.tag1)' => 'components.tag1'
 class Property {
   block: Block;
   isDynamic = false;
@@ -182,8 +164,6 @@ class Property {
 
     if (this.isDynamic) this.connectDependencies();
 
-    this.block.toJSON({ force: true });
-
     // Notify all dependent properties
     for (const dependent of this.dependent) {
       dependent.block.toJSON({ force: true });
@@ -214,37 +194,33 @@ class Property {
   }
 
   connectDependencies() {
-    if (this.dependecies) {
-      for (let index = 0; index < this.dependecies.length; index++) {
-        const dependency = this.dependecies[index];
+    if (!this.dependecies) return;
 
-        if (typeof dependency === "string") {
-          const [, componentId, property] = dependency.split(".");
+    for (let index = 0; index < this.dependecies.length; index++) {
+      const dependency = this.dependecies[index];
 
-          if (!componentId || !property) continue;
+      if (typeof dependency === "string") {
+        const [, componentId, property] = dependency.split(".");
 
-          const block = this.block.context.registry[componentId];
+        if (!componentId || !property) continue;
 
-          if (!block || !block.properties[property]) continue;
+        const block = this.block.context.registry[componentId];
 
-          block.properties[property].dependent.push(this);
-          this.dependecies[index] = block.properties[property];
+        if (!block) continue;
+
+        if (!block.properties[property]) block.addProperty(property, "");
+
+        if (!block.properties[property]) {
+          throw new Error(
+            `Unable to create property ${property} in block ${componentId}`,
+          );
         }
+
+        block.properties[property].dependent.push(this);
+        this.dependecies[index] = block.properties[property];
       }
     }
   }
-}
-
-function findVariables(
-  struct: Record<string, unknown>,
-  payload: { key: string; value: string; variables: string[] }[] = [],
-) {
-  for (const [key, value] of Object.entries(struct)) {
-    const variables = findVariable(String(value));
-    if (variables) payload.push({ key, value: String(value), variables });
-  }
-
-  return payload;
 }
 
 function findVariable(expression: string) {
