@@ -1,6 +1,7 @@
 import { Blueprint, DuckField, DuckForm, PageContextProvider } from "duck-form";
 import { components } from "./config";
 import { schema } from "./sample/test";
+import { ShowContext } from "./ShowContext";
 
 export default async function HomePage() {
   const context = {
@@ -20,6 +21,7 @@ export default async function HomePage() {
           ))}
         </Blueprint>
       </DuckForm>
+      <ShowContext />
     </PageContextProvider>
   );
 }
