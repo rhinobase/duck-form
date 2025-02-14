@@ -1,41 +1,32 @@
 export const schema = {
-  fragment1: {
-    type: "fragment",
+  button1: {
+    type: "button",
     blocks: {
-      div1: {
-        type: "div",
-        blocks: {
-          text3: {
-            type: "text",
-            value: "{{ components.string2.value }}",
-          },
-        },
-      },
-      string1: {
-        type: "string",
-        value: "field 1",
-      },
       text1: {
         type: "text",
-        value: "{{ components.string1.value }}",
-      },
-      string2: {
-        type: "string",
-        value: "field 2",
-      },
-      div2: {
-        type: "div",
-        blocks: {
-          text4: {
-            type: "text",
-            value: "This value is inside div",
-          },
-          text2: {
-            type: "text",
-            value: "{{ components.string2.value }}",
-          },
-        },
+        value: "Button 1",
       },
     },
+    x: 4,
+    y: 10,
+    colSpan: 2,
+    rowSpan: 4,
+    ariaLabel: "Button 1",
+    iconAfter: "arrow-right",
+    iconBefore: "arrow-left",
+    tooltipText: "Button 1",
+    // When submit is "false"
+    loading: "false",
+    disabled: "false",
+    // When submit is "true"
+    // submit: "true",
+    // submitTargetId: "form-id",
+    height: "A",
+    margin: "A",
+    horizontalAlign: "A",
+    allowWrap: "true",
+    hiddenType: "false",
+    styleVariant: "A",
+    border: "",
   },
 };

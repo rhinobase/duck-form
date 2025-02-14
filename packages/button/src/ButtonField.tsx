@@ -1,25 +1,41 @@
 "use client";
 import { Button as RaftyButton } from "@rafty/ui/button";
-import { type buttonSchema, useEvaluate } from "@rhinobase/shared";
-import { DuckField, useField } from "duck-form";
+import { DuckField, useField, usePageContext } from "duck-form";
 import React from "react";
-import type z from "zod";
+import z from "zod";
 
-export type ButtonProps = z.infer<typeof buttonSchema>;
+const buttonSchema = z.object({
+  ariaLabel: z.string().optional(),
+  loading: z.union([
+    z.boolean(),
+    z
+      .string()
+      .trim()
+      .toLowerCase()
+      .transform((val) => !(val === "false" || val === "0" || val === "")),
+  ]),
+});
+
+export type ButtonProps = {
+  id: string;
+  blocks: Record<string, unknown>;
+};
 
 export function ButtonField() {
-  const { blocks, btnType, className, isLoading, leftIcon, rightIcon } =
-    useField<ButtonProps>();
+  const { id, blocks } = useField<ButtonProps>();
+  const props = usePageContext<{
+    [K in keyof z.infer<typeof buttonSchema>]: string;
+  }>((state) => {
+    // @ts-expect-error
+    const _state = state.context[id];
 
-  const props = {
-    className,
-    type: btnType,
-    leftIcon,
-    rightIcon,
-    isLoading,
-  };
+    return {
+      ariaLabel: _state.ariaLabel,
+      loading: _state.loading,
+    };
+  });
 
-  const fieldProps = useEvaluate(props);
+  const fieldProps = buttonSchema.parse(props);
 
   return (
     <RaftyButton {...fieldProps}>
