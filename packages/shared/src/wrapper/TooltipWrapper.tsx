@@ -1,19 +1,36 @@
 "use client";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@rafty/ui/tooltip";
-import { useField } from "duck-form";
+import { useField, usePageContext } from "duck-form";
 import type { PropsWithChildren } from "react";
 import React from "react";
+import z from "zod";
+import { useShallow } from "zustand/react/shallow";
 
-export type TooltipWrapperProps = {
-  tooltip?: string;
-};
+export const tooltipSchema = z.object({
+  tooltipText: z.string().optional(),
+});
 
 export type TooltipWrapper = PropsWithChildren;
 
 export function TooltipWrapper({ children }: TooltipWrapper) {
-  const { tooltip } = useField<TooltipWrapperProps>();
+  const { id } = useField();
 
-  if (tooltip)
+  const props = usePageContext<{
+    [K in keyof z.infer<typeof tooltipSchema>]: string;
+  }>(
+    useShallow((state) => {
+      // @ts-expect-error
+      const _state = state.context[id];
+
+      return {
+        tooltipText: _state.tooltipText,
+      };
+    })
+  );
+
+  const { tooltipText } = tooltipSchema.parse(props);
+
+  if (tooltipText)
     return (
       <Tooltip>
         <TooltipTrigger asChild>
@@ -23,7 +40,7 @@ export function TooltipWrapper({ children }: TooltipWrapper) {
           align="start"
           className="rounded px-1.5 py-1 leading-none"
         >
-          {tooltip}
+          {tooltipText}
         </TooltipContent>
       </Tooltip>
     );

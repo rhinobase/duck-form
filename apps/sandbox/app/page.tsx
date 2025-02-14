@@ -2,6 +2,7 @@ import { Blueprint, DuckField, DuckForm, PageContextProvider } from "duck-form";
 import { components } from "./config";
 import { schema } from "./sample/test";
 import { ShowContext } from "./ShowContext";
+import { TooltipWrapper } from "@rhinobase/shared";
 
 export default async function HomePage() {
   const context = {
@@ -15,7 +16,7 @@ export default async function HomePage() {
         components={components}
         // generateId={(_, props) => (props.id ? String(props.id) : undefined)}
       >
-        <Blueprint schema={schema}>
+        <Blueprint schema={schema} wrapper={TooltipWrapper}>
           {Object.keys(schema).map((key) => (
             <DuckField key={key} id={key} />
           ))}

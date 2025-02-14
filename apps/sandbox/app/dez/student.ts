@@ -5,166 +5,128 @@ export const schema = {
   blocks: {
     p1: {
       type: "p",
-      className: { type: "literal", value: "mb-1" },
+      className: "mb-1",
       blocks: {
-        script1: { type: "script", value: "{{ c.queries.student.sr }}" },
+        text1: { type: "text", value: "{{ c.queries.student.reg_id }}" },
       },
     },
     div1: {
       type: "div",
-      className: { type: "literal", value: "flex justify-between" },
+      className: "flex justify-between",
       blocks: {
         div2: {
           type: "div",
-          className: { type: "literal", value: "flex w-max flex-col" },
+          className: "flex w-max flex-col",
           blocks: {
-            Image1: {
-              type: "Image",
-              src: { type: "script", value: "{{ c.logo }}" },
-              alt: { type: "literal", value: "Dezyne Ecole College" },
-              width: { type: "literal", value: 100 },
-              height: { type: "literal", value: 100 },
-              className: {
-                type: "literal",
-                value: "h-[60px] w-[100px] object-cover",
-              },
+            image1: {
+              type: "image",
+              src: "{{ c.logo }}",
+              alt: "Dezyne Ecole College",
+              width: "100",
+              height: "100",
+              className: "h-[60px] w-[100px] object-cover",
             },
             p2: {
               type: "p",
-              className: {
-                type: "literal",
-                value: "mt-1 text-center text-xs font-semibold leading-3",
-              },
+              className: "mt-1 text-center text-xs font-semibold leading-3",
               blocks: {
-                text1: { type: "literal", value: "Today A Reader" },
+                text2: { type: "text", value: "Today A Reader" },
               },
             },
             p3: {
               type: "p",
-              className: {
-                type: "literal",
-                value: "text-center text-xs font-semibold leading-3",
-              },
+              className: "text-center text-xs font-semibold leading-3",
               blocks: {
-                text2: { type: "literal", value: "Tommorrow A Leader" },
+                text3: { type: "text", value: "Tommorrow A Leader" },
               },
             },
           },
         },
         div3: {
           type: "div",
-          className: { type: "literal", value: "text-center" },
+          className: "text-center",
           blocks: {
             h21: {
               type: "h2",
-              className: {
-                type: "literal",
-                value: "text-3xl font-semibold",
-              },
+              className: "text-3xl font-semibold",
               blocks: {
-                text3: { type: "literal", value: "Dezyne École College" },
+                text4: { type: "text", value: "Dezyne École College" },
               },
             },
             p4: {
               type: "p",
-              className: {
-                type: "literal",
-                value: "text-sm leading-tight",
-              },
+              className: "text-sm leading-tight",
               blocks: {
-                text4: {
-                  type: "literal",
+                text5: {
+                  type: "text",
                   value: "Unit of Suraj Narayan Uchh Takniki Shikshan Sansthan",
                 },
               },
             },
             p5: {
               type: "p",
-              className: { type: "literal", value: "text-sm" },
+              className: "text-sm",
               blocks: {
-                text5: {
-                  type: "literal",
+                text6: {
+                  type: "text",
                   value: "0145-2624679, 09829024839 | www.dezyneecole.com",
                 },
               },
             },
             h31: {
               type: "h3",
-              className: {
-                type: "literal",
-                value:
-                  "mx-auto mt-2 w-max rounded-md bg-[#2ecc71] px-2.5 py-1 text-2xl font-medium",
-              },
+              className:
+                "mx-auto mt-2 w-max rounded-md bg-[#2ecc71] px-2.5 py-1 text-2xl font-medium",
               blocks: {
-                text6: { type: "literal", value: "Admission Form" },
+                text7: { type: "text", value: "Admission Form" },
               },
             },
           },
         },
-        Image2: {
-          type: "Image",
-          src: {
-            type: "script",
-            value: "{{ c.queries.student.profile_image }}",
-          },
-          alt: { type: "literal", value: "student profile image" },
-          width: { type: "literal", value: 150 },
-          height: { type: "literal", value: 150 },
-          unoptimized: { type: "literal", value: true },
-          className: {
-            type: "script",
-            value: "{{ c.queries.student.profile_image }} ? '' : 'hidden'",
-          },
-        },
-        div4: {
-          type: "div",
-          className: {
-            type: "script",
-            value:
-              "{{ c.queries.student.profile_image }} ? 'hidden' : 'h-[150px] w-[150px] border'",
-          },
-        },
+        div4: { type: "div", className: "h-[150px] w-[150px] border" },
       },
     },
     p6: {
       type: "p",
       blocks: {
-        text7: { type: "literal", value: "For admission in " },
+        text8: { type: "text", value: "For admission in " },
         span1: {
           type: "span",
-          className: { type: "literal", value: "font-semibold" },
-          // blocks: {
-          //   script2: {
-          //     type: "script",
-          //     value: "{{ c.queries.student.session.title }}",
-          //   },
-          // },
+          className: "font-semibold",
+          blocks: {
+            text9: {
+              type: "text",
+              value: "{{ c.queries.student.course.title }}",
+            },
+          },
         },
       },
     },
     table1: {
       type: "table",
-      variant: { type: "literal", value: "simple" },
-      size: { type: "literal", value: "sm" },
-      className: { type: "literal", value: "w-full" },
+      className:
+        "w-full divide-secondary-300 dark:divide-secondary-700 min-w-full divide-y p-2",
       blocks: {
         tbody1: {
           type: "tbody",
+          className: "dark:bg-secondary-700/40 bg-white",
           blocks: {
             tr1: {
               type: "tr",
               blocks: {
                 td1: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: { text8: { type: "literal", value: "Name" } },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: { text10: { type: "text", value: "Name" } },
                 },
                 td2: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    script3: {
-                      type: "script",
+                    text11: {
+                      type: "text",
                       value: "{{ c.queries.student.name }}",
                     },
                   },
@@ -176,17 +138,19 @@ export const schema = {
               blocks: {
                 td3: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text9: { type: "literal", value: "Father's Name" },
+                    text12: { type: "text", value: "Father's Name" },
                   },
                 },
                 td4: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    script4: {
-                      type: "script",
+                    text13: {
+                      type: "text",
                       value: "{{ c.queries.student.father_name }}",
                     },
                   },
@@ -198,22 +162,11 @@ export const schema = {
               blocks: {
                 td5: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  colSpan: "2",
                   blocks: {
-                    text10: {
-                      type: "literal",
-                      value: "Father's Profession",
-                    },
-                  },
-                },
-                td6: {
-                  type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script5: {
-                      type: "script",
-                      value: "{{ c.queries.student.f_oc }}",
-                    },
+                    text14: { type: "text", value: "Father's Profession" },
                   },
                 },
               },
@@ -221,21 +174,13 @@ export const schema = {
             tr4: {
               type: "tr",
               blocks: {
-                td7: {
+                td6: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  colSpan: "2",
                   blocks: {
-                    text11: { type: "literal", value: "Mother's Name" },
-                  },
-                },
-                td8: {
-                  type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script6: {
-                      type: "script",
-                      value: "{{ c.queries.student.mother_name }}",
-                    },
+                    text15: { type: "text", value: "Mother's Name" },
                   },
                 },
               },
@@ -243,70 +188,85 @@ export const schema = {
             tr5: {
               type: "tr",
               blocks: {
-                td9: {
+                td7: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text12: {
-                      type: "literal",
-                      value: "Mother's Profession",
-                    },
+                    text16: { type: "text", value: "Mother's Profession" },
                   },
                 },
-                td10: {
+                td8: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script7: {
-                      type: "script",
-                      value: "{{ c.queries.student.m_oc }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr6: {
               type: "tr",
               blocks: {
-                td11: {
+                td9: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text13: {
-                      type: "literal",
+                    text17: {
+                      type: "text",
                       value: "Parent / Guardian Name",
                     },
                   },
                 },
-                td12: {
+                td10: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script8: {
-                      type: "script",
-                      value: "{{ c.queries.student.cg }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr7: {
               type: "tr",
               blocks: {
-                td13: {
+                td11: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    text14: { type: "literal", value: "Gender" },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: { text18: { type: "text", value: "Gender" } },
                 },
-                td14: {
+                td12: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    script9: {
-                      type: "script",
-                      value: "{{ c.queries.student.gen }}",
+                    div5: {
+                      type: "div",
+                      className: "flex items-center gap-2",
+                      blocks: {
+                        div6: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean1: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text19: { type: "text", value: "Male" },
+                          },
+                        },
+                        div7: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean2: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text20: { type: "text", value: "Female" },
+                          },
+                        },
+                      },
                     },
                   },
                 },
@@ -315,20 +275,39 @@ export const schema = {
             tr8: {
               type: "tr",
               blocks: {
-                td15: {
+                td13: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text15: { type: "literal", value: "Date of Birth" },
+                    text21: { type: "text", value: "Date of Birth" },
                   },
                 },
-                td16: {
+                td14: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    script10: {
-                      type: "script",
-                      value: "{{ c.queries.student.dob }}",
+                    div8: {
+                      type: "div",
+                      className: "flex items-center gap-2",
+                      blocks: {
+                        pin1: {
+                          type: "pin",
+                          placeholder: "D",
+                          length: "2",
+                        },
+                        pin2: {
+                          type: "pin",
+                          placeholder: "M",
+                          length: "2",
+                        },
+                        pin3: {
+                          type: "pin",
+                          placeholder: "Y",
+                          length: "4",
+                        },
+                      },
                     },
                   },
                 },
@@ -337,46 +316,103 @@ export const schema = {
             tr9: {
               type: "tr",
               blocks: {
-                td17: {
+                td15: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text16: { type: "literal", value: "Aadhar Card No" },
+                    text22: { type: "text", value: "Aadhar Card No" },
                   },
                 },
-                td18: {
+                td16: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    Pin1: {
-                      type: "Pin",
-                      value: {
-                        type: "script",
-                        value: "{{ c.queries.student.aadhar }}",
-                      },
-                      length: { type: "literal", value: 12 },
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: { pin4: { type: "pin", length: "12" } },
                 },
               },
             },
             tr10: {
               type: "tr",
               blocks: {
-                td19: {
+                td17: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text17: { type: "literal", value: "Category" },
+                    text23: { type: "text", value: "Category" },
                   },
                 },
-                td20: {
+                td18: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    script11: {
-                      type: "script",
-                      value: "{{ c.queries.student.cat }}",
+                    div9: {
+                      type: "div",
+                      className: "flex items-center gap-2",
+                      blocks: {
+                        div10: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean3: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text24: { type: "text", value: "GEN" },
+                          },
+                        },
+                        div11: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean4: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text25: { type: "text", value: "SC" },
+                          },
+                        },
+                        div12: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean5: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text26: { type: "text", value: "ST" },
+                          },
+                        },
+                        div13: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean6: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text27: { type: "text", value: "OBC" },
+                          },
+                        },
+                        div14: {
+                          type: "div",
+                          className: "flex items-center gap-1 text-sm",
+                          blocks: {
+                            boolean7: {
+                              type: "boolean",
+                              disabled: true,
+                              size: "sm",
+                            },
+                            text28: { type: "text", value: "SBC" },
+                          },
+                        },
+                      },
                     },
                   },
                 },
@@ -385,163 +421,130 @@ export const schema = {
             tr11: {
               type: "tr",
               blocks: {
-                td21: {
+                td19: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text18: { type: "literal", value: "Religion" },
+                    text29: { type: "text", value: "Religion" },
                   },
                 },
-                td22: {
+                td20: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script12: {
-                      type: "script",
-                      value: "{{ c.queries.student.rel }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr12: {
               type: "tr",
               blocks: {
-                td23: {
+                td21: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text19: {
-                      type: "literal",
-                      value: "Permanent Address",
-                    },
+                    text30: { type: "text", value: "Permanent Address" },
                   },
                 },
-                td24: {
+                td22: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script13: {
-                      type: "script",
-                      value: "{{ c.queries.student.per_add }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr13: {
               type: "tr",
               blocks: {
-                td25: {
+                td23: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text20: {
-                      type: "literal",
+                    text31: {
+                      type: "text",
                       value: "Correspondence Address",
                     },
                   },
                 },
-                td26: {
+                td24: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script14: {
-                      type: "script",
-                      value: "{{ c.queries.student.pre_add }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr14: {
               type: "tr",
               blocks: {
-                td27: {
+                td25: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text21: {
-                      type: "literal",
+                    text32: {
+                      type: "text",
                       value: "Phone No. (Landline)",
                     },
                   },
                 },
-                td28: {
+                td26: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script15: {
-                      type: "script",
-                      value: "{{ c.queries.student.land }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr15: {
               type: "tr",
               blocks: {
-                td29: {
+                td27: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text22: { type: "literal", value: "Student Mobile" },
+                    text33: { type: "text", value: "Student Mobile" },
                   },
                 },
-                td30: {
+                td28: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script16: {
-                      type: "script",
-                      value: "{{ c.queries.student.s_mo }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr16: {
               type: "tr",
               blocks: {
-                td31: {
+                td29: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                   blocks: {
-                    text23: { type: "literal", value: "Parents Mobile" },
+                    text34: { type: "text", value: "Parents Mobile" },
                   },
                 },
-                td32: {
+                td30: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script17: {
-                      type: "script",
-                      value: "{{ c.queries.student.f_mo }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr17: {
               type: "tr",
               blocks: {
-                td33: {
+                td31: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    text24: { type: "literal", value: "Email" },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: { text35: { type: "text", value: "Email" } },
                 },
-                td34: {
+                td32: {
                   type: "td",
-                  className: { type: "literal", value: "!px-1.5 py-2" },
-                  blocks: {
-                    script18: {
-                      type: "script",
-                      value: "{{ c.queries.student.email }}",
-                    },
-                  },
+                  className:
+                    "px-1.5 py-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
@@ -551,22 +554,23 @@ export const schema = {
     },
     table2: {
       type: "table",
-      variant: { type: "literal", value: "simple" },
-      size: { type: "literal", value: "sm" },
-      className: { type: "literal", value: "w-full" },
+      className:
+        "w-full divide-secondary-300 dark:divide-secondary-700 min-w-full divide-y p-2",
       blocks: {
         thead1: {
           type: "thead",
+          className: "bg-transparent",
           blocks: {
             tr18: {
               type: "tr",
               blocks: {
                 th1: {
                   type: "th",
-                  colSpan: { type: "literal", value: 8 },
-                  className: { type: "literal", value: "text-center" },
+                  colSpan: "8",
+                  className:
+                    "text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
                   blocks: {
-                    text25: { type: "literal", value: "Academic Record" },
+                    text36: { type: "text", value: "Academic Record" },
                   },
                 },
               },
@@ -575,89 +579,65 @@ export const schema = {
         },
         thead2: {
           type: "thead",
+          className: "bg-transparent",
           blocks: {
             tr19: {
               type: "tr",
-              className: { type: "literal", value: "border-y" },
+              className: "border-y",
               blocks: {
                 th2: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-l border-r",
-                  },
+                  className:
+                    "border-l border-r text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
                   blocks: {
-                    text26: {
-                      type: "literal",
-                      value: "Examination Level",
-                    },
+                    text37: { type: "text", value: "Examination Level" },
                   },
                 },
                 th3: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    text27: { type: "literal", value: "Board" },
-                  },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
+                  blocks: { text38: { type: "text", value: "Board" } },
                 },
                 th4: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
                   blocks: {
-                    text28: { type: "literal", value: "School Name" },
+                    text39: { type: "text", value: "School Name" },
                   },
                 },
                 th5: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: { text29: { type: "literal", value: "%" } },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
+                  blocks: { text40: { type: "text", value: "%" } },
                 },
                 th6: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    text30: { type: "literal", value: "Subject" },
-                  },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
+                  blocks: { text41: { type: "text", value: "Subject" } },
                 },
                 th7: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    text31: { type: "literal", value: "Place" },
-                  },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
+                  blocks: { text42: { type: "text", value: "Place" } },
                 },
                 th8: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: { text32: { type: "literal", value: "Year" } },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
+                  blocks: { text43: { type: "text", value: "Year" } },
                 },
                 th9: {
                   type: "th",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
+                  className:
+                    "border-r text-center text-secondary-600 dark:text-secondary-300 text-left text-sm font-semibold p-2",
                   blocks: {
-                    text33: {
-                      type: "literal",
+                    text44: {
+                      type: "text",
                       value: "Regular / Correspondence",
                     },
                   },
@@ -668,206 +648,101 @@ export const schema = {
         },
         tbody2: {
           type: "tbody",
+          className: "dark:bg-secondary-700/40 bg-white",
           blocks: {
             tr20: {
               type: "tr",
-              className: { type: "literal", value: "border-b border-l" },
+              className: "border-b border-l",
               blocks: {
+                td33: {
+                  type: "td",
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: { text45: { type: "text", value: "X Class" } },
+                },
+                td34: {
+                  type: "td",
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                },
                 td35: {
                   type: "td",
-                  className: { type: "literal", value: "border-r" },
-                  blocks: {
-                    text34: { type: "literal", value: "X Class" },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td36: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script19: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.board }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td37: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script20: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.school }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td38: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script21: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.per }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td39: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td40: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script22: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.place }}",
-                    },
-                  },
-                },
-                td41: {
-                  type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script23: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.year }}",
-                    },
-                  },
-                },
-                td42: {
-                  type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script24: {
-                      type: "script",
-                      value: "{{ c.queries.student.tenth.reg }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
             tr21: {
               type: "tr",
-              className: { type: "literal", value: "border-b border-l" },
+              className: "border-b border-l",
               blocks: {
+                td41: {
+                  type: "td",
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                  blocks: {
+                    text46: { type: "text", value: "XII Class" },
+                  },
+                },
+                td42: {
+                  type: "td",
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
+                },
                 td43: {
                   type: "td",
-                  className: { type: "literal", value: "border-r" },
-                  blocks: {
-                    text35: { type: "literal", value: "XII Class" },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td44: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script25: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.board }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td45: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script26: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.school }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td46: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script27: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.per }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td47: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script28: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.sub }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
                 td48: {
                   type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script29: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.place }}",
-                    },
-                  },
-                },
-                td49: {
-                  type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script30: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.year }}",
-                    },
-                  },
-                },
-                td50: {
-                  type: "td",
-                  className: {
-                    type: "literal",
-                    value: "border-r text-center",
-                  },
-                  blocks: {
-                    script31: {
-                      type: "script",
-                      value: "{{ c.queries.student.twelfth.reg }}",
-                    },
-                  },
+                  className:
+                    "border-r p-2 text-secondary-600 dark:text-secondary-300 whitespace-nowrap text-sm",
                 },
               },
             },
@@ -875,135 +750,116 @@ export const schema = {
         },
       },
     },
-    div5: {
+    div15: {
       type: "div",
-      className: {
-        type: "literal",
-        value: "mt-9 flex items-center justify-between",
-      },
+      className: "mt-9 flex items-center justify-between",
       blocks: {
-        div6: {
+        div16: {
           type: "div",
           blocks: {
-            div7: {
-              type: "div",
-              className: {
-                type: "literal",
-                value: "h-[1px] w-full bg-black",
-              },
-            },
+            div17: { type: "div", className: "h-[1px] w-full bg-black" },
             p7: {
               type: "p",
-              className: { type: "literal", value: "text-sm" },
+              className: "text-sm",
               blocks: {
-                text36: { type: "literal", value: "Student's Signature" },
+                text47: { type: "text", value: "Student's Signature" },
               },
             },
           },
         },
-        div8: {
+        div18: {
           type: "div",
           blocks: {
-            div9: {
-              type: "div",
-              className: {
-                type: "literal",
-                value: "h-[1px] w-full bg-black",
-              },
-            },
+            div19: { type: "div", className: "h-[1px] w-full bg-black" },
             p8: {
               type: "p",
-              className: { type: "literal", value: "text-sm" },
+              className: "text-sm",
               blocks: {
-                text37: { type: "literal", value: "Parent's Signature" },
+                text48: { type: "text", value: "Parent's Signature" },
               },
             },
           },
         },
       },
     },
-    div10: {
-      type: "div",
-      className: { type: "literal", value: "break-after-page" },
-    },
-    h41: {
-      type: "h4",
-      className: {
-        type: "literal",
-        value:
-          "my-1 text-center text-xl font-semibold uppercase text-[#1e4888]",
-      },
-      blocks: { text38: { type: "literal", value: "Declaration" } },
+    div20: { type: "div", className: "break-after-page" },
+    h51: {
+      type: "h5",
+      className:
+        "my-1 text-center text-xl font-semibold uppercase text-[#1e4888]",
+      blocks: { text49: { type: "text", value: "Declaration" } },
     },
     p9: {
       type: "p",
-      className: { type: "literal", value: "mb-0.5 font-bold" },
+      className: "mb-0.5 font-bold",
       blocks: {
-        text39: {
-          type: "literal",
+        text50: {
+          type: "text",
           value: "List of Enclose to be Submitted by Students -",
         },
       },
     },
     ol1: {
       type: "ol",
-      className: { type: "literal", value: "list-inside list-decimal" },
+      className: "list-inside list-decimal",
       blocks: {
         li1: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text40: { type: "literal", value: "Photocopy of 10" },
+            text51: { type: "text", value: "Photocopy of 10" },
             sup1: {
               type: "sup",
-              blocks: { text41: { type: "literal", value: "th" } },
+              blocks: { text52: { type: "text", value: "th" } },
             },
-            text42: { type: "literal", value: "Marksheet" },
+            text53: { type: "text", value: "Marksheet" },
           },
         },
         li2: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text43: { type: "literal", value: "Photocopy of 12" },
+            text54: { type: "text", value: "Photocopy of 12" },
             sup2: {
               type: "sup",
-              blocks: { text44: { type: "literal", value: "th" } },
+              blocks: { text55: { type: "text", value: "th" } },
             },
-            text45: { type: "literal", value: "Marksheet" },
+            text56: { type: "text", value: "Marksheet" },
           },
         },
         li3: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text46: { type: "literal", value: "6 Passport Size Photos" },
+            text57: { type: "text", value: "6 Passport Size Photos" },
           },
         },
         li4: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text47: { type: "literal", value: "Aadhar Card Copy" },
+            text58: { type: "text", value: "Aadhar Card Copy" },
           },
         },
       },
     },
     p10: {
       type: "p",
-      className: { type: "literal", value: "mb-0.5 mt-12 font-bold" },
+      className: "mb-0.5 mt-12 font-bold",
       blocks: {
-        text48: {
-          type: "literal",
-          value: "Needs to be Signed by Applicant",
-        },
+        text59: { type: "text", value: "Needs to be Signed by Applicant" },
       },
     },
     ol2: {
       type: "ol",
-      className: { type: "literal", value: "list-inside list-decimal" },
+      className: "list-inside list-decimal",
       blocks: {
         li5: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text49: {
-              type: "literal",
+            text60: {
+              type: "text",
               value:
                 "I hereby declare that I have Successfully completed my 10+2 and I have Submitted my 10+2 / Degree/ Diploma Certificate as evidence or as soon as my Result are Declared in this case. I Understand that if I Fail to Submit this proof within 30 Days of my Session Start at Dezyne École College my Admission Stands Cancelled.",
             },
@@ -1011,12 +867,13 @@ export const schema = {
         },
         li6: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
             span2: {
               type: "span",
               blocks: {
-                text50: {
-                  type: "literal",
+                text61: {
+                  type: "text",
                   value:
                     "I understand that before starting professional practice (Training)",
                 },
@@ -1024,16 +881,14 @@ export const schema = {
             },
             ul1: {
               type: "ul",
-              className: {
-                type: "literal",
-                value: "list-inside list-disc",
-              },
+              className: "list-inside list-disc",
               blocks: {
                 li7: {
                   type: "li",
+                  className: "dark:text-secondary-100",
                   blocks: {
-                    text51: {
-                      type: "literal",
+                    text62: {
+                      type: "text",
                       value:
                         "Must have an Aggregate of 60% at the end of each semester / Year of Degree/ Master Program Complete till them",
                     },
@@ -1041,18 +896,20 @@ export const schema = {
                 },
                 li8: {
                   type: "li",
+                  className: "dark:text-secondary-100",
                   blocks: {
-                    text52: {
-                      type: "literal",
+                    text63: {
+                      type: "text",
                       value: "Should be less than 25 Years of age",
                     },
                   },
                 },
                 li9: {
                   type: "li",
+                  className: "dark:text-secondary-100",
                   blocks: {
-                    text53: {
-                      type: "literal",
+                    text64: {
+                      type: "text",
                       value:
                         "Should have submitted a copy of Resume, Photograph and Portfolio ( Designing) as per Requirement of Industry.",
                     },
@@ -1064,9 +921,10 @@ export const schema = {
         },
         li10: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text54: {
-              type: "literal",
+            text65: {
+              type: "text",
               value:
                 "I understand that my Professional Practice may be anywhere in India or Abroad and that my Travel, Boarding and lodging expenses shall be born entirely by me. I understand and agree that besides that rules mentioned as part of 'Student Obligations' given to me, the above Rules are also applicable to me. I agree to Abide by the above Rules.",
             },
@@ -1074,38 +932,35 @@ export const schema = {
         },
         li11: {
           type: "li",
+          className: "dark:text-secondary-100",
           blocks: {
-            text55: {
-              type: "literal",
+            text66: {
+              type: "text",
               value: "Students Obligations Rules given to students.",
             },
           },
         },
       },
     },
-    div11: {
+    div21: {
       type: "div",
-      className: { type: "literal", value: "mt-12" },
+      className: "mt-12",
       blocks: {
-        div12: {
+        div22: {
           type: "div",
-          className: {
-            type: "literal",
-            value: "h-[1px] w-full max-w-[150px] bg-black",
-          },
+          className: "h-[1px] w-full max-w-[150px] bg-black",
         },
         p11: {
           type: "p",
-          className: { type: "literal", value: "text-sm" },
+          className: "text-sm",
           blocks: {
-            text56: { type: "literal", value: "Student's Signature" },
+            text67: { type: "text", value: "Student's Signature" },
           },
         },
       },
     },
   },
 };
-
 export const queries = async () => {
   const data = await axios
     .get(
@@ -1115,7 +970,7 @@ export const queries = async () => {
           Authorization: `Bearer ${process.env.USER_TOKEN}`,
           "Content-Type": "application/json",
         },
-      },
+      }
     )
     .then((res) => res.data);
 

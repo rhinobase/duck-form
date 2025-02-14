@@ -12,11 +12,10 @@
     "publish": "pnpm publish"
   },
   "devDependencies": {
-    "@rhinobase/shared": "workspace:*",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "duck-form": "workspace:*",
     "react": "^18.2.0",
-    "zod": "^3.24.1"
+    "zustand": "^5.0.3"
   }
 }

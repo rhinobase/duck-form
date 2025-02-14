@@ -1,95 +1,174 @@
 "use client";
 import { ErrorMessage } from "@hookform/error-message";
-import { classNames, getValue, type ValueOrFunction } from "@rafty/ui/utils";
-import { FieldControl } from "@rafty/ui/field-control";
 import { ErrorMessage as RaftyErrorMessage } from "@rafty/ui/error-message";
+import { FieldControl } from "@rafty/ui/field-control";
 import type { FieldWrapper as RaftyFieldWrapper } from "@rafty/ui/field-wrapper";
-import { useBlueprint, useDuckForm, useField } from "duck-form";
-import React, {
-  Fragment,
-  type PropsWithChildren,
-  useEffect,
-  useId,
-  useMemo,
-} from "react";
+import { classNames } from "@rafty/ui/utils";
+import { useBlueprint, useDuckForm, useField, usePageContext } from "duck-form";
+import React, { Fragment, type PropsWithChildren, useId, useMemo } from "react";
+import z from "zod";
+import { useShallow } from "zustand/react/shallow";
 import { Label } from "./Label.js";
 
-export type FieldWrapperProps = {
-  label?: string;
-  description?: string;
-  primary?: boolean;
-  unique?: boolean;
-  required?: ValueOrFunction;
-  disabled?: ValueOrFunction;
-  readonly?: ValueOrFunction;
-  hidden?: ValueOrFunction;
-  orientation?: RaftyFieldWrapper["orientation"];
-  onChange?: () => void;
-};
+enum LabelAlign {
+  LEFT = "left",
+  RIGHT = "right",
+}
+
+enum LabelPosition {
+  LEFT = "left",
+  TOP = "top",
+}
+
+enum LabelWidthUnit {
+  PERCENTAGE = "%",
+  PIXELS = "px",
+  COLUMNS = "col",
+}
+
+const fieldWrapperSchema = z.object({
+  label: z.string().optional(),
+  labelAlign: z.nativeEnum(LabelAlign).default(LabelAlign.LEFT),
+  labelCaption: z.string().optional(),
+  labelPosition: z.nativeEnum(LabelPosition).default(LabelPosition.LEFT),
+  labelWidth: z.string().optional(),
+  labelWidthUnit: z
+    .nativeEnum(LabelWidthUnit)
+    .default(LabelWidthUnit.PERCENTAGE),
+  labelWrap: z
+    .union([
+      z.boolean(),
+      z
+        .string()
+        .trim()
+        .toLowerCase()
+        .transform((val) => !(val === "false" || val === "0" || val === "")),
+    ])
+    .optional(),
+  hideLabel: z
+    .union([
+      z.boolean(),
+      z
+        .string()
+        .trim()
+        .toLowerCase()
+        .transform((val) => !(val === "false" || val === "0" || val === "")),
+    ])
+    .optional(),
+  required: z
+    .union([
+      z.boolean(),
+      z
+        .string()
+        .trim()
+        .toLowerCase()
+        .transform((val) => !(val === "false" || val === "0" || val === "")),
+    ])
+    .optional(),
+  hideValidationMessage: z
+    .union([
+      z.boolean(),
+      z
+        .string()
+        .trim()
+        .toLowerCase()
+        .transform((val) => !(val === "false" || val === "0" || val === "")),
+    ])
+    .optional(),
+  hidden: z
+    .union([
+      z.boolean(),
+      z
+        .string()
+        .trim()
+        .toLowerCase()
+        .transform((val) => !(val === "false" || val === "0" || val === "")),
+    ])
+    .optional(),
+});
 
 export type FieldWrapper = PropsWithChildren<{
   className?: RaftyFieldWrapper["className"];
 }>;
 
 export function FieldWrapper({ className, children }: FieldWrapper) {
-  const props = useField<FieldWrapperProps>();
+  const { id } = useField();
+
+  const props = usePageContext<{
+    [K in keyof z.infer<typeof fieldWrapperSchema>]: string;
+  }>(
+    useShallow((state) => {
+      // @ts-expect-error
+      const _state = state.context[id];
+
+      return {
+        label: _state.label,
+        labelAlign: _state.labelAlign,
+        labelCaption: _state.labelCaption,
+        labelPosition: _state.labelPosition,
+        labelWidth: _state.labelWidth,
+        labelWidthUnit: _state.labelWidthUnit,
+        labelWrap: _state.labelWrap,
+        hideLabel: _state.hideLabel,
+        required: _state.required,
+        hideValidationMessage: _state.hideValidationMessage,
+        hidden: _state.hidden,
+      };
+    })
+  );
+
   const { generateId } = useDuckForm();
   const { schema } = useBlueprint();
 
   const autoId = useId();
   const customId = useMemo(
-    () => generateId?.(schema, props),
-    [generateId, schema, props]
+    () => generateId?.(schema, { id }),
+    [generateId, schema, id]
   );
-
-  const {
-    disabled,
-    required,
-    readonly,
-    hidden,
-    orientation,
-    label,
-    description,
-    onChange,
-  } = props;
 
   const componentId = customId ?? autoId;
 
-  useEffect(() => {
-    onChange?.();
-  }, [onChange]);
+  const fieldProps = fieldWrapperSchema.parse(props);
 
   const LabelAndDescriptionWrapper =
-    label && description
+    fieldProps.label && fieldProps.labelCaption
       ? ({ children }: PropsWithChildren) => <div>{children}</div>
       : Fragment;
 
   return (
     <div
       className={classNames(
-        getValue(hidden) && "hidden",
+        fieldProps.hidden && "hidden",
         "relative [&>div>div]:w-full w-full space-y-1",
         className
       )}
     >
       <FieldControl
         name={componentId}
-        isDisabled={disabled}
-        isRequired={required}
-        isReadOnly={readonly}
-        orientation={orientation}
+        isRequired={fieldProps.required}
+        orientation={
+          fieldProps.labelPosition === LabelPosition.LEFT
+            ? fieldProps.labelAlign === LabelAlign.LEFT
+              ? "row"
+              : "row-reverse"
+            : "col"
+        }
       >
         <LabelAndDescriptionWrapper>
-          {label && <Label className="leading-snug">{label}</Label>}
-          {description && (
+          {fieldProps.label && !fieldProps.hideLabel && (
+            <Label className="leading-snug">{fieldProps.label}</Label>
+          )}
+          {fieldProps.labelCaption && (
             <p className="text-secondary-600 dark:text-secondary-400 text-xs font-medium">
-              {description}
+              {fieldProps.labelCaption}
             </p>
           )}
         </LabelAndDescriptionWrapper>
         {children}
       </FieldControl>
-      <FieldErrorMessage name={componentId} />
+      {!fieldProps.hideValidationMessage && (
+        <FieldErrorMessage name={componentId} />
+      )}
     </div>
   );
 }

@@ -13,6 +13,7 @@ export const createStore = (context: PageContextOptions) => {
     context: pageContext.context,
     update: (key, value) =>
       set(() => {
+        console.log("Working");
         pageContext.update(key, String(value));
         return { context: pageContext.context };
       }),

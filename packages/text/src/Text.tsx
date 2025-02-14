@@ -1,16 +1,17 @@
-import type { textSchema } from "@rhinobase/shared";
 import { useField, usePageContext } from "duck-form";
 import React from "react";
-import type z from "zod";
+import { useShallow } from "zustand/react/shallow";
 
-export type TextProps = z.infer<typeof textSchema>;
+export type TextProps = { id: string };
 
 export function TextField() {
-  // @ts-expect-error
   const { id } = useField<TextProps>();
-  const { value } = usePageContext(
-    // @ts-expect-error
-    (state) => state.context[id],
+  const value = usePageContext<string>(
+    useShallow(
+      (state) =>
+        // @ts-expect-error
+        state.context[id].value
+    )
   );
 
   return <p>{value}</p>;

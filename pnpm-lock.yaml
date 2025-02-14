@@ -276,9 +276,6 @@ importers:
       '@rafty/ui':
         specifier: ^2.0.0-rc.0
         version: 2.0.0-rc.0(@types/react-dom@18.3.0)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react-hook-form@7.54.2)(react@18.3.1)
-      '@rhinobase/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@swc/helpers':
         specifier: ~0.5.11
         version: 0.5.13
@@ -297,6 +294,9 @@ importers:
       zod:
         specifier: ^3.24.1
         version: 3.24.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.1)(react@18.3.1)
 
   packages/calendar-field:
     devDependencies:
@@ -1018,6 +1018,9 @@ importers:
       zod:
         specifier: ^3.24.1
         version: 3.24.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.1)(react@18.3.1)
 
   packages/slider-field:
     devDependencies:
@@ -1045,6 +1048,9 @@ importers:
 
   packages/string-field:
     devDependencies:
+      '@heroicons/react':
+        specifier: ^2.2.0
+        version: 2.2.0(react@18.3.1)
       '@rafty/ui':
         specifier: ^2.0.0-rc.0
         version: 2.0.0-rc.0(@types/react-dom@18.3.0)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react-hook-form@7.54.2)(react@18.3.1)
@@ -1066,6 +1072,9 @@ importers:
       zod:
         specifier: ^3.24.1
         version: 3.24.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.1)(react@18.3.1)
 
   packages/switch-field:
     devDependencies:
@@ -1168,9 +1177,6 @@ importers:
 
   packages/text:
     devDependencies:
-      '@rhinobase/shared':
-        specifier: workspace:*
-        version: link:../shared
       '@types/react':
         specifier: ^18.2.0
         version: 18.3.1
@@ -1183,9 +1189,9 @@ importers:
       react:
         specifier: ^18.2.0
         version: 18.3.1
-      zod:
-        specifier: ^3.24.1
-        version: 3.24.1
+      zustand:
+        specifier: ^5.0.3
+        version: 5.0.3(@types/react@18.3.1)(react@18.3.1)
 
   packages/textarea-field:
     devDependencies:
@@ -9820,7 +9826,6 @@ packages:
     dependencies:
       '@types/react': 18.3.1
       react: 18.3.1
-    dev: false
 
   /zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
