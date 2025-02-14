@@ -20,10 +20,7 @@ export function StringField() {
       {...props}
       id={props.name}
       type={inputType}
-      onChange={(event) => {
-        console.log("Function Called");
-        update(`${id}.value`, event.target.value);
-      }}
+      onChange={(event) => update(`${id}.value`, event.target.value)}
     />
   );
 }

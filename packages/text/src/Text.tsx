@@ -13,5 +13,5 @@ export function TextField() {
     (state) => state.context[id],
   );
 
-  return <>{value}</>;
+  return <p>{value}</p>;
 }

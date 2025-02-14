@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { PageContext, type PageContextOptions } from "./utils";
+import { PageContext, type PageContextOptions } from "./utils.js";
 
 export type StoreType = {
   context: unknown;

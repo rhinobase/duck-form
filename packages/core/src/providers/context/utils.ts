@@ -11,6 +11,7 @@ export type PageContextOptions = {
 export class PageContext {
   queries: Record<string, Record<string, unknown>>;
   registry: Record<string, Block> = {};
+  _context: Record<string, Record<string, unknown>> = {};
   // private dependencyGraph: Record<string, string[]> = {};
 
   constructor(options: PageContextOptions) {
@@ -18,6 +19,11 @@ export class PageContext {
 
     for (const [id, payload] of Object.entries(options.schema)) {
       new Block(this, { id, ...payload });
+    }
+
+    // Generating the initial context
+    for (const block of Object.values(this.registry)) {
+      block.toJSON();
     }
   }
 
@@ -30,21 +36,11 @@ export class PageContext {
 
     if (!blockId || !property) return;
 
-    const block = this.registry[blockId];
-
-    if (!block || !block.properties[property]) return;
-
-    block.properties[property].value = value;
+    this.registry[blockId]?.update(property, value);
   }
 
   get context() {
-    const context: Record<string, unknown> = {};
-
-    for (const block of Object.values(this.registry)) {
-      context[block.id] = block.toJSON();
-    }
-
-    return context;
+    return this._context;
   }
 }
 
@@ -106,7 +102,16 @@ class Block {
     this.context.register(this);
   }
 
-  toJSON(): Record<string, unknown> {
+  update(key: string, value: string) {
+    if (this.properties[key]) {
+      this.properties[key].value = value;
+    }
+  }
+
+  toJSON({ force }: { force?: boolean } = {}): Record<string, unknown> {
+    const cache = this.context._context[this.id];
+    if (cache && !force) return cache;
+
     const payload: Record<string, unknown> = {
       id: this.id,
       type: this.type,
@@ -116,6 +121,8 @@ class Block {
       payload[key] = property.value;
     }
 
+    this.context._context[this.id] = payload;
+
     return payload;
   }
 }
@@ -123,7 +130,15 @@ class Block {
 class Property {
   block: Block;
   isDynamic = false;
+
+  /**
+   * The list of properties that this property depends on
+   */
   dependecies?: (string | Property)[];
+
+  /**
+   * The list of properties that depend on this property
+   */
   dependent: Property[] = [];
   private _value: string;
 
@@ -162,9 +177,17 @@ class Property {
 
   set value(val: string) {
     this._value = val;
+
     this.analyze();
 
     if (this.isDynamic) this.connectDependencies();
+
+    this.block.toJSON({ force: true });
+
+    // Notify all dependent properties
+    for (const dependent of this.dependent) {
+      dependent.block.toJSON({ force: true });
+    }
   }
 
   private generateContextForValue() {
@@ -176,6 +199,7 @@ class Property {
 
     if (!isConnected) this.connectDependencies();
 
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     const context: Record<string, any> = {};
 
     for (const dependency of this.dependecies) {
