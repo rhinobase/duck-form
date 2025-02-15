@@ -61,7 +61,7 @@ class Block {
     this.properties = {};
 
     for (const key in properties) {
-      this.properties[key] = new Property(this, key, String(properties[key]));
+      this.properties[key] = new Property(this, key, properties[key]);
     }
 
     if (blocks) {
@@ -84,7 +84,10 @@ class Block {
     this.toJSON({ force: true });
   }
 
-  addProperty(key: string, value: string) {
+  addProperty(
+    key: string,
+    value: string | (string | NestedProperties)[] | NestedProperties,
+  ) {
     // TODO: check if the property even exists for this block
     this.properties[key] = new Property(this, key, value);
   }
@@ -108,6 +111,7 @@ class Block {
   }
 }
 
+// @ts-expect-error
 type NestedProperties = Record<string, string | NestedProperties>;
 
 // TODO: find the variable in the string, Eg. '_.sum(components.tag1)' => 'components.tag1'
@@ -126,7 +130,7 @@ class Property {
   private _value: string | Property[] | Record<string, Property>;
 
   constructor(
-    public block: Block | Property,
+    public parent: Block | Property,
     public key: string,
     value: string | (string | NestedProperties)[] | NestedProperties,
   ) {
@@ -136,15 +140,15 @@ class Property {
   }
 
   get id(): string {
-    return `${this.block.id}.${this.key}`;
+    return `${this.parent.id}.${this.key}`;
   }
 
   get context(): PageContext {
-    return this.block.context;
+    return this.parent.context;
   }
 
   toJSON({ force }: { force?: boolean } = {}): Record<string, unknown> {
-    return this.block.toJSON({ force });
+    return this.parent.toJSON({ force });
   }
 
   extractValue(
@@ -217,7 +221,7 @@ class Property {
 
     // Notify all dependent properties
     for (const dependent of this.dependent) {
-      dependent.block.toJSON({ force: true });
+      dependent.parent.toJSON({ force: true });
     }
   }
 
@@ -235,9 +239,9 @@ class Property {
 
     for (const dependency of this.dependecies) {
       if (dependency instanceof Property) {
-        if (!context[dependency.block.id]) context[dependency.block.id] = {};
+        if (!context[dependency.parent.id]) context[dependency.parent.id] = {};
 
-        context[dependency.block.id][dependency.key] = dependency.value;
+        context[dependency.parent.id][dependency.key] = dependency.value;
       }
     }
 
@@ -255,7 +259,7 @@ class Property {
 
         if (!componentId || !property) continue;
 
-        const block = this.block.context.registry[componentId];
+        const block = this.parent.context.registry[componentId];
 
         if (!block) continue;
 
