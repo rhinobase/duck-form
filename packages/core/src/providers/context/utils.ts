@@ -1,4 +1,4 @@
-type SchemaType = {
+export type SchemaType = {
   type: string;
   blocks?: Record<string, SchemaType>;
 } & Record<string, unknown>;
@@ -27,8 +27,11 @@ export class PageContext {
     }
   }
 
-  register(block: Block) {
-    this.registry[block.id] = block;
+  register(block: Block | (SchemaType & { id: string })) {
+    if (block instanceof Block) this.registry[block.id] = block;
+    else {
+      this.registry[block.id] = new Block(this, block);
+    }
   }
 
   update(key: string, value: string) {
@@ -86,7 +89,7 @@ class Block {
 
   addProperty(
     key: string,
-    value: string | (string | NestedProperties)[] | NestedProperties,
+    value: string | (string | NestedProperties)[] | NestedProperties
   ) {
     // TODO: check if the property even exists for this block
     this.properties[key] = new Property(this, key, value);
@@ -132,7 +135,7 @@ class Property {
   constructor(
     public parent: Block | Property,
     public key: string,
-    value: string | (string | NestedProperties)[] | NestedProperties,
+    value: string | (string | NestedProperties)[] | NestedProperties
   ) {
     this._value = this.extractValue(value);
 
@@ -152,13 +155,13 @@ class Property {
   }
 
   extractValue(
-    value: string | (string | NestedProperties)[] | NestedProperties,
+    value: string | (string | NestedProperties)[] | NestedProperties
   ) {
     if (typeof value === "string") return value;
 
     if (Array.isArray(value))
       return value.map(
-        (item, index) => new Property(this, String(index), item),
+        (item, index) => new Property(this, String(index), item)
       );
 
     return Object.entries(value).reduce<Record<string, Property>>(
@@ -166,7 +169,7 @@ class Property {
         if (subValue) acc[subKey] = new Property(this, subKey, subValue);
         return acc;
       },
-      {},
+      {}
     );
   }
 
@@ -188,7 +191,7 @@ class Property {
 
   execute(expression: string) {
     return Function(
-      `const components = arguments[0]; return ${cleanupExpression(expression)}`,
+      `const components = arguments[0]; return ${cleanupExpression(expression)}`
     )(this.generateContextForValue());
   }
 
@@ -208,7 +211,7 @@ class Property {
         acc[key] = property.value;
         return acc;
       },
-      {},
+      {}
     );
   }
 
@@ -229,7 +232,7 @@ class Property {
     if (!this.dependecies) return {};
 
     const isConnected = this.dependecies.every(
-      (dependency) => dependency instanceof Property,
+      (dependency) => dependency instanceof Property
     );
 
     if (!isConnected) this.connectDependencies();
@@ -267,7 +270,7 @@ class Property {
 
         if (!block.properties[property]) {
           throw new Error(
-            `Unable to create property ${property} in block ${componentId}`,
+            `Unable to create property ${property} in block ${componentId}`
           );
         }
 
