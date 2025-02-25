@@ -12,7 +12,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=favorite"
+      />
+      <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+      <body className="bg-white dark:bg-secondary-950 text-black dark:text-white">
+        {children}
+      </body>
     </html>
   );
 }

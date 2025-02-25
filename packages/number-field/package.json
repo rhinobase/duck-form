@@ -1,0 +1,23 @@
+{
+  "name": "@rhinobase/number-field",
+  "version": "0.0.1",
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c=./rollup.config.js",
+    "publish": "pnpm publish"
+  },
+  "devDependencies": {
+    "@rafty/ui": "^2.0.0-rc.0",
+    "@rhinobase/shared": "workspace:*",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "duck-form": "workspace:*",
+    "react": "^18.2.0",
+    "zod": "^3.24.1"
+  }
+}

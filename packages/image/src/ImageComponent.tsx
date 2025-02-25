@@ -1,0 +1,16 @@
+import { type imageSchema, useEvaluate } from "@rhinobase/shared";
+import { useField } from "duck-form";
+import Image from "next/image";
+import React from "react";
+import type z from "zod";
+
+export type ImageComponentProps = z.infer<typeof imageSchema>;
+
+export function ImageComponent() {
+  const props = useField<ImageComponentProps>();
+
+  const fieldProps = useEvaluate(props);
+
+  // @ts-expect-error
+  return <Image {...fieldProps} />;
+}

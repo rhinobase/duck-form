@@ -1,3 +1,4 @@
+"use client";
 import { type PropsWithChildren, createContext, useContext } from "react";
 import type { DuckField } from "../components/index.js";
 
