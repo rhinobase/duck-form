@@ -22,7 +22,10 @@ export function DateField({ type, value, onChange, ...props }: DateFieldProps) {
       type="date"
       placeholder={props.placeholder}
       value={formattedValue}
-      onChange={(e) => onChange?.(dayjs(e.target.value).toISOString())}
+      onChange={(e) => {
+        const value = dayjs(e.target.value);
+        if (value.isValid()) onChange?.(value.toISOString());
+      }}
     />
   );
 }
