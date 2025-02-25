@@ -46,10 +46,10 @@ export const schema = {
         // Input Props
         value: "",
         placeholder: "Enter a value",
-        textAfter: "",
-        textBefore: "",
+        textAfter: "TA",
+        textBefore: "TB",
         iconAfter: "",
-        iconBefore: "",
+        iconBefore: "favorite",
         inputTooltip: "Input Tooltip",
         spellCheck: "false",
         autoComplete: "false",

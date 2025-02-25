@@ -5,7 +5,16 @@ import React, { type PropsWithChildren } from "react";
 import z from "zod";
 import { useShallow } from "zustand/react/shallow";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { Popover, PopoverContent, PopoverTrigger } from "@rafty/ui";
+import {
+  InputGroup,
+  LeftAddon,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+  Prefix,
+  RightAddon,
+  Suffix,
+} from "@rafty/ui";
 
 export type StringProps = z.infer<typeof stringSchema>;
 
@@ -161,7 +170,6 @@ export function StringField() {
     autoFill,
     minLength,
     maxLength,
-    // TODO: add input group for below 4 props
     textAfter,
     textBefore,
     iconAfter,
@@ -177,6 +185,7 @@ export function StringField() {
     ...fieldProps
   } = stringFieldSchema.parse(props);
 
+  // TODO: solve the focus shift issue with tooltip wrapper and then implement it around input field
   const TooltipWrapper = (props: PropsWithChildren) => {
     if (inputTooltip && inputTooltip !== "")
       return (
@@ -197,39 +206,66 @@ export function StringField() {
     return <>{props.children}</>;
   };
 
+  const InputGroupWrapper = (props: PropsWithChildren) => {
+    if (textBefore || textAfter || iconBefore || iconAfter)
+      return (
+        <InputGroup>
+          {textBefore && <LeftAddon>{textBefore}</LeftAddon>}
+          {iconBefore && (
+            <Prefix>
+              <span className="material-symbols-outlined !text-lg !text-secondary-500 dark:!text-secondary-400">
+                {iconBefore}
+              </span>
+            </Prefix>
+          )}
+          {props.children}
+          {iconAfter && (
+            <Suffix>
+              <span className="material-symbols-outlined !text-lg !text-secondary-500 dark:!text-secondary-400">
+                {iconAfter}
+              </span>
+            </Suffix>
+          )}
+          {textAfter && <RightAddon>{textAfter}</RightAddon>}
+        </InputGroup>
+      );
+    return <>{props.children}</>;
+  };
+
   return (
-    <div className="w-full">
-      <div className="w-full relative">
-        <RaftyInputField
-          {...fieldProps}
-          type={patternType === PatternType.REGEX ? "text" : patternType}
-          autoComplete={autoComplete ? autoFill : undefined}
-          minLength={
-            minLength && minLength !== "" ? Number(minLength) : undefined
-          }
-          maxLength={
-            maxLength && maxLength !== "" ? Number(maxLength) : undefined
-          }
-          isLoading={loading}
-          form={formDataKey}
-          pattern={patternType === PatternType.REGEX ? pattern : undefined}
-          onChange={(event) => {
-            console.log("Function is called");
-            update(`${id}.value`, event.target.value);
-          }}
-          style={{ margin }}
-        />
-        {showClear && (fieldProps.value?.length ?? 0) > 0 && (
-          <button
-            type="button"
-            className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-secondary-500 dark:bg-secondary-400 rounded-full p-0.5"
-            onClick={() => update(`${id}.value`, "")}
-            onKeyDown={() => update(`${id}.value`, "")}
-          >
-            <XMarkIcon className="size-3 stroke-2 stroke-white" />
-          </button>
-        )}
-      </div>
+    <div className="w-full" style={{ margin }}>
+      <InputGroupWrapper>
+        <div className="w-full relative">
+          <RaftyInputField
+            {...fieldProps}
+            type={patternType === PatternType.REGEX ? "text" : patternType}
+            autoComplete={autoComplete ? autoFill : undefined}
+            minLength={
+              minLength && minLength !== "" ? Number(minLength) : undefined
+            }
+            maxLength={
+              maxLength && maxLength !== "" ? Number(maxLength) : undefined
+            }
+            isLoading={loading}
+            form={formDataKey}
+            pattern={patternType === PatternType.REGEX ? pattern : undefined}
+            onChange={(event) => {
+              console.log("Function is called");
+              update(`${id}.value`, event.target.value);
+            }}
+          />
+          {showClear && (fieldProps.value?.length ?? 0) > 0 && (
+            <div
+              role="button"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-secondary-500 dark:bg-secondary-400 rounded-full p-0.5"
+              onClick={() => update(`${id}.value`, "")}
+              onKeyDown={() => update(`${id}.value`, "")}
+            >
+              <XMarkIcon className="size-3 stroke-2 stroke-white" />
+            </div>
+          )}
+        </div>
+      </InputGroupWrapper>
       {showCharacterCount && (
         <p className="text-right font-medium">{fieldProps.value?.length}</p>
       )}
