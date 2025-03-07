@@ -1,7 +1,17 @@
 {
   "name": "@duck-form/fields",
-  "version": "0.3.2",
+  "version": "0.3.4",
   "license": "MIT",
+  "type": "module",
+  "types": "./index.d.ts",
+  "main": "./index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rollup -c rollup.config.cjs",
+    "publish": "pnpm publish"
+  },
   "keywords": [
     "react",
     "dynamic",
@@ -31,5 +41,17 @@
     "react": "^18.2.0",
     "react-hook-form": "^7.53.0",
     "@hookform/error-message": "^2.0.1"
+  },
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.js"
+      },
+      "require": {
+        "types": "./index.d.cts",
+        "default": "./index.cjs"
+      }
+    }
   }
 }
