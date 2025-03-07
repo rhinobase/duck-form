@@ -1,10 +1,10 @@
 {
   "name": "@duck-form/fields",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "license": "MIT",
   "type": "module",
-  "types": "./index.d.ts",
-  "main": "./index.js",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/index.js",
   "files": [
     "dist"
   ],
@@ -45,12 +45,12 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./index.d.ts",
-        "default": "./index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       },
       "require": {
-        "types": "./index.d.cts",
-        "default": "./index.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     }
   }
