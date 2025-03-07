@@ -9,8 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "rollup -c rollup.config.cjs",
-    "publish": "pnpm publish"
+    "build": "rollup -c rollup.config.cjs"
   },
   "keywords": [
     "react",
