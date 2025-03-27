@@ -28,7 +28,7 @@ export function SelectField({ type, onChange, ...props }: SelectProps) {
         for (const option of props.options) {
           if (
             value === option.value ||
-            (valueAsNumber && valueAsNumber === option.value)
+            (valueAsNumber != null && valueAsNumber === option.value)
           )
             return onChange?.(option.value);
         }
